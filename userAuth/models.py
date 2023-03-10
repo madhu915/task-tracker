@@ -6,6 +6,6 @@ from django.db import models
 # custom user model
 
 class User(AbstractUser):
-    collabid = models.CharField(max_length=10,unique=True,default='test-user')
+    collabid = models.CharField(max_length=10,unique=True,null=False,blank=False)
     role = models.CharField(max_length=10,blank=False,null=False)
 

@@ -29,7 +29,8 @@ ALLOWED_HOSTS = ['127.0.0.1']
 
 AUTH_USER_MODEL = 'userAuth.User'
 
-
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
 # Application definition
 
@@ -80,7 +81,7 @@ WSGI_APPLICATION = 'taskTracker.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'intern_db',
+        'NAME': 'intern_dbs',
         'USER': 'root',  
         'PASSWORD': '1234',  
         'HOST': '127.0.0.1',  
