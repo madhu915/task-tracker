@@ -7,15 +7,17 @@
     <div class="container">
       <div class="row">
           <div class="clo-12">
-              <div class="alert alert-info">this is home page</div>
 
               {% if user.is_authenticated %} 
 
-                  Hi {{ user.full_name }}, Welcome to My site!
-                  <a href="logout/" class="btn btn-danger">Logout</a> 
+                  <div class="alert alert-info">
+                  Welcome <b><i>{{ user.username }}</i></b>
+                  <a href="logout/" class="btn btn-danger logout">Logout</a> 
+                  </div>
 
               {% else %}
 
+              <div class="rows">
                   You are not logged in!
                   <br>
                   <a href="{% url 'login' %}" class="btn btn-primary mt-3">
@@ -24,6 +26,7 @@
                   <a href="{% url 'signup' %}" class="btn btn-primary mt-3">
                       SignUp
                   </a>
+                </div>
 
               {% endif %}
           </div>
