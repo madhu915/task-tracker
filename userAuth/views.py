@@ -5,6 +5,9 @@ from .forms import SignUpForm
 def home(request):
     return render(request, 'auth/examples/dashboard.html')
 
+def intern_details(request):
+    return render(request, 'auth/examples/tables.html')
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
