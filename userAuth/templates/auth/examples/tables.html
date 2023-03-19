@@ -13,14 +13,14 @@
           Welcome {{ user.username }} 😊                </a>
       </div>
       <ul class="nav">
-        <li class="active">
+        <li>
           <a href="{% url 'home' %}">
             <i class="tim-icons icon-chart-pie-36"></i>
             <p>Dashboard</p>
           </a>
         </li>
         {% if user.role == 'Mentor' %}
-          <li>
+          <li class="active">
             <a href="{% url 'interns' %}">
               <i class="tim-icons icon-puzzle-10"></i>
               <p>Intern List</p>
