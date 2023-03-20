@@ -192,41 +192,28 @@
                         </th>                       
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          I101
-                        </td>
-                        <td>
-                          Emily Wang
-                        </td>
-                        <td>
-                          emily@example.com 
-                        </td>
-                        <td>
-                          8777999879
-                        </td>
-                        <td>
-                          ABC College
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          I102
-                        </td>
-                        <td>
-                          David Lee
-                        </td>
-                        <td>
-                          davidlee@example.com
-                        </td>
-                        <td>
-                          9007999879
-                        </td>
-                        <td>
-                          Xavier's College
-                        </td>
-                      </tr>                  
+                    <tbody> 
+                      {% for intern in intern_obj %}
+                        {% if intern.mentorid_id == user.id %}
+                          <tr>
+                            <td>
+                              I{{ intern.internid_id }}
+                            </td>
+                            <td>
+                              {{ intern.firstname }} {{ intern.lastname }}
+                            </td>
+                            <td>
+                              {{ intern.email }}
+                            </td>
+                            <td>
+                              {{ intern.phone }}
+                            </td>
+                            <td>
+                              {{ intern.college }}
+                            </td>
+                          </tr>
+                        {% endif %}
+                      {% endfor %}              
                     </tbody>
                   </table>
                 </div>

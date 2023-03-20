@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from .forms import SignUpForm
+from .models import Intern
 
 def home(request):
     return render(request, 'auth/examples/dashboard.html')
 
 def intern_details(request):
-    return render(request, 'auth/examples/tables.html')
+    interns_list=Intern.objects.all()
+    return render(request, 'auth/examples/tables.html',{'intern_obj':interns_list})
 
 def signup(request):
     if request.method == 'POST':
