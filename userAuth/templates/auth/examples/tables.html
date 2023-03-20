@@ -23,7 +23,7 @@
           <li class="active">
             <a href="{% url 'interns' %}">
               <i class="tim-icons icon-puzzle-10"></i>
-              <p>Intern List</p>
+              <p>My Interns</p>
             </a>
           </li>
           {% endif %}                                                  
@@ -192,7 +192,7 @@
                         </th>                       
                       </tr>
                     </thead>
-                    <tbody> 
+                    <tbody>                    
                       {% for intern in intern_obj %}
                         <tr>
                           <td>
@@ -213,7 +213,13 @@
                         </tr>
                       {% endfor %}     
                     </tbody>
+                    
                   </table>
+                  {% if not intern_obj%}
+                        
+                    <span class="notif"> No records found !</span>
+                    
+                {% endif %}
                 </div>
               </div>
             </div>

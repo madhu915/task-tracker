@@ -77,3 +77,9 @@ body{
     outline-width: 0;
     width:70%;
 }
+
+.notif{
+    display: block;
+    text-align: center;
+    padding: 2em;
+}
