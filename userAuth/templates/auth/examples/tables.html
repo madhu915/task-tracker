@@ -194,26 +194,24 @@
                     </thead>
                     <tbody> 
                       {% for intern in intern_obj %}
-                        {% if intern.mentorid_id == user.id %}
-                          <tr>
-                            <td>
-                              I{{ intern.internid_id }}
-                            </td>
-                            <td>
-                              {{ intern.firstname }} {{ intern.lastname }}
-                            </td>
-                            <td>
-                              {{ intern.email }}
-                            </td>
-                            <td>
-                              {{ intern.phone }}
-                            </td>
-                            <td>
-                              {{ intern.college }}
-                            </td>
-                          </tr>
-                        {% endif %}
-                      {% endfor %}              
+                        <tr>
+                          <td>
+                            I{{ intern.internid_id }}
+                          </td>
+                          <td>
+                            {{ intern.firstname }} {{ intern.lastname }}
+                          </td>
+                          <td>
+                            {{ intern.email }}
+                          </td>
+                          <td>
+                            {{ intern.phone }}
+                          </td>
+                          <td>
+                            {{ intern.college }}
+                          </td>
+                        </tr>
+                      {% endfor %}     
                     </tbody>
                   </table>
                 </div>

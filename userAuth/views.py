@@ -7,7 +7,8 @@ def home(request):
     return render(request, 'auth/examples/dashboard.html')
 
 def intern_details(request):
-    interns_list=Intern.objects.all()
+    usee=request.user.id
+    interns_list=Intern.objects.filter(mentorid_id=usee)
     return render(request, 'auth/examples/tables.html',{'intern_obj':interns_list})
 
 def signup(request):
