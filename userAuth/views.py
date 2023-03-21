@@ -4,7 +4,7 @@ from .forms import SignUpForm
 from .models import Intern
 
 def home(request):
-    return render(request, 'auth/examples/dashboard.html')
+    return render(request, 'auth/examples/main.html')
 
 def intern_details(request):
     usee=request.user.id
