@@ -83,3 +83,7 @@ body{
     text-align: center;
     padding: 2em;
 }
+
+.table-responsive tbody{
+    cursor: context-menu;
+}

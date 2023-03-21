@@ -15,14 +15,14 @@
       <ul class="nav">
         <li>
           <a href="{% url 'home' %}">
-            <i class="tim-icons icon-chart-pie-36"></i>
+            <i class="bi bi-speedometer2"></i>            
             <p>Dashboard</p>
           </a>
         </li>
         {% if user.role == 'Mentor' %}
           <li class="active">
             <a href="{% url 'interns' %}">
-              <i class="tim-icons icon-puzzle-10"></i>
+              <i class="material-icons">people_alt</i>
               <p>My Interns</p>
             </a>
           </li>
