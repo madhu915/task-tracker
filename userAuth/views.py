@@ -4,12 +4,12 @@ from .forms import SignUpForm
 from .models import Intern
 
 def home(request):
-    return render(request, 'auth/examples/main.html')
+    return render(request, 'auth/widgets/main.html')
 
 def intern_details(request):
     usee=request.user.id
     interns_list=Intern.objects.filter(mentorid_id=usee)
-    return render(request, 'auth/examples/tables.html',{'intern_obj':interns_list})
+    return render(request, 'auth/widgets/tables.html',{'intern_obj':interns_list})
 
 def signup(request):
     if request.method == 'POST':

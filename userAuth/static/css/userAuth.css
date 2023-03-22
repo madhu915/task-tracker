@@ -87,3 +87,8 @@ body{
 .table-responsive tbody{
     cursor: context-menu;
 }
+
+.logo a{
+    text-align: center;
+    font-size:large;
+}
