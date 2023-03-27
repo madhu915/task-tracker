@@ -52,6 +52,7 @@ class Intern(models.Model):
 
 class Task(models.Model):
     internid = models.ForeignKey(Intern, on_delete=models.DO_NOTHING)
+    mentor = models.ForeignKey(Mentor, on_delete=models.DO_NOTHING)
     description = models.CharField(max_length=255, default='NA')
     assigned_date = models.DateField(auto_now_add=True)
     started_date = models.DateField(blank=True, null=True)

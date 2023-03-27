@@ -92,3 +92,26 @@ body{
     text-align: center;
     font-size:large;
 }
+
+.taskForm {
+    text-align: center;
+    margin-top: 4em;
+}
+
+.taskForm label{
+    margin-bottom: 0.5rem;
+    float: left;
+    clear: left;
+    width: 30%;
+    text-align: right;
+}
+
+.taskForm p{
+    margin:3em;
+}
+
+.taskForm select{
+    width: 181.6px;
+    height: 26.2px;
+
+}

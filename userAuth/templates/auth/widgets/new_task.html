@@ -1,0 +1,46 @@
+{% extends 'auth/widgets/dashboard.html' %} 
+{% block sidenav %}
+        <li>
+          <a href="{% url 'home' %}">
+            <i class="bi bi-speedometer2"></i>            
+            <p>Dashboard</p>
+          </a>
+        </li>
+        {% if user.role == 'Mentor' %}
+          <li>
+            <a href="{% url 'interns' %}">
+              <i class="material-icons">people_alt</i>
+              <p>My Interns</p>
+            </a>
+          </li>
+          <li class="active">
+            <a href="{% url 'new_task' %}">
+              <i class="material-icons">assignment_add</i>
+              <p>Create New Task</p>
+            </a>
+          </li>
+        {% endif %}       
+
+{% endblock sidenav %}                                                
+
+        {% block navbrand %}
+          <a class="navbar-brand" href="javascript:void(0)"
+            >Create New Task</a
+          >
+        {% endblock navbrand %}
+
+        {% block mainContent %}
+        <div class="col-md-12">
+            <form method="POST" class="taskForm">
+                {% csrf_token %}
+                {% for field in form %}
+                <p>
+                    {{ field.label_tag }}
+                    {{ field }}   
+                </p>  
+                {% endfor %}           
+            <button type="submit" class="btn btn-primary mt-3">Add Task </button>
+            </form>
+        </div>
+        {% endblock mainContent %}
+

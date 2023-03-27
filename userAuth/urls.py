@@ -9,4 +9,5 @@ urlpatterns = [
     re_path(r'^.*logout/$', auth_views.LogoutView.as_view(), name='logout'),
     path('signup/', views.signup, name="signup"),
     path('interns/',views.intern_details,name='interns'),
+    path('new-task/', views.new_task, name='new_task'),
 ]

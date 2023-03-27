@@ -14,7 +14,7 @@
       </a>
     </li>
     <li>
-      <a href="{% url 'interns' %}">
+      <a href="{% url 'new_task' %}">
         <i class="material-icons">assignment_add</i>
         <p>Create New Task</p>
       </a>
@@ -67,11 +67,12 @@
               <div class="table-full-width table-responsive">
                 <table class="table">
                   <tbody>
+                    {% for task in to_do %}
                     <tr>
                       <td>
-                        <p class="title">Sample Task 1</p>  
+                        <p class="title">Task {{ task.id }}</p>  
                         <p class="text-muted">
-                          Sample Task 1 Description
+                          {{ task.description }}
                         </p>                              
                       </td>
                       <td class="td-actions text-right">
@@ -86,7 +87,13 @@
                         </button>
                       </td>
                     </tr>
-                    <tr>
+                    {% endfor %}
+                    {% if not to_do %}
+                        
+                    <span class="notif"> No tasks found !</span>
+                    
+                {% endif %}
+                    <!-- <tr>
                       <td>
                         <p class="title">Sample Task 2</p>
                         <p class="text-muted">
@@ -104,64 +111,7 @@
                           <i class="tim-icons icon-pencil"></i>
                         </button>
                       </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <p class="title">Sample Task 3</p>
-                        <p class="text-muted">
-                          Sample Task 3 Description
-                        </p>
-                      </td>
-                      <td class="td-actions text-right">
-                        <button
-                          type="button"
-                          rel="tooltip"
-                          title=""
-                          class="btn btn-link"
-                          data-original-title="Edit Task"
-                        >
-                          <i class="tim-icons icon-pencil"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <p class="title">Sample Task 4</p>
-                        <p class="text-muted">
-                          Sample Task 4 Description
-                        </p>
-                      </td>
-                      <td class="td-actions text-right">
-                        <button
-                          type="button"
-                          rel="tooltip"
-                          title=""
-                          class="btn btn-link"
-                          data-original-title="Edit Task"
-                        >
-                          <i class="tim-icons icon-pencil"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>                              
-                      <td>
-                        <p class="title">Sample Task 5</p>
-                        <p class="text-muted">
-                          Sample Task 5 Description
-                        </p>
-                      </td>
-                      <td class="td-actions text-right">
-                        <button
-                          type="button"
-                          rel="tooltip"
-                          title=""
-                          class="btn btn-link"
-                          data-original-title="Edit Task"
-                        >
-                          <i class="tim-icons icon-pencil"></i>
-                        </button>
-                      </td>
-                    </tr>                            
+                    </tr>                          -->
                   </tbody>
                 </table>
               </div>
@@ -199,11 +149,12 @@
               <div class="table-full-width table-responsive">
                 <table class="table">
                   <tbody>
+                    {% for task in in_progress %}
                     <tr>
                       <td>
-                        <p class="title">Sample Task 1</p>  
+                        <p class="title">Task {{ task.id }}</p>  
                         <p class="text-muted">
-                          Sample Task 1 Description
+                          {{ task.description}}
                         </p>                              
                       </td>
                       <td class="td-actions text-right">
@@ -218,82 +169,12 @@
                         </button>
                       </td>
                     </tr>
-                    <tr>
-                      <td>
-                        <p class="title">Sample Task 2</p>
-                        <p class="text-muted">
-                          Sample Task 2 Description
-                        </p>
-                      </td>
-                      <td class="td-actions text-right">
-                        <button
-                          type="button"
-                          rel="tooltip"
-                          title=""
-                          class="btn btn-link"
-                          data-original-title="Edit Task"
-                        >
-                          <i class="tim-icons icon-pencil"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <p class="title">Sample Task 3</p>
-                        <p class="text-muted">
-                          Sample Task 3 Description
-                        </p>
-                      </td>
-                      <td class="td-actions text-right">
-                        <button
-                          type="button"
-                          rel="tooltip"
-                          title=""
-                          class="btn btn-link"
-                          data-original-title="Edit Task"
-                        >
-                          <i class="tim-icons icon-pencil"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <p class="title">Sample Task 4</p>
-                        <p class="text-muted">
-                          Sample Task 4 Description
-                        </p>
-                      </td>
-                      <td class="td-actions text-right">
-                        <button
-                          type="button"
-                          rel="tooltip"
-                          title=""
-                          class="btn btn-link"
-                          data-original-title="Edit Task"
-                        >
-                          <i class="tim-icons icon-pencil"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>                              
-                      <td>
-                        <p class="title">Sample Task 5</p>
-                        <p class="text-muted">
-                          Sample Task 5 Description
-                        </p>
-                      </td>
-                      <td class="td-actions text-right">
-                        <button
-                          type="button"
-                          rel="tooltip"
-                          title=""
-                          class="btn btn-link"
-                          data-original-title="Edit Task"
-                        >
-                          <i class="tim-icons icon-pencil"></i>
-                        </button>
-                      </td>
-                    </tr>                            
+                    {% endfor %}           
+                    {% if not in_progress %}
+                        
+                    <span class="notif"> No tasks found !</span>
+                    
+                {% endif %}                                  
                   </tbody>
                 </table>
               </div>
@@ -331,61 +212,24 @@
               <div class="table-full-width table-responsive">
                 <table class="table">
                   <tbody>
+                    {% for task in completed %}
                     <tr>
                       <td>
-                        <p class="title">Sample Task 1</p>  
+                        <p class="title">Task {{ task.id }}</p>  
                         <p class="text-muted">
-                          Sample Task 1 Description
+                          {{ task.description}}
                         </p>                              
                       </td>
                       <td class="td-actions text-right">
                       
                       </td>
                     </tr>
-                    <tr>
-                      <td>
-                        <p class="title">Sample Task 2</p>
-                        <p class="text-muted">
-                          Sample Task 2 Description
-                        </p>
-                      </td>
-                      <td class="td-actions text-right">
+                    {% endfor %} 
+                    {% if not completed %}
                         
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <p class="title">Sample Task 3</p>
-                        <p class="text-muted">
-                          Sample Task 3 Description
-                        </p>
-                      </td>
-                      <td class="td-actions text-right">
-                      
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <p class="title">Sample Task 4</p>
-                        <p class="text-muted">
-                          Sample Task 4 Description
-                        </p>
-                      </td>
-                      <td class="td-actions text-right">
-                        
-                      </td>
-                    </tr>
-                    <tr>                              
-                      <td>
-                        <p class="title">Sample Task 5</p>
-                        <p class="text-muted">
-                          Sample Task 5 Description
-                        </p>
-                      </td>
-                      <td class="td-actions text-right">
-                        
-                      </td>
-                    </tr>                            
+                    <span class="notif"> No tasks found !</span>
+                    
+                    {% endif %}                                              
                   </tbody>
                 </table>
               </div>

@@ -1,15 +1,32 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from .forms import SignUpForm
-from .models import Intern
+from .forms import NewTaskForm, SignUpForm
+from .models import Intern, Task
 
 def home(request):
-    return render(request, 'auth/widgets/main.html')
+    pending_tasks = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='To-Do')
+    in_progress_tasks = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='In-Progress')
+    completed_tasks = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='Completed')
+    return render(request, 'auth/widgets/main.html',{'to_do':pending_tasks,'in_progress':in_progress_tasks,'completed':completed_tasks})
 
 def intern_details(request):
     usee=request.user.id
     interns_list=Intern.objects.filter(mentorid_id=usee)
     return render(request, 'auth/widgets/tables.html',{'intern_obj':interns_list})
+
+def new_task(request):
+    if request.method == 'POST':
+        form = NewTaskForm(request.POST)
+        if form.is_valid():
+            task=form.save(commit=False)
+            task.mentor_id=request.user.id
+            task.last_updated_by_id=request.user.id
+            task.save()
+
+        return redirect('home')
+    else:
+        form = NewTaskForm()
+        return render(request, 'auth/widgets/new_task.html',{'form':form})
 
 def signup(request):
     if request.method == 'POST':
