@@ -9,20 +9,18 @@ class SignUpForm(UserCreationForm):
         fields = UserCreationForm.Meta.fields + ('role',)
 
 class NewTaskForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        """ Grants access to the request object so that only members of the current user
+        are given as options"""
+        user_id=kwargs.pop('user')
+        super(NewTaskForm, self).__init__(*args, **kwargs)
+        if user_id:
+            self.fields['internid'] = forms.ModelChoiceField(queryset=Intern.objects.filter(mentorid_id=None) | Intern.objects.filter(
+                mentorid_id=user_id).values(), empty_label='--Select Intern--')
+            
     due_date = forms.DateField(widget=forms.TextInput(attrs={'min': date.today(), 'value': date.today(), 'type': 'date', 'class':'date-input'}))
     progress_status = forms.CharField(widget=forms.Select(choices=[('To-do','To-Do'),('In-Progress','In-Progress'),('completed','Completed')]))
+    # internid = forms.ModelChoiceField(queryset=Intern.objects.all(),empty_label='--Select Intern--') 
     class Meta:
         model = Task
-        fields = ('internid', 'description','due_date', 'progress_status')
-    # def __init__(self, *args, **kwargs):
-    #     self.internid_id = forms.ModelChoiceField(label='Select Intern', queryset=Intern.objects.filter(mentorid_id=kwargs.pop('user', None)),
-    #                            empty_label='--Select Intern--')    
-    # def __init__(self, *args, **kwargs):
-    #     user_id = kwargs.pop('user_id', None)
-    #     super(NewTaskForm, self).__init__(*args, **kwargs)
-    #     self.fields['internid'] = forms.ModelChoiceField(queryset=Intern.objects.filter(mentorid_id=user_id).values(),
-    #                            empty_label='--Select Intern--') 
-        # if user_id is not None:
-        #     self.fields['internid'].queryset = Intern.objects.filter(mentorid_id=5)
-        # else:
-        #     self.fields['internid'].queryset = Intern.objects.none()    
+        fields = ('internid', 'description','due_date', 'progress_status') 

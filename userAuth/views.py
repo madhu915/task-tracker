@@ -24,16 +24,19 @@ def intern_details(request):
 
 def new_task(request):
     if request.method == 'POST':
-        form = NewTaskForm(request.POST)
+        form = NewTaskForm(request.POST,user=request.user.id)
         if form.is_valid():
             task=form.save(commit=False)
             task.mentor_id=request.user.id
             task.last_updated_by_id=request.user.id
             task.save()
+        else:
+            print("Invalid Form")
+            print(form.errors)
 
         return redirect('home')
     else:
-        form = NewTaskForm()
+        form=NewTaskForm(user=request.user.id)
         return render(request, 'auth/widgets/new_task.html',{'form':form})
 
 def signup(request):
