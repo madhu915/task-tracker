@@ -120,3 +120,11 @@ body{
     width: 181.6px;
     padding: 5px;
 }
+
+.nav-link:focus, .nav-link:hover {
+    color: #0575E6;
+}
+
+.navbar-nav .nav-link.active, .navbar-nav .show>.nav-link {
+    color:#0575E6;
+}

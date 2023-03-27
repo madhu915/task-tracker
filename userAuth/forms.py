@@ -3,14 +3,14 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import Intern, Task, User
 class SignUpForm(UserCreationForm):
-    role = forms.CharField(max_length=100, help_text='Required. Specify role (mentor/intern).')
+    role = forms.CharField(max_length=100, help_text='Field Required. Specify role (mentor/intern).')
     class Meta:
         model = User
         fields = UserCreationForm.Meta.fields + ('role',)
 
 class NewTaskForm(forms.ModelForm):
     due_date = forms.DateField(widget=forms.TextInput(attrs={'min': date.today(), 'value': date.today(), 'type': 'date', 'class':'date-input'}))
-
+    progress_status = forms.CharField(widget=forms.Select(choices=[('To-do','To-Do'),('In-Progress','In-Progress'),('completed','Completed')]))
     class Meta:
         model = Task
         fields = ('internid', 'description','due_date', 'progress_status')

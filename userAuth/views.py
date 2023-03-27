@@ -4,10 +4,18 @@ from .forms import NewTaskForm, SignUpForm
 from .models import Intern, Task
 
 def home(request):
-    pending_tasks = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='To-Do')
-    in_progress_tasks = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='In-Progress')
-    completed_tasks = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='Completed')
-    return render(request, 'auth/widgets/main.html',{'to_do':pending_tasks,'in_progress':in_progress_tasks,'completed':completed_tasks})
+    content = {}
+    if request.user.is_authenticated:
+        if request.user.role == 'Mentor':
+            pending_tasks = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='To-Do')
+            in_progress_tasks = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='In-Progress')
+            completed_tasks = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='Completed')
+        else:
+            pending_tasks = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='To-Do')
+            in_progress_tasks = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='In-Progress')
+            completed_tasks = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='Completed')
+        content = {'to_do':pending_tasks,'in_progress':in_progress_tasks,'completed':completed_tasks}
+    return render(request, 'auth/widgets/main.html',content)
 
 def intern_details(request):
     usee=request.user.id
