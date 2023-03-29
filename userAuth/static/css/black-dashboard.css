@@ -16730,7 +16730,7 @@ hr {
   margin-bottom: 0;
 }
 
-.card-tasks .card-body .table>thead>tr>th,
+/* .card-tasks .card-body .table>thead>tr>th,
 .card-tasks .card-body .table>tbody>tr>th,
 .card-tasks .card-body .table>tfoot>tr>th,
 .card-tasks .card-body .table>thead>tr>td,
@@ -16738,7 +16738,7 @@ hr {
 .card-tasks .card-body .table>tfoot>tr>td {
   padding-top: 5px;
   padding-bottom: 5px;
-}
+} */
 
 .table>thead>tr>th {
   border-bottom-width: 1px;

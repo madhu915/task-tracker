@@ -131,22 +131,27 @@ body{
 
 .assignee-bubble {
     display: inline-block;
-    border-radius: 50%;
-    background-color: #ccc;
-    height: 25px;
+    border-radius: 10px;
     text-align: center;
-    margin-right: 5px;
     margin-left: 10px;
+    float: right;
   }
   
   .assignee-initials {
-    line-height: 25px;
-    color: #0575E6;
-    font-weight: bold;
-    font-size: 14px;
+    color: #ffffff;
     padding: 8px;
   }
 
 .table .title{
     display: inline-block;
+}
+
+.card-body .card-category{
+    float:right;
+    text-align: center;
+}
+
+.titlebar{
+    margin-left: 5px;
+    margin-right: 14px;
 }
