@@ -71,9 +71,11 @@
                     <tr>
                       <td>
                         <p class="title">Task {{ task.id }}</p>  
+                        {% if user.role == 'Mentor' %}
                         <div class="assignee-bubble">
                           <span class="assignee-initials">{{ task.internid.firstname }}</span>
                         </div>
+                        {% endif %}
                         <p class="text-muted">
                           {{ task.description }}
                         </p>   
@@ -158,9 +160,11 @@
                     <tr>
                       <td>
                         <p class="title">Task {{ task.id }}</p>  
+                        {% if user.role == 'Mentor' %}                                                
                         <div class="assignee-bubble">
                           <span class="assignee-initials">{{ task.internid.firstname }}</span>
                         </div>
+                        {% endif %}
                         <p class="text-muted">
                           {{ task.description}}
                         </p>                              
@@ -224,9 +228,11 @@
                     <tr>
                       <td>
                         <p class="title">Task {{ task.id }}</p>  
+                        {% if user.role == 'Mentor' %}
                         <div class="assignee-bubble">
                           <span class="assignee-initials">{{ task.internid.firstname }}</span>
                         </div>
+                        {% endif %}
                         <p class="text-muted">
                           {{ task.description}}
                         </p>                              
