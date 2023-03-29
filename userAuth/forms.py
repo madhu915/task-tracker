@@ -10,17 +10,16 @@ class SignUpForm(UserCreationForm):
 
 class NewTaskForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        """ Grants access to the request object so that only members of the current user
-        are given as options"""
         user_id=kwargs.pop('user')
         super(NewTaskForm, self).__init__(*args, **kwargs)
         if user_id:
-            self.fields['internid'] = forms.ModelChoiceField(queryset=Intern.objects.filter(mentorid_id=None) | Intern.objects.filter(
-                mentorid_id=user_id).values(), empty_label='--Select Intern--')
+            self.fields['intern'] = forms.ModelChoiceField(queryset=Intern.objects.filter(mentorid_id=user_id).values_list(flat=True), 
+                empty_label='-- Select Intern ID --')
             
     due_date = forms.DateField(widget=forms.TextInput(attrs={'min': date.today(), 'value': date.today(), 'type': 'date', 'class':'date-input'}))
     progress_status = forms.CharField(widget=forms.Select(choices=[('To-do','To-Do'),('In-Progress','In-Progress'),('completed','Completed')]))
-    # internid = forms.ModelChoiceField(queryset=Intern.objects.all(),empty_label='--Select Intern--') 
+    intern = forms.ModelChoiceField(queryset=Intern.objects.all(),empty_label='-- Select Intern ID --')
+    intern_name= forms.CharField(disabled=True)
     class Meta:
         model = Task
-        fields = ('internid', 'description','due_date', 'progress_status') 
+        fields = ('intern','intern_name','description','due_date', 'progress_status') 

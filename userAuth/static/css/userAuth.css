@@ -128,3 +128,25 @@ body{
 .navbar-nav .nav-link.active, .navbar-nav .show>.nav-link {
     color:#0575E6;
 }
+
+.assignee-bubble {
+    display: inline-block;
+    border-radius: 50%;
+    background-color: #ccc;
+    height: 25px;
+    text-align: center;
+    margin-right: 5px;
+    margin-left: 10px;
+  }
+  
+  .assignee-initials {
+    line-height: 25px;
+    color: #0575E6;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 8px;
+  }
+
+.table .title{
+    display: inline-block;
+}

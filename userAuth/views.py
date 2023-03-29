@@ -1,5 +1,7 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
+from django.core import serializers
 from .forms import NewTaskForm, SignUpForm
 from .models import Intern, Task
 
@@ -17,6 +19,15 @@ def home(request):
         content = {'to_do':pending_tasks,'in_progress':in_progress_tasks,'completed':completed_tasks}
     return render(request, 'auth/widgets/main.html',content)
 
+
+def name_api(request):
+    id = request.GET.get('id')
+    intern = Intern.objects.get(internid_id=id)
+    data = {
+        'name': f'{intern.firstname} {intern.lastname}'
+    }
+    return JsonResponse(data)
+
 def intern_details(request):
     usee=request.user.id
     interns_list=Intern.objects.filter(mentorid_id=usee)
@@ -27,6 +38,7 @@ def new_task(request):
         form = NewTaskForm(request.POST,user=request.user.id)
         if form.is_valid():
             task=form.save(commit=False)
+            task.internid_id=form.cleaned_data.get('intern')
             task.mentor_id=request.user.id
             task.last_updated_by_id=request.user.id
             task.save()

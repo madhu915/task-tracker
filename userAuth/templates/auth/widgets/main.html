@@ -71,9 +71,14 @@
                     <tr>
                       <td>
                         <p class="title">Task {{ task.id }}</p>  
+                        <div class="assignee-bubble">
+                          <span class="assignee-initials">{{ task.internid.firstname }}</span>
+                        </div>
                         <p class="text-muted">
                           {{ task.description }}
-                        </p>                              
+                        </p>   
+                        
+
                       </td>
                       <td class="td-actions text-right">
                         <button
@@ -153,6 +158,9 @@
                     <tr>
                       <td>
                         <p class="title">Task {{ task.id }}</p>  
+                        <div class="assignee-bubble">
+                          <span class="assignee-initials">{{ task.internid.firstname }}</span>
+                        </div>
                         <p class="text-muted">
                           {{ task.description}}
                         </p>                              
@@ -216,6 +224,9 @@
                     <tr>
                       <td>
                         <p class="title">Task {{ task.id }}</p>  
+                        <div class="assignee-bubble">
+                          <span class="assignee-initials">{{ task.internid.firstname }}</span>
+                        </div>
                         <p class="text-muted">
                           {{ task.description}}
                         </p>                              

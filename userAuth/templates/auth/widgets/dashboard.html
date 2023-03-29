@@ -301,6 +301,7 @@
         </ul>
       </div>
     </footer>
+    {{ data|json_script:"hello-data" }}
   </div>
 </div>
 <!--   Core JS Files   -->
@@ -451,13 +452,32 @@
       });
   </script>
 
+<script>
+  $(document).ready(function() {
+      $('#id_intern').on('change', function() {
+          var selected_id = $(this).val();
+          $.ajax({
+              url: '/get-name/',
+              data: {
+                  'id': selected_id
+              },
+              dataType: 'json',
+              success: function(data) {
+                  $('#id_intern_name').val(data.name);
+              }
+          });
+      });
+  });
+  </script>
+
   {% else %}
 
   <div class="rows">
     <p>You are not logged in!</p>
     <br />
     <a href="{% url 'login' %}" class="btn btn-primary mt-3 mx-3"> Log In </a>
-    <a href="{% url 'signup' %}" class="btn btn-primary mt-3 mx-3"> SignUp </a>
+    <!-- Sign Up removed for now -- admin signup only -->
+    <!-- <a href="{% url 'signup' %}" class="btn btn-primary mt-3 mx-3"> SignUp </a> -->
   </div>
 
   {% endif %}
