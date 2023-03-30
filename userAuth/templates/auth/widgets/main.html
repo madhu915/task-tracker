@@ -35,34 +35,51 @@
 
   {% block optional %}
     {% if user.username != 'admin' %}
-      <div class="row">
-        <div class="col-lg-4 col-md-12">
-          <div class="card card-tasks">
-            <div class="card-header">
-              <h6 class="title d-inline">Pending Tasks</h6>
-              <!-- <button class="card-category d-inline filter"><span class="material-icons">
-                filter_alt</span></button> -->
-              {% if user.role == 'Mentor' %}
+      <div class="row head">
+        {% if user.role == 'Mentor' %}
               <div class="dropdown kink">
                 <button
                   type="button"
                   class="btn btn-link dropdown-toggle btn-icon"
                   title="Filter by Intern Names"
-                  data-toggle="dropdown"
+                  data-toggle="dropdown"                  
                 >
-                <span class="material-icons">filter_alt</span>  
-                </button>
+                <span class="material-icons filters">filter_alt</span>
+                <span style="margin:4px">Filter by Intern</span>
+              </button>
                 <div
                   class="dropdown-menu items dropdown-menu-right"
                   aria-labelledby="dropdownMenuLink"
                 >
                 {% for intern in interns %}
-                  <a class="dropdown-item" href="{% url 'intern-filter' %}?id={{intern.internid_id}}">{{intern.firstname}}</a>
+                  <li style="padding-right: 0.5rem; padding-left: 0.5rem;">
+                    <a class="dropdown-item" href="{% url 'intern-filter' %}?id={{intern.internid_id}}">{{intern.firstname}}</a>
+                  </li>
                 {% endfor %}
                  
                 </div>
               </div>
-              {% endif %}
+              <div class="dropdown reload">
+                <button
+                  type="button"
+                  class="btn btn-link dropdown-toggle btn-icon"
+                  title="Filter by Intern Names"
+                  data-toggle="dropdown"   
+                  onclick="loadHome()"
+                >
+                <span class="material-icons refresh">sync</span>                
+                <span style="margin:4px">Refresh</span>
+              </button>              
+              </div>
+        {% endif %}
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-12">
+          <div class="card card-tasks" style="background-color: #ff3e6ea3;">
+            <div class="card-header">
+              <h6 class="title d-inline">Pending Tasks</h6>
+              <!-- <button class="card-category d-inline filter"><span class="material-icons">
+                filter_alt</span></button> -->              
             </div>
             <div class="card-body">
               <div class="titlebar">
@@ -81,7 +98,7 @@
                           <span class="assignee-initials">{{ task.internid.firstname }} {{ task.internid.lastname }}</span>
                         </div>
                         {% endif %}
-                        <p class="text-muted">
+                        <p class="text-muted" style="color:#040a43">
                           {{ task.description }}
                         </p>   
                         
@@ -131,7 +148,7 @@
           </div>
         </div>      
         <div class="col-lg-4 col-md-12">
-          <div class="card card-tasks">
+          <div class="card card-tasks" style="background-color: lightseagreen;">
             <div class="card-header">
               <h6 class="title d-inline">In Progress Tasks</h6>
               <!-- <p class="card-category d-inline">today</p> -->
@@ -203,7 +220,7 @@
           </div>
         </div>   
         <div class="col-lg-4 col-md-12">
-          <div class="card card-tasks">
+          <div class="card card-tasks" style="background-color: cornflowerblue;">
             <div class="card-header">
               <h6 class="title d-inline">Completed Tasks</h6>
               <!-- <p class="card-category d-inline">today</p> -->

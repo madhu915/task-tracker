@@ -8,11 +8,11 @@ from .models import Intern, Task
 def home(request):
     content = {}
     if request.user.is_authenticated:
+        interns_list=Intern.objects.filter(mentorid_id=request.user.id)
         if request.user.role == 'Mentor':
             pending = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='To-Do').order_by('-id')
             in_progress = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='In-Progress').order_by('-id')
             completed = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='Completed').order_by('-id')
-            interns_list=Intern.objects.filter(mentorid_id=request.user.id)
         else:
             pending = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='To-Do').order_by('-id')
             in_progress = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='In-Progress').order_by('-id')

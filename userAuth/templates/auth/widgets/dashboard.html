@@ -54,6 +54,7 @@
                 href="javascript:void(0)"
                 class="dropdown-toggle nav-link"
                 data-toggle="dropdown"
+                style="margin-top: 4px;"
               >
                 <div class="notification d-none d-lg-block d-xl-block"></div>
                 <i class="material-icons">notifications</i>
@@ -320,6 +321,7 @@
 <script src="../static/js/black-dashboard.min.js?v=1.0.0"></script>
 <!-- Black Dashboard DEMO methods, don't include it in your project! -->
 <script src="../static/demo/demo.js"></script>
+<script src="../static/js/userAuth.js"></script>
 <script>
     $(document).ready(function () {
       $().ready(function () {
@@ -451,25 +453,11 @@
         application: "black-dashboard-free",
       });
   </script>
-
-<script>
-  $(document).ready(function() {
-      $('#id_intern').on('change', function() {
-          var selected_id = $(this).val();
-          $.ajax({
-              url: '/get-name/',
-              data: {
-                  'uuid': selected_id
-              },
-              dataType: 'json',
-              success: function(data) {
-                  $('#id_intern_name').val(data.name);
-              }
-          });
-      });
-  });
+  <script>
+    function loadHome() {
+      window.location.href="{% url 'home' %}";
+    }
   </script>
-
   {% else %}
 
   <div class="rows">

@@ -3684,7 +3684,6 @@ input[type="button"].btn-block {
   list-style: none;
   background-clip: padding-box;
   border: 0 solid rgba(34, 42, 66, 0.15);
-  border-radius: 0.1428rem;
   box-shadow: 0 50px 100px rgba(50, 50, 93, 0.1), 0 15px 35px rgba(50, 50, 93, 0.15), 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -13075,7 +13074,7 @@ fieldset[disabled] .navbar .navbar-nav>a.btn.active {
 
 .btn.btn-link.dropdown-toggle,
 .navbar .navbar-nav>a.btn.btn-link.dropdown-toggle {
-  color: #9A9A9A;
+  color: #ffffff;
 }
 
 .btn.dropdown-toggle:after,
@@ -13994,7 +13993,6 @@ fieldset[disabled] .btn-link.active {
   padding: 0.5rem 0.7rem;
   background: transparent;
   color: #e3e3e3;
-  font-weight: 600;
 }
 
 .btn-link:hover {
@@ -14083,8 +14081,6 @@ fieldset[disabled] .btn-link.active {
 
 .dropdown-menu {
   border: 0;
-  box-shadow: 0px 10px 50px 0px rgba(0, 0, 0, 0.2);
-  border-radius: 0.1428rem;
   -webkit-transition: all 150ms linear;
   -moz-transition: all 150ms linear;
   -o-transition: all 150ms linear;
@@ -14483,7 +14479,7 @@ fieldset[disabled] .btn-link.active {
   -moz-transform: translate3d(0, 1px, 0) !important;
   -o-transform: translate3d(0, 1px, 0) !important;
   -ms-transform: translate3d(0, 1px, 0) !important;
-  transform: translate3d(0, 1px, 0) !important;
+  transform: translate3d(0, 45px, 0) !important;
 }
 
 .dropdown-menu.bootstrap-datetimepicker-widget.top.open,
