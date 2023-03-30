@@ -171,6 +171,11 @@ body{
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
+.dropdown-menu, .dropdown.show .dropdown-menu{
+    transform: translate3d(0, 45px, 0) !important;
+
+}
+
 .kink .dropdown-menu:before {
     color:linear-gradient(45deg, #1e1e2f 0%, #2f2f5b 100%); 
     display:none;
