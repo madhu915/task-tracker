@@ -56,7 +56,7 @@
                   aria-labelledby="dropdownMenuLink"
                 >
                 {% for intern in interns %}
-                  <a class="dropdown-item" href="#pablo">{{intern.firstname}}</a>
+                  <a class="dropdown-item" href="{% url 'intern-filter' %}?category={{intern.internid_id}}">{{intern.firstname}}</a>
                 {% endfor %}
                  
                 </div>

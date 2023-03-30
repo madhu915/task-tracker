@@ -29,6 +29,15 @@ def name_api(request):
     }
     return JsonResponse(data)
 
+def intern_filter(request):
+    records = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='To-Do')
+    interns_list=Intern.objects.filter(mentorid_id=request.user.id)
+    category = request.GET.get('category')
+    if category:
+        records = records.filter(internid_id=category)
+    content={'to_do': records, 'interns':interns_list}
+    return render(request, 'auth/widgets/main.html', content)
+
 def intern_details(request):
     usee=request.user.id
     interns_list=Intern.objects.filter(mentorid_id=usee)
