@@ -42,6 +42,7 @@
               <h6 class="title d-inline">Pending Tasks</h6>
               <!-- <button class="card-category d-inline filter"><span class="material-icons">
                 filter_alt</span></button> -->
+              {% if user.role == 'Mentor' %}
               <div class="dropdown kink">
                 <button
                   type="button"
@@ -56,11 +57,12 @@
                   aria-labelledby="dropdownMenuLink"
                 >
                 {% for intern in interns %}
-                  <a class="dropdown-item" href="{% url 'intern-filter' %}?category={{intern.internid_id}}">{{intern.firstname}}</a>
+                  <a class="dropdown-item" href="{% url 'intern-filter' %}?id={{intern.internid_id}}">{{intern.firstname}}</a>
                 {% endfor %}
                  
                 </div>
               </div>
+              {% endif %}
             </div>
             <div class="card-body">
               <div class="titlebar">

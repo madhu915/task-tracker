@@ -9,20 +9,20 @@ def home(request):
     content = {}
     if request.user.is_authenticated:
         if request.user.role == 'Mentor':
-            pending_tasks = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='To-Do')
-            in_progress_tasks = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='In-Progress')
-            completed_tasks = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='Completed')
+            pending = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='To-Do').order_by('-id')
+            in_progress = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='In-Progress').order_by('-id')
+            completed = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='Completed').order_by('-id')
             interns_list=Intern.objects.filter(mentorid_id=request.user.id)
         else:
-            pending_tasks = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='To-Do')
-            in_progress_tasks = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='In-Progress')
-            completed_tasks = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='Completed')
-        content = {'to_do':pending_tasks,'in_progress':in_progress_tasks,'completed':completed_tasks,'interns':interns_list}
+            pending = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='To-Do').order_by('-id')
+            in_progress = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='In-Progress').order_by('-id')
+            completed = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='Completed').order_by('-id')
+        content = {'to_do':pending,'in_progress':in_progress,'completed':completed,'interns':interns_list}
     return render(request, 'auth/widgets/main.html',content)
 
 
 def name_api(request):
-    id = request.GET.get('id')
+    id = request.GET.get('uuid')
     intern = Intern.objects.get(internid_id=id)
     data = {
         'name': f'{intern.firstname} {intern.lastname}'
@@ -30,12 +30,17 @@ def name_api(request):
     return JsonResponse(data)
 
 def intern_filter(request):
-    records = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='To-Do')
+    to_do = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='To-Do').order_by('-id')
+    in_progress = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='In-Progress').order_by('-id')
+    completed = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='Completed').order_by('-id')
+
     interns_list=Intern.objects.filter(mentorid_id=request.user.id)
-    category = request.GET.get('category')
+    category = request.GET.get('id')
     if category:
-        records = records.filter(internid_id=category)
-    content={'to_do': records, 'interns':interns_list}
+        to_do = to_do.filter(internid_id=category)
+        in_progress = in_progress.filter(internid_id=category)
+        completed = completed.filter(internid_id=category)
+    content={'to_do': to_do,'in_progress': in_progress, 'completed': completed, 'interns':interns_list}
     return render(request, 'auth/widgets/main.html', content)
 
 def intern_details(request):
