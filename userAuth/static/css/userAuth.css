@@ -146,6 +146,10 @@ body{
     display: inline-block;
 }
 
+.card-body{
+    overflow: hidden;
+}
+
 .card-body .card-category{
     float:right;
     text-align: center;
@@ -155,3 +159,15 @@ body{
     margin-left: 5px;
     margin-right: 14px;
 }
+
+.filter{
+    float: right;
+}
+
+.kink .dropdown-menu{
+    background: linear-gradient(45deg, #1e1e2f 0%, #2f2f5b 100%);
+}
+
+.kink .dropdown-menu:before {
+    color:linear-gradient(45deg, #1e1e2f 0%, #2f2f5b 100%); 
+    } 

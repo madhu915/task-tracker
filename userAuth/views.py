@@ -12,11 +12,12 @@ def home(request):
             pending_tasks = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='To-Do')
             in_progress_tasks = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='In-Progress')
             completed_tasks = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='Completed')
+            interns_list=Intern.objects.filter(mentorid_id=request.user.id)
         else:
             pending_tasks = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='To-Do')
             in_progress_tasks = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='In-Progress')
             completed_tasks = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='Completed')
-        content = {'to_do':pending_tasks,'in_progress':in_progress_tasks,'completed':completed_tasks}
+        content = {'to_do':pending_tasks,'in_progress':in_progress_tasks,'completed':completed_tasks,'interns':interns_list}
     return render(request, 'auth/widgets/main.html',content)
 
 

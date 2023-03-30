@@ -40,28 +40,27 @@
           <div class="card card-tasks">
             <div class="card-header">
               <h6 class="title d-inline">Pending Tasks</h6>
-              <!-- <p class="card-category d-inline">today</p> -->
-              <!-- <div class="dropdown">
+              <!-- <button class="card-category d-inline filter"><span class="material-icons">
+                filter_alt</span></button> -->
+              <div class="dropdown kink">
                 <button
                   type="button"
                   class="btn btn-link dropdown-toggle btn-icon"
+                  title="Filter by Intern Names"
                   data-toggle="dropdown"
                 >
-                  <i class="tim-icons icon-settings-gear-63"></i>
+                <span class="material-icons">filter_alt</span>  
                 </button>
                 <div
-                  class="dropdown-menu dropdown-menu-right"
+                  class="dropdown-menu items dropdown-menu-right"
                   aria-labelledby="dropdownMenuLink"
                 >
-                  <a class="dropdown-item" href="#pablo">Action</a>
-                  <a class="dropdown-item" href="#pablo"
-                    >Another action</a
-                  >
-                  <a class="dropdown-item" href="#pablo"
-                    >Something else</a
-                  >
+                {% for intern in interns %}
+                  <a class="dropdown-item" href="#pablo">{{intern.firstname}}</a>
+                {% endfor %}
+                 
                 </div>
-              </div> -->
+              </div>
             </div>
             <div class="card-body">
               <div class="titlebar">
