@@ -12,4 +12,6 @@ urlpatterns = [
     path('new-task/', views.new_task, name='new_task'),
     path('get-name/',views.name_api,name='get_name'),
     path('intern-filter/',views.intern_filter,name='intern-filter'),
+    path('reset-password/',views.reset,name='reset'),
+    path('reset/',views.new_password,name='new-password'),
 ]

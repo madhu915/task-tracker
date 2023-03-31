@@ -226,3 +226,88 @@ body{
     height:30px; 
     width: 6em;;
 }
+
+.reload span:hover{
+    color:#c471ff;
+}
+
+.kink span:hover{
+    color:#41dfdf;
+}
+
+.kink .btn.btn-link.dropdown-toggle:active{
+    color:#41dfdf;
+}
+
+.aa{
+    display: flex;
+    flex-direction: column;
+    padding-left: 10em;
+    padding-top: 63px;
+    margin-left: 5em;
+    margin-right: 10em;
+}
+
+.aa label{
+    padding:20px;
+    padding-left: 0;
+    padding-top: 40px;
+}
+
+.aa input{
+    max-width: 20em;
+    min-width: 10em;
+}
+
+.aa button{
+    margin-top: 100px;
+    width: fit-content;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    align-self: flex-start;
+    margin-left: 4.9em;
+    margin-right: auto; 
+}
+
+.aa .btn{
+    padding: 10px 16px;
+}
+
+@media screen and (max-width: 630px){
+    .aa{
+        margin-left: 5.5em;
+        padding-left: 0;
+        margin-right: 2em;
+    }
+   
+}
+
+@media screen and (max-width: 425px) {
+    .aa button{
+        margin-left:auto;
+    }
+}
+
+#ico{
+    position: absolute;
+    color:rgb(21, 226, 21);
+    text-align: center;
+    display: none;
+}
+
+#cross{
+    position: absolute; 
+    text-align: center;
+    color: #ff2c39;
+    display: none;
+}
+
+#message{
+    position: absolute;
+    color:rgb(21, 226, 21);
+    text-align: center;
+    margin-left:2.3em;
+    line-height: 3.5vh;
+    display: block;
+}

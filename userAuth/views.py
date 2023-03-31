@@ -1,9 +1,9 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 from .forms import NewTaskForm, SignUpForm
-from .models import Intern, Task
+from .models import Intern, Task, User
 
 def home(request):
     content = {}
@@ -20,6 +20,17 @@ def home(request):
         content = {'to_do':pending,'in_progress':in_progress,'completed':completed,'interns':interns_list}
     return render(request, 'auth/widgets/main.html',content)
 
+def reset(request):
+    return render(request, 'auth/widgets/reset.html')
+
+@csrf_exempt
+def new_password(request):
+    if request.user.is_authenticated:
+        user = User.objects.get(id=request.user.id)
+        user.set_password(request.POST.get('password-verify'))
+        user.save()
+        print(request.POST.get('password-verify'),user.first_name)
+    return redirect('home')
 
 def name_api(request):
     id = request.GET.get('uuid')
