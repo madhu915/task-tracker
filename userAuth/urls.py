@@ -14,4 +14,5 @@ urlpatterns = [
     path('intern-filter/',views.intern_filter,name='intern-filter'),
     path('reset-password/',views.reset,name='reset'),
     path('reset/',views.new_password,name='new-password'),
+    path('task/<int:pk>/',views.task_details,name='task-detail'),
 ]

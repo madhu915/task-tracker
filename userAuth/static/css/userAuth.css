@@ -121,11 +121,11 @@ body{
 }
 
 .nav-link:focus, .nav-link:hover {
-    color: #0575E6;
+    color: #e14eca;
 }
 
 .navbar-nav .nav-link.active, .navbar-nav .show>.nav-link {
-    color:#0575E6;
+    color:#e14eca;
 }
 
 .assignee-bubble {
@@ -201,6 +201,11 @@ body{
     width: 8.95em;;
 }
 
+.kink .btn.btn-link:focus, .kink .btn.btn-link:hover {
+    color: #41dfdf;
+}
+
+
 .text-muted{
     color: rgb(0, 0, 0) !important;
     font-style: italic;
@@ -233,7 +238,7 @@ body{
     color:#41dfdf;
 }
 
-.kink .btn.btn-link.dropdown-toggle:active{
+.show .btn>span{
     color:#41dfdf;
 }
 

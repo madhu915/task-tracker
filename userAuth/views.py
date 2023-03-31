@@ -20,6 +20,10 @@ def home(request):
         content = {'to_do':pending,'in_progress':in_progress,'completed':completed,'interns':interns_list}
     return render(request, 'auth/widgets/main.html',content)
 
+def task_details(request,pk):
+    task=Task.objects.get(id=pk)
+    return render(request, 'auth/widgets/task_details.html',{'task':task})
+
 def reset(request):
     return render(request, 'auth/widgets/reset.html')
 
