@@ -34,8 +34,7 @@ body{
 }
 
 .sidebar-wrapper{
-    background: linear-gradient(90deg, #1e1e2f 0%, #2f2f5b 100%);  /* fallback for old browsers */
-    /* background: -webkit-linear-gradient(to right, #021B79, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(-100deg, #350055 27%, #021a3e 100%);    /* background: -webkit-linear-gradient(to right, #021B79, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
     /* background: linear-gradient(to right, #021B79, #0575E6); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
