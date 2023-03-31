@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@500&display=swap');
 body{
     font-family: 'Figtree', sans-serif;
-    background: linear-gradient(90deg, #1e1e2f 0%, #2f2f5b 100%);
     height: 100%;
 }
 
@@ -243,14 +242,20 @@ body{
     flex-direction: column;
     padding-left: 10em;
     padding-top: 63px;
+    padding-bottom: 63px;
     margin-left: 5em;
     margin-right: 10em;
+    /* border: 2px solid darkslateblue; */
+    color:#cc00ff;
+    border-radius: 20px;
+    font-size: larger;
 }
 
 .aa label{
     padding:20px;
     padding-left: 0;
     padding-top: 40px;
+    margin-right: 6em;
 }
 
 .aa input{
@@ -259,7 +264,7 @@ body{
 }
 
 .aa button{
-    margin-top: 100px;
+    margin-top: 60px;
     width: fit-content;
     text-align: center;
     align-items: center;
@@ -282,21 +287,56 @@ body{
    
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (min-width:630px) {
+    .aa{
+        align-items: center;
+        padding-left: 0;
+    }
+
+    .aa button{
+        margin-left: auto;
+    }
+    
+}
+
+@media screen and (min-width:896px) {
+    .aa{
+        max-width: 40%;
+        margin-left: 20%;
+    }    
+}
+
+@media screen and (max-width: 630px) {
     .aa button{
         margin-left:auto;
+    }
+    .aa{
+        margin-left: 2em;
+        margin-right: 1.5em;
+        align-items: center;
+    }
+    .aa label{
+        margin-left: 1em;
+    }
+
+    .aa input{
+        max-width: 15em;
     }
 }
 
 #ico{
-    position: absolute;
+    position: relative;
+    bottom: 11.7em;
+    left: -3em;    
     color:rgb(21, 226, 21);
     text-align: center;
     display: none;
 }
 
 #cross{
-    position: absolute; 
+    position: relative;
+    bottom: 11.7em;
+    left: -4em;    
     text-align: center;
     color: #ff2c39;
     display: none;
@@ -309,4 +349,8 @@ body{
     margin-left:2.3em;
     line-height: 3.5vh;
     display: block;
+}
+
+#reset:disabled{
+    background-color: #0575E6;
 }

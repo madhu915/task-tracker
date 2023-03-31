@@ -36,10 +36,10 @@
 {% block optional %}
   {% if user.username != 'admin' %}
         <form action="{% url 'new-password' %}" method="POST" class="aa">
-            <label for="password">Password</label>
+            <label for="password" style="margin-right: 5em; margin-top: 2em;">New Password</label>
             <input type="password" id="password" onkeyup="check()" required>
           
-            <label for="password-verify">Re-type password</label>
+            <label for="password-verify" style="margin-right: 3.485em;">Re-type Password</label>
             <input type="password" name="password-verify" id="password-verify" onkeyup="check()" required>
 
             <i class="material-icons" aria-hidden="true" id="ico">
@@ -48,9 +48,9 @@
             <i class="material-icons" id="cross">
                 highlight_off
             </i>
-            <span id="message"></span>
+            <span id="message" style="padding-bottom: 2em;"></span>
           
-            <button type="submit" class="btn btn-primary">Reset password</button>        
+            <button type="submit" class="btn btn-primary" id="reset" disabled="true">Reset password</button>        
         </form>
   {% else %}
     <div class="row">

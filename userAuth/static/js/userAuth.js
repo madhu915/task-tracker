@@ -23,12 +23,14 @@ var check = function () {
       document.getElementById("ico").style.display = "none";
       document.getElementById("cross").style.display = "none";
       document.getElementById("message").style.display = "none";
+      document.getElementById("reset").disabled=true;
     } else {
       document.getElementById("ico").style.display = "block";
       document.getElementById("cross").style.display = "none";
       document.getElementById("message").style.display = "block";
       document.getElementById("message").innerHTML = "Passwords Match!";
       document.getElementById("message").style.color = "rgb(21, 226, 21)";
+      document.getElementById("reset").disabled=false;
     }
   } else {
     document.getElementById("ico").style.display = "none";
@@ -36,5 +38,6 @@ var check = function () {
     document.getElementById("message").style.display = "block";
     document.getElementById("message").innerHTML = "Passwords do not match!";
     document.getElementById("message").style.color = "#ff2c39";
+    document.getElementById("reset").disabled=true;
   }
 };
