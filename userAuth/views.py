@@ -1,5 +1,5 @@
-from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.http import Http404, JsonResponse
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login, authenticate
 from django.views.decorators.csrf import csrf_exempt
 from .forms import NewTaskForm, SignUpForm
@@ -21,9 +21,9 @@ def home(request):
     return render(request, 'auth/widgets/main.html',content)
 
 def task_details(request,pk):
-    task=Task.objects.get(id=pk)
+    task=get_object_or_404(Task,id=pk)
     return render(request, 'auth/widgets/task_details.html',{'task':task})
-
+    
 def reset(request):
     return render(request, 'auth/widgets/reset.html')
 

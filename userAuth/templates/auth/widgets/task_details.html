@@ -29,27 +29,77 @@
 {% endblock navbrand %}                   
 
 {% block mainContent %} 
-  <div class="col-12">
+<div class="col-md-12">
+  <div class="card  card-plain">
+    <!-- <div class="card-header">
+      <h4 class="card-title"> Task Assigned</h4>
+    </div> -->
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table tablesorter " id="">
+          <thead class=" text-primary">
+            <tr>
+              <th>
+                Task ID
+              </th>                        
+              <th>
+                Name 
+              </th>
+              <th>
+                Email
+              </th>
+              <th>
+                Phone
+              </th>
+              <th>
+                College
+              </th>                       
+            </tr>
+          </thead>
+          <tbody>                    
+              <tr>
+                <td>
+                  {{ task.id }}
+                </td>
+                <td>
+                  {{ task.description }}
+                </td>
+                <td>
+                  {{ task.assigned_date }}
+                </td>
+                <td>
+                  {{ task.started_date }}
+                </td>
+                <td>
+                  {{ task.completed_date }}
+                </td>
+                <td>
+                  {{ task.due_date }}
+                </td>
+                <td>
+                  {{ task.completion_status }}
+                </td>
+                <td>
+                  {{ task.progress_status }}
+                </td>
+                <td>
+                  {{ task.due_date }}
+                </td>
+                <td>
+                  {{ task.taskid_id }}
+                </td>
+              </tr>
+          </tbody>
+          
+        </table>
+      </div>
+    </div>
   </div>
+</div>
 {% endblock mainContent %}
 
 {% block optional %}
-  {% if user.username != 'admin' %}
-        {{ task.description }}
- {{task.id}}        |
-| {{task.assigned_date}}      |
-| {{task.started_date}}       | 
-| {{task.completed_date}}     |
-| {{ task.due_date}}           |
-| {{ task.completion_status}}  |
-| {{ task.progress_status}}    |
-| {{ task.date_created}}       |
-| {{ task.date_updated}}       |
-| {{ task.internid_id}}        |
-| {{ task.last_updated_by_id}} |
-| {{ task.mentor_id}}
-
-  {% else %}
+  {% if user.username == 'admin' %}    
     <div class="row">
       <p class="rows text-center" style="font-size: 40px;"><a href="/admin/"> 🔙 Django Admin  </a></p>
     </div>

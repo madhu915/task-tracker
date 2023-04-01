@@ -14,6 +14,12 @@ $(document).ready(function () {
   });
 });
 
+jQuery(document).ready(function($) {
+  $('*[data-href]').on('click', function() {
+      window.location = $(this).data("href");
+  });
+});
+
 var check = function () {
   if (
     document.getElementById("password").value ==

@@ -89,7 +89,7 @@
                 <table class="table">
                   <tbody>
                     {% for task in to_do %}
-                    <tr>
+                    <tr class='clickable-row' data-href="{% url 'task-detail' pk=task.pk %}">
                       <td>
                         <p class="title">Task {{ task.id }}</p>  
                         {% if user.role == 'Mentor' %}
@@ -182,7 +182,7 @@
                 <table class="table">
                   <tbody>
                     {% for task in in_progress %}
-                    <tr>
+                    <tr class='clickable-row' data-href="{% url 'task-detail' pk=task.pk %}">
                       <td>
                         <p class="title">Task {{ task.id }}</p>  
                         {% if user.role == 'Mentor' %}                                                
@@ -254,7 +254,7 @@
                 <table class="table">
                   <tbody>
                     {% for task in completed %}
-                    <tr>
+                    <tr class='clickable-row' data-href="{% url 'task-detail' pk=task.pk %}">
                       <td>
                         <p class="title">Task {{ task.id }}</p>  
                         {% if user.role == 'Mentor' %}

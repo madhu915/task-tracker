@@ -359,3 +359,7 @@ body{
 #reset:disabled{
     background-color: #0575E6;
 }
+
+[data-href] {
+    cursor: pointer;
+}
