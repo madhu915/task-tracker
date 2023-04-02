@@ -80,24 +80,28 @@
                   {{ task.description }}
                 </td>
                 <td>
-                  {{ task.assigned_date }}
+                  {{ task.assigned_date|date:'d-m-Y'  }}
                 </td>
                 <td>
                   {% if task.started_date is None %}
                     --
                   {% else %}  
-                    {{ task.started_date }}
+                    {{ task.started_date|date:'d-m-Y' }}
                   {% endif %}
                 </td>
                 <td>
                   {% if task.completed_date is None %}
                     --
                   {% else %}  
-                    {{ task.completed_date }}
+                    {{ task.completed_date|date:'d-m-Y' }}
                   {% endif %}
                 </td>
                 <td>
-                  {{ task.due_date }}
+                  {% if task.due_date is None %}
+                    --
+                  {% else %}
+                    {{ task.due_date|date:'d-m-Y' }}
+                  {% endif %}
                 </td>
                 <td>
                   {% if task.completion_status %}
