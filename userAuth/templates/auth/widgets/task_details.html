@@ -19,6 +19,12 @@
       <p>Create New Task</p>
     </a>
   </li>
+  <li>
+    <a href="{% url 'new_task' %}">
+      <i class="material-icons">manage_accounts</i>
+      <p>My Profile</p>
+    </a>
+  </li>
   {% endif %}
 {% endblock sidenav %}                                                
          
@@ -36,7 +42,7 @@
     </div> -->
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table tablesorter " id="">
+        <table class="table tablesorter " id="jojo">
           <thead class=" text-primary">
             <tr>
               <th>
@@ -77,16 +83,32 @@
                   {{ task.assigned_date }}
                 </td>
                 <td>
-                  {{ task.started_date }}
+                  {% if task.started_date is None %}
+                    --
+                  {% else %}  
+                    {{ task.started_date }}
+                  {% endif %}
                 </td>
                 <td>
-                  {{ task.completed_date }}
+                  {% if task.completed_date is None %}
+                    --
+                  {% else %}  
+                    {{ task.completed_date }}
+                  {% endif %}
                 </td>
                 <td>
                   {{ task.due_date }}
                 </td>
                 <td>
-                  {{ task.completion_status }}
+                  {% if task.completion_status %}
+                  <i class="material-icons status-label" style="color:#15e215;">
+                    task_alt
+                  </i>
+                  {% else %}
+                  <i class="material-icons status-label" style="color:#ff2c39">
+                    highlight_off
+                </i>
+                {% endif %}
                 </td>
                 <td>
                   {{ task.progress_status }}
@@ -96,6 +118,14 @@
           
         </table>
       </div>
+    </div>
+    <div class="card-body">
+      <p class="text-center text-primary" style="font-size: larger; margin-top: 20px;">Comment section</p>
+      {% if comment is not None %}
+        <!-- print comments -->
+      {% else %}
+        <p class="text-center text-muted" style="color:grey !important; padding: 40px;">No Comments Posted!</p>
+      {% endif %}
     </div>
   </div>
 </div>

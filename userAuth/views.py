@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login, authenticate
 from django.views.decorators.csrf import csrf_exempt
 from .forms import NewTaskForm, SignUpForm
-from .models import Intern, Task, User
+from .models import Comment, Intern, Task, User
 
 def home(request):
     content = {}
@@ -22,7 +22,11 @@ def home(request):
 
 def task_details(request,pk):
     task=get_object_or_404(Task,id=pk)
-    return render(request, 'auth/widgets/task_details.html',{'task':task})
+    object=Comment.objects.filter(task_id=pk).exists()
+    comment=Comment.objects.filter(task_id=pk) if object else None
+    print(comment,object)
+    context={'task':task,'comment':comment}
+    return render(request, 'auth/widgets/task_details.html',context)
     
 def reset(request):
     return render(request, 'auth/widgets/reset.html')

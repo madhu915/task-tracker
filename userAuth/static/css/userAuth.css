@@ -33,7 +33,7 @@ body{
 }
 
 .sidebar-wrapper{
-    background: linear-gradient(-100deg, #350055 27%, #021a3e 100%);    /* background: -webkit-linear-gradient(to right, #021B79, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
+    background-image: linear-gradient(to bottom left, #350055 , #021a3e, #350055);    /* background: -webkit-linear-gradient(to right, #021B79, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
     /* background: linear-gradient(to right, #021B79, #0575E6); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
@@ -362,4 +362,12 @@ body{
 
 [data-href] {
     cursor: pointer;
+}
+.status-label{
+    position: relative; 
+    left:1.6em;
+}
+
+#jojo>thead>tr>th{
+    color: #07E3EA;
 }
