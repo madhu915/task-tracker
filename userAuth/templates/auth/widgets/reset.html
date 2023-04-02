@@ -41,7 +41,7 @@
 
 {% block optional %}
   {% if user.username != 'admin' %}
-        <form action="{% url 'new-password' %}" method="POST" class="aa">
+        <form action="{% url 'new-password' %}" method="POST" class="aa profile">
             <label for="password" style="margin-right: 5em; margin-top: 2em;">New Password</label>
             <input type="password" id="password" onkeyup="check()" required>
           
