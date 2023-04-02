@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login, authenticate
 from django.views.decorators.csrf import csrf_exempt
 from .forms import NewTaskForm, SignUpForm
-from .models import Comment, Intern, Task, User
+from .models import Comment, Intern, Mentor, Task, User
 
 def home(request):
     content = {}
@@ -19,6 +19,13 @@ def home(request):
             completed = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='Completed').order_by('-id')
         content = {'to_do':pending,'in_progress':in_progress,'completed':completed,'interns':interns_list}
     return render(request, 'auth/widgets/main.html',content)
+
+def my_profile(request):
+    if request.user.role == 'Mentor':
+        user=Mentor.objects.get(mentorid_id=request.user.id)
+    else:
+        user=Intern.objects.get(internid_id=request.user.id)
+    return render(request,'auth/widgets/profile.html',{'collab':user})
 
 def task_details(request,pk):
     task=get_object_or_404(Task,id=pk)

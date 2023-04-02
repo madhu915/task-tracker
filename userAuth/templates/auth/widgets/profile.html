@@ -1,0 +1,147 @@
+{% extends 'auth/widgets/dashboard.html' %} 
+{% block sidenav %}
+  <li>
+    <a href="{% url 'home' %}">
+      <i class="bi bi-speedometer2"></i>                    
+      <p>Task Board</p>
+    </a>
+  </li>
+  <li>
+    <a href="{% url 'new_task' %}">
+      <i class="material-icons">assignment_add</i>
+      <p>Create New Task</p>
+    </a>
+  </li>
+  <li class="active">
+    <a href="{% url 'profile' %}">
+      <i class="material-icons">manage_accounts</i>
+      <p>My Profile</p>
+    </a>
+  </li>
+  {% if user.role == 'Mentor' %}
+  <li>
+    <a href="{% url 'interns' %}">
+      <i class="material-icons">people_alt</i>
+      <p>My Interns</p>
+    </a>
+  </li>
+  {% endif %}
+{% endblock sidenav %}                                                
+         
+{% block navbrand %}
+  <a class="navbar-brand" href="javascript:void(0)"
+    >My Profile</a
+  >
+{% endblock navbrand %}                   
+
+{% block mainContent %} 
+  <div class="col-12">
+  </div>
+{% endblock mainContent %}
+
+{% block optional %}
+  {% if user.username != 'admin' %}
+  <div class="content">
+    <div class="row justify-content-md-center">
+      <div class="col-md-10">
+        <div class="card profile">
+          <div class="card-header">
+            {% if collab.status == "active" %} 
+            <span style="color: greenyellow;">● Active</span>
+            {% else %}
+            <span style="color: red;">● Inactive</span>
+            {% endif %}
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="col-md-5 pr-md-1">
+                  <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" disabled="" value="{{ user.username }}">
+                  </div>
+                </div>                
+                <div class="col-md-3 pl-md-1">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Email</label>
+                    <input type="email" class="form-control" value="{{ collab.email }}">
+                  </div>
+                </div>
+                {% if user.role == "intern" %}
+                <div class="col-md-4 pl-md-1">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Mentor</label>
+                      <input type="email" class="form-control" disabled="" placeholder="{{ collab.mentorid.firstname }} {{ collab.mentorid.lastname }}">
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" class="form-control" value="{{ collab.firstname }}">
+                  </div>
+                </div>            
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Last Name</label>
+                      <input type="text" class="form-control" value="{{ collab.lastname }}">
+                    </div>
+                  </div>
+              </div>
+              {% if user.role == "intern" %}              
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>College</label>
+                    <input type="text" class="form-control" value="{{ collab.college }}">
+                  </div>
+                </div>
+              </div>
+              {% else %}
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>Designation</label>
+                    <input type="text" class="form-control" value="{{ collab.designation }}">
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              <div class="row">
+                <div class="col-md-4 pr-md-1">
+                  <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" class="form-control" disabled="" value="{{ collab.phone }}">
+                  </div>
+                </div>
+                <!-- <div class="col-md-4 px-md-1">
+                  <div class="form-group">
+                    <label>Mentor</label>
+                    <input type="text" class="form-control" placeholder="Country" value="Andrew">
+                  </div>
+                </div>
+                <div class="col-md-4 pl-md-1">
+                  <div class="form-group">
+                    <label>Postal Code</label>
+                    <input type="number" class="form-control" placeholder="ZIP Code">
+                  </div>
+                </div> -->
+              </div>
+            </form>
+          </div>
+          <div class="card-footer">
+            <button type="submit" class="btn btn-fill btn-primary">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  {% else %}
+    <div class="row">
+      <p class="rows text-center" style="font-size: 40px;"><a href="/admin/"> 🔙 Django Admin  </a></p>
+    </div>
+  {% endif %}
+{% endblock optional %}                

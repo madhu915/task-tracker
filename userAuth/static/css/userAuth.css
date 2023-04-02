@@ -371,3 +371,17 @@ body{
 #jojo>thead>tr>th{
     color: #07E3EA;
 }
+
+.card-tasks{
+    transition: transform ease 300ms;
+}
+
+.card-tasks:hover {
+    transform: translate(0, -10px);
+}
+
+.profile{
+    backdrop-filter: blur(10px);
+    background-color: rgba(17, 25, 40, 0.408);
+    font-size: larger;
+}

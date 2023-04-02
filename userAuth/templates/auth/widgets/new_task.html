@@ -6,23 +6,23 @@
             <p>Task Board</p>
           </a>
         </li>
+        <li class="active">
+          <a href="{% url 'new_task' %}">
+            <i class="material-icons">assignment_add</i>
+            <p>Create New Task</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'profile' %}">
+            <i class="material-icons">manage_accounts</i>
+            <p>My Profile</p>
+          </a>
+        </li>
         {% if user.role == 'Mentor' %}
           <li>
             <a href="{% url 'interns' %}">
               <i class="material-icons">people_alt</i>
               <p>My Interns</p>
-            </a>
-          </li>
-          <li class="active">
-            <a href="{% url 'new_task' %}">
-              <i class="material-icons">assignment_add</i>
-              <p>Create New Task</p>
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'new_task' %}">
-              <i class="material-icons">manage_accounts</i>
-              <p>My Profile</p>
             </a>
           </li>
         {% endif %}       

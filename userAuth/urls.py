@@ -15,4 +15,5 @@ urlpatterns = [
     path('reset-password/',views.reset,name='reset'),
     path('reset/',views.new_password,name='new-password'),
     path('task/<int:pk>/',views.task_details,name='task-detail'),
+    path('user-profile/',views.my_profile,name='profile'),
 ]
