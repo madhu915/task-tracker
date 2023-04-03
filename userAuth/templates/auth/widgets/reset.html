@@ -41,23 +41,46 @@
 
 {% block optional %}
   {% if user.username != 'admin' %}
-        <form action="{% url 'new-password' %}" method="POST" class="aa profile">
-            <label for="password" style="margin-right: 5em; margin-top: 2em;">New Password</label>
-            <input type="password" id="password" onkeyup="check()" required>
-          
-            <label for="password-verify" style="margin-right: 3.485em;">Re-type Password</label>
-            <input type="password" name="password-verify" id="password-verify" onkeyup="check()" required>
-
-            <i class="material-icons" aria-hidden="true" id="ico">
-                task_alt
-            </i>
-            <i class="material-icons" id="cross">
-                highlight_off
-            </i>
-            <span id="message" style="padding-bottom: 2em;"></span>
-          
-            <button type="submit" class="btn btn-primary" id="reset" disabled="true">Reset password</button>        
-        </form>
+  <div class="content">
+    <div class="row justify-content-md-center">
+      <div class="col-md-8">
+        <div class="card profile">
+          <div class="card-header" style="display: flex;">
+            <i class="material-icons ico" aria-hidden="true" id="match" style="color:rgb(21, 226, 21);">
+              task_alt
+          </i>
+          <i class="material-icons ico" id="mismatch" style="color: #ff2c39;">
+              highlight_off
+          </i>
+          <span id="message"></span>
+          </div>
+          <div class="card-body">
+            <form action="{% url 'new-password' %}" method="POST" class="profile-card">             
+              <div class="row">
+                <div class="col-md-8 pass">
+                  <div class="form-group">
+                    <label for="password">New Password</label>
+                    <input type="password" id="password" onkeyup="check()" required class="form-control">
+                  </div>
+                </div>            
+              </div>
+              <div class="row">
+                <div class="col-md-8 pass">
+                    <div class="form-group">
+                      <label for="password-verify">Re-type Password</label>
+                      <input type="password" name="password-verify" id="password-verify" onkeyup="check()" required class="form-control">
+                    </div>
+                  </div>
+              </div>   
+              <div class="card-footer pass" style="padding: 0;">
+                <button type="submit" class="btn btn-fill btn-primary" id="reset" disabled="true">Reset Password</button>
+              </div>                     
+            </form>
+          </div>          
+        </div>
+      </div>
+    </div>
+  </div>         
   {% else %}
     <div class="row">
       <p class="rows text-center" style="font-size: 40px;"><a href="/admin/"> 🔙 Django Admin  </a></p>

@@ -53,9 +53,9 @@
             {% endif %}
           </div>
           <div class="card-body">
-            <form>
+            <form class="profile-card">
               <div class="row">
-                <div class="col-md-5 pr-md-1">
+                <div class="col-md-4 pr-md-1">
                   <div class="form-group">
                     <label>Username</label>
                     <input type="text" class="form-control" disabled="" value="{{ user.username }}">
@@ -63,14 +63,14 @@
                 </div>                
                 <div class="col-md-3 pl-md-1">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Email</label>
-                    <input type="email" class="form-control" value="{{ collab.email }}">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" placeholder="{{ collab.email }}" value="{{ collab.email }}">
                   </div>
                 </div>
                 {% if user.role == "intern" %}
                 <div class="col-md-4 pl-md-1">
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Mentor</label>
+                      <label>Mentor</label>
                       <input type="email" class="form-control" disabled="" placeholder="{{ collab.mentorid.firstname }} {{ collab.mentorid.lastname }}">
                     </div>
                   </div>
@@ -79,15 +79,15 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>First Name</label>
-                    <input type="text" class="form-control" value="{{ collab.firstname }}">
+                    <label for="firstname">First Name</label>
+                    <input type="text" class="form-control" placeholder="{{ collab.firstname }}" value="{{ collab.firstname }}">
                   </div>
                 </div>            
               </div>
               <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                      <label>Last Name</label>
+                      <label for="lastname">Last Name</label>
                       <input type="text" class="form-control" value="{{ collab.lastname }}">
                     </div>
                   </div>
@@ -96,8 +96,8 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label>College</label>
-                    <input type="text" class="form-control" value="{{ collab.college }}">
+                    <label for="college">College</label>
+                    <input type="text" class="form-control" placeholder="{{ collab.college }}" value="{{ collab.college }}">
                   </div>
                 </div>
               </div>
@@ -118,18 +118,6 @@
                     <input type="text" class="form-control" disabled="" value="{{ collab.phone }}">
                   </div>
                 </div>
-                <!-- <div class="col-md-4 px-md-1">
-                  <div class="form-group">
-                    <label>Mentor</label>
-                    <input type="text" class="form-control" placeholder="Country" value="Andrew">
-                  </div>
-                </div>
-                <div class="col-md-4 pl-md-1">
-                  <div class="form-group">
-                    <label>Postal Code</label>
-                    <input type="number" class="form-control" placeholder="ZIP Code">
-                  </div>
-                </div> -->
               </div>
             </form>
           </div>
@@ -139,7 +127,8 @@
         </div>
       </div>
     </div>
-  </div>  {% else %}
+  </div>  
+  {% else %}
     <div class="row">
       <p class="rows text-center" style="font-size: 40px;"><a href="/admin/"> 🔙 Django Admin  </a></p>
     </div>
