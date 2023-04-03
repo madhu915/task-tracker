@@ -53,25 +53,25 @@
             {% endif %}
           </div>
           <div class="card-body">
-            <form class="profile-card">
+            <form class="profile-card" id="my-form" action="{% url 'update' %}" method="POST">
               <div class="row">
                 <div class="col-md-4 pr-md-1">
                   <div class="form-group">
                     <label>Username</label>
-                    <input type="text" class="form-control" disabled="" value="{{ user.username }}">
+                    <input type="text" class="form-control" data-default="{{ user.username}}" disabled="" value="{{ user.username }}">
                   </div>
                 </div>                
                 <div class="col-md-3 pl-md-1">
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" placeholder="{{ collab.email }}" value="{{ collab.email }}">
+                    <input type="email" name="email" class="form-control" placeholder="{{ collab.email }}" value="{{ collab.email }}">
                   </div>
                 </div>
                 {% if user.role == "intern" %}
                 <div class="col-md-4 pl-md-1">
                     <div class="form-group">
                       <label>Mentor</label>
-                      <input type="email" class="form-control" disabled="" placeholder="{{ collab.mentorid.firstname }} {{ collab.mentorid.lastname }}">
+                      <input type="text" class="form-control" data-default="{{ collab.mentorid.firstname }} {{ collab.mentorid.lastname }}" disabled="" placeholder="{{ collab.mentorid.firstname }} {{ collab.mentorid.lastname }}">
                     </div>
                   </div>
                 {% endif %}
@@ -80,7 +80,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="firstname">First Name</label>
-                    <input type="text" class="form-control" placeholder="{{ collab.firstname }}" value="{{ collab.firstname }}">
+                    <input type="text" name="firstname" class="form-control" data-default="{{ collab.firstname }}" placeholder="{{ collab.firstname }}" value="{{ collab.firstname }}">
                   </div>
                 </div>            
               </div>
@@ -88,7 +88,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                       <label for="lastname">Last Name</label>
-                      <input type="text" class="form-control" value="{{ collab.lastname }}">
+                      <input type="text" name="lastname" class="form-control" data-default="{{ collab.lastname}}" value="{{ collab.lastname }}">
                     </div>
                   </div>
               </div>
@@ -97,7 +97,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="college">College</label>
-                    <input type="text" class="form-control" placeholder="{{ collab.college }}" value="{{ collab.college }}">
+                    <input type="text" name="college" class="form-control" data-default="{{ collab.college }}" placeholder="{{ collab.college }}" value="{{ collab.college }}">
                   </div>
                 </div>
               </div>
@@ -106,7 +106,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Designation</label>
-                    <input type="text" class="form-control" disabled="" value="{{ collab.designation }}">
+                    <input type="text" class="form-control" data-default="{{ collab.designation }}" disabled="" value="{{ collab.designation }}">
                   </div>
                 </div>
               </div>
@@ -115,15 +115,16 @@
                 <div class="col-md-4 pr-md-1">
                   <div class="form-group">
                     <label>Phone</label>
-                    <input type="text" class="form-control" disabled="" value="{{ collab.phone }}">
+                    <input type="text" name="phone" class="form-control" data-default="{{ collab.phone }}" disabled="" value="{{ collab.phone }}">
                   </div>
                 </div>
               </div>
+              <div class="card-footer">
+                <button type="submit" id="update" disabled class="btn btn-fill btn-primary">Update Profile</button>
+              </div>
             </form>
           </div>
-          <div class="card-footer">
-            <button type="submit" class="btn btn-fill btn-primary">Save</button>
-          </div>
+
         </div>
       </div>
     </div>

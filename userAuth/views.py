@@ -39,6 +39,23 @@ def reset(request):
     return render(request, 'auth/widgets/reset.html')
 
 @csrf_exempt
+def update(request):
+    if request.user.role == 'intern':
+        intern=get_object_or_404(Intern,pk=request.user.id)
+        intern.email=request.POST.get('email')
+        intern.firstname=request.POST.get('firstname')
+        intern.lastname=request.POST.get('lastname')        
+        intern.college=request.POST.get('college')
+        intern.save()
+    if request.user.role == 'Mentor':
+        mentor=get_object_or_404(Mentor,pk=request.user.id)
+        mentor.email=request.POST.get('email')
+        mentor.firstname=request.POST.get('firstname')
+        mentor.lastname=request.POST.get('lastname')
+        mentor.save()
+    return redirect('profile')
+
+@csrf_exempt
 def new_password(request):
     if request.user.is_authenticated:
         user = User.objects.get(id=request.user.id)
