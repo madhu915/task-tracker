@@ -11,10 +11,15 @@ class SignUpForm(UserCreationForm):
 class NewTaskForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         user_id=kwargs.pop('user')
+        role=kwargs.pop('role')
         super(NewTaskForm, self).__init__(*args, **kwargs)
         if user_id:
-            self.fields['intern'] = forms.ModelChoiceField(queryset=Intern.objects.filter(mentorid_id=user_id).values_list(flat=True), 
-                empty_label='-- Select Intern ID --')
+            if role == 'Mentor':
+                self.fields['intern'] = forms.ModelChoiceField(queryset=Intern.objects.filter(mentorid_id=user_id).values_list(flat=True), 
+                    empty_label='-- Select Intern ID --')
+            else:
+                self.fields['intern'] = forms.ModelChoiceField(queryset=Intern.objects.all(), widget=forms.HiddenInput(), required=False)
+                self.fields['intern_name'] = forms.CharField(widget=forms.HiddenInput(), required=False)
             
     due_date = forms.DateField(required=False, initial='', widget=forms.TextInput(attrs={'min': date.today(), 'type': 'date', 'class':'date-input'}))
     progress_status = forms.CharField(widget=forms.Select(choices=[('To-do','To-Do'),('In-Progress','In-Progress'),('completed','Completed')]))

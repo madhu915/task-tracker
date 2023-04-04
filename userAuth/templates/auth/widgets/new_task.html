@@ -39,7 +39,7 @@
         <div class="col-md-12">
             <form method="POST" class="taskForm">
                 {% csrf_token %}
-                {% for field in form %}
+                {% for field in form.visible_fields %}
                 <p>
                     {{ field.label_tag }}
                     {{ field }}   

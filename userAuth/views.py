@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login, authenticate
@@ -93,11 +94,21 @@ def intern_details(request):
 
 def new_task(request):
     if request.method == 'POST':
-        form = NewTaskForm(request.POST,user=request.user.id)
+        form = NewTaskForm(request.POST,user=request.user.id,role=request.user.role)
         if form.is_valid():
             task=form.save(commit=False)
-            task.internid_id=form.cleaned_data.get('intern')
-            task.mentor_id=request.user.id
+            if request.user.role == 'Mentor':
+                task.internid_id=form.cleaned_data.get('intern')
+                task.mentor_id=request.user.id
+            else:
+                task.internid_id = request.user.id
+                task.mentor_id = Intern.objects.get(internid = request.user.id).mentorid_id
+            if form.cleaned_data.get('progress_status') == 'completed':
+                task.completion_status = True
+                task.started_date = datetime.now().date()
+                task.completed_date = datetime.now().date()
+            elif form.cleaned_data.get('progress_status') == 'In-Progress':
+                task.started_date = datetime.now().date() 
             task.last_updated_by_id=request.user.id
             task.save()
         else:
@@ -106,7 +117,7 @@ def new_task(request):
 
         return redirect('home')
     else:
-        form=NewTaskForm(user=request.user.id)
+        form=NewTaskForm(user=request.user.id,role=request.user.role)
         return render(request, 'auth/widgets/new_task.html',{'form':form})
 
 def signup(request):
