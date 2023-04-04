@@ -4,6 +4,7 @@
 {% if user.is_authenticated %}
 
 <div class="wrapper">
+  {% if user.username != 'admin' %}
   <div class="sidebar">
     <div class="sidebar-wrapper">
       <div class="logo">
@@ -21,6 +22,7 @@
       </ul>
     </div>
   </div>
+  {% endif %}
   <div class="main-panel">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
@@ -59,6 +61,7 @@
                 <p class="d-lg-none">Home</p>
               </a>
             </li>
+            {% if user.username != 'admin' %}
             <li class="dropdown nav-item">
               <a
                 href="javascript:void(0)"
@@ -93,6 +96,8 @@
                 </li>
               </ul>
             </li>
+            {% endif %}
+
 
             <!-- fix light mode dark mode later !! -->
 
@@ -116,6 +121,7 @@
                 <p class="d-lg-none">Log out</p>
               </a>
               <ul class="dropdown-menu dropdown-navbar">
+                {% if user.username != 'admin' %}
                 <li class="nav-link">
                   <a href="{% url 'profile' %}" class="nav-item dropdown-item"
                     >Profile</a
@@ -127,6 +133,7 @@
                   >
                 </li>
                 <li class="dropdown-divider"></li>
+                {% endif %}
                 <li class="nav-link">
                   <a href="logout/" class="nav-item dropdown-item">Log out</a>
                 </li>
@@ -477,15 +484,19 @@
       for (var i = 0; i < form.elements.length; i++) {
         var element = form.elements[i];
         if (element.type !== 'submit' && element.type !== 'reset') {
-          formData += element.type + ':' + element.value + ';';
+          formData += element.value + ',';
         }
       }
       return formData;
     }
   
     function hasFormChanged() {
+      // validate 10 digit phone number and compare changes
       var currentFormData = getFormData();
-      return currentFormData !== originalFormData;
+      let currentPhone = currentFormData.split(',').slice(-2,-1).toString();
+      let originalPhone = originalFormData.split(',').slice(-2,-1).toString();
+      console.log( currentPhone + ' ' + originalPhone + ' ');
+      return currentFormData !== originalFormData && currentPhone.length == originalPhone.length;
     }
   
     document.getElementById('my-form').addEventListener('input', function() {

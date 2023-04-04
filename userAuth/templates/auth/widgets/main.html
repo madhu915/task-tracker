@@ -29,9 +29,16 @@
   {% endblock sidenav %}                                                
            
   {% block navbrand %}
-    <a class="navbar-brand" href="javascript:void(0)"
-      >Task Board</a
-    >
+    {% if user.username != 'admin' %}
+      <a class="navbar-brand" href="javascript:void(0)"
+        >Task Board</a
+      >
+    {% else %}
+      <a class="navbar-brand" href="javascript:void(0)"
+      >Admin</a
+      >     
+    {% endif %}
+
   {% endblock navbrand %}                   
 
   {% block mainContent %} 

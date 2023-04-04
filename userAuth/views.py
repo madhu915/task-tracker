@@ -42,16 +42,16 @@ def reset(request):
 def update(request):
     if request.user.role == 'intern':
         intern=get_object_or_404(Intern,pk=request.user.id)
-        intern.email=request.POST.get('email')
         intern.firstname=request.POST.get('firstname')
         intern.lastname=request.POST.get('lastname')        
         intern.college=request.POST.get('college')
+        intern.phone=request.POST.get('phone')
         intern.save()
     if request.user.role == 'Mentor':
         mentor=get_object_or_404(Mentor,pk=request.user.id)
-        mentor.email=request.POST.get('email')
         mentor.firstname=request.POST.get('firstname')
         mentor.lastname=request.POST.get('lastname')
+        mentor.phone=request.POST.get('phone')
         mentor.save()
     return redirect('profile')
 

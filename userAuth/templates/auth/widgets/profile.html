@@ -64,7 +64,7 @@
                 <div class="col-md-3 pl-md-1">
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" name="email" class="form-control" placeholder="{{ collab.email }}" value="{{ collab.email }}">
+                    <input type="email" name="email" class="form-control" placeholder="{{ collab.email }}" disabled="" value="{{ collab.email }}">
                   </div>
                 </div>
                 {% if user.role == "intern" %}
@@ -114,8 +114,8 @@
               <div class="row">
                 <div class="col-md-4 pr-md-1">
                   <div class="form-group">
-                    <label>Phone</label>
-                    <input type="text" name="phone" class="form-control" data-default="{{ collab.phone }}" disabled="" value="{{ collab.phone }}">
+                    <label for="phone">Phone</label>
+                    <input type="text" name="phone" class="form-control" data-default="{{ collab.phone }}" placeholder="{{ collab.phone }}" value="{{ collab.phone }}">
                   </div>
                 </div>
               </div>
