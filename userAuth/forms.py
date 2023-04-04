@@ -20,11 +20,14 @@ class NewTaskForm(forms.ModelForm):
             else:
                 self.fields['intern'] = forms.ModelChoiceField(queryset=Intern.objects.all(), widget=forms.HiddenInput(), required=False)
                 self.fields['intern_name'] = forms.CharField(widget=forms.HiddenInput(), required=False)
+        for field_name in self.fields.keys():
+            self.fields[field_name].widget.attrs['class'] = 'form-control'
             
     due_date = forms.DateField(required=False, initial='', widget=forms.TextInput(attrs={'min': date.today(), 'type': 'date', 'class':'date-input'}))
     progress_status = forms.CharField(widget=forms.Select(choices=[('To-do','To-Do'),('In-Progress','In-Progress'),('completed','Completed')]))
     intern = forms.ModelChoiceField(queryset=Intern.objects.all(),empty_label='-- Select Intern ID --')
     intern_name= forms.CharField(disabled=True,required=False)
+    description = forms.CharField(widget=forms.Textarea())
     class Meta:
         model = Task
         fields = ('intern','intern_name','description','due_date', 'progress_status') 

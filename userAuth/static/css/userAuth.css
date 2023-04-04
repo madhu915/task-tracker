@@ -420,3 +420,26 @@ body{
 .form-control:active, .form-control:focus{
     border-color: #ac38ff;
 }
+
+textarea::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  textarea::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 100px;
+  }
+  
+  textarea::-webkit-scrollbar-thumb {
+    background-color: #27293d;
+    border-radius: 100px;
+  }
+
+  textarea::-webkit-resizer {
+    display: none;
+  }
+
+  textarea::-webkit-scrollbar-corner {
+    background-color: transparent;
+    display: none;
+    }

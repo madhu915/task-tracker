@@ -37,16 +37,39 @@
 
         {% block mainContent %}
         <div class="col-md-12">
-            <form method="POST" class="taskForm">
-                {% csrf_token %}
-                {% for field in form.visible_fields %}
-                <p>
-                    {{ field.label_tag }}
-                    {{ field }}   
-                </p>  
-                {% endfor %}           
-            <button type="submit" class="btn btn-primary mt-3">Add Task </button>
-            </form>
         </div>
         {% endblock mainContent %}
+
+        {% block optional %}
+        <div class="content">
+          <div class="row justify-content-md-center">
+            <div class="col-md-10">
+              <div class="card profile">
+                <div class="card-header">
+                  
+                </div>
+                <div class="card-body">
+                  <form class="profile-card" id="task-form" action="{% url 'update' %}" method="POST">
+                    {% csrf_token %}
+                    {% for field in form.visible_fields %}
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                              {{ field.label_tag }}
+                              {{ field }}                                
+                        </div>
+                      </div>            
+                    </div>
+                    {% endfor %}                
+                    <div class="card-footer">
+                      <button type="submit" id="update" class="btn btn-fill btn-primary">Add Task</button>
+                    </div>
+                  </form>
+                </div>
+      
+              </div>
+            </div>
+          </div>
+        </div>  
+        {% endblock optional %}
 

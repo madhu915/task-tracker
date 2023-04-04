@@ -503,6 +503,16 @@
       document.getElementById('update').disabled = !hasFormChanged();
     });
   </script>
+  <script>
+    const textareas = document.getElementsByClassName('description');
+    for (let i = 0; i < textareas.length; i++) {
+      textareas[i].addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+      });
+    }
+  </script>
+  
   {% else %}
 
   <div class="rows">
