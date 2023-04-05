@@ -102,7 +102,10 @@
               </div>
               <div class="table-full-width table-responsive">
                 <table class="table">
-                  <tbody>
+                  <tbody class="connectedSortable" id="pending-tasks">
+                    <tr style="display: none;">
+                      <th></th>
+                  </tr>
                     {% for task in to_do %}
                     <tr class='clickable-row' data-href="{% url 'task-detail' pk=task.pk %}">
                       <td>
@@ -114,47 +117,17 @@
                         {% endif %}
                         <p class="text-muted" style="color:#040a43">
                           {{ task.description }}
-                        </p>   
+                        </p>  
                         
 
                       </td>
-                      <!-- <td class="td-actions text-right">
-                        <button
-                          type="button"
-                          rel="tooltip"
-                          title=""
-                          class="btn btn-link"
-                          data-original-title="Edit Task"
-                        >
-                          <i class="tim-icons icon-pencil"></i>
-                        </button>
-                      </td> -->
                     </tr>
                     {% endfor %}
                     {% if not to_do %}
                         
                     <span class="notif"> No tasks found !</span>
                     
-                {% endif %}
-                    <!-- <tr>
-                      <td>
-                        <p class="title">Sample Task 2</p>
-                        <p class="text-muted">
-                          Sample Task 2 Description
-                        </p>
-                      </td>
-                      <td class="td-actions text-right">
-                        <button
-                          type="button"
-                          rel="tooltip"
-                          title=""
-                          class="btn btn-link"
-                          data-original-title="Edit Task"
-                        >
-                          <i class="tim-icons icon-pencil"></i>
-                        </button>
-                      </td>
-                    </tr>                          -->
+                {% endif %}                    
                   </tbody>
                 </table>
               </div>
@@ -165,28 +138,6 @@
           <div class="card card-tasks" style="background-color: lightseagreen;">
             <div class="card-header">
               <h6 class="title d-inline">In Progress Tasks</h6>
-              <!-- <p class="card-category d-inline">today</p> -->
-              <!-- <div class="dropdown">
-                <button
-                  type="button"
-                  class="btn btn-link dropdown-toggle btn-icon"
-                  data-toggle="dropdown"
-                >
-                  <i class="tim-icons icon-settings-gear-63"></i>
-                </button>
-                <div
-                  class="dropdown-menu dropdown-menu-right"
-                  aria-labelledby="dropdownMenuLink"
-                >
-                  <a class="dropdown-item" href="#pablo">Action</a>
-                  <a class="dropdown-item" href="#pablo"
-                    >Another action</a
-                  >
-                  <a class="dropdown-item" href="#pablo"
-                    >Something else</a
-                  >
-                </div>
-              </div> -->
             </div>
             <div class="card-body">
               <div class="titlebar">
@@ -197,7 +148,10 @@
               </div>
               <div class="table-full-width table-responsive">
                 <table class="table">
-                  <tbody>
+                  <tbody class="connectedSortable" id="in-progress-tasks">
+                    <tr style="display: none;">
+                      <th></th>
+                  </tr>
                     {% for task in in_progress %}
                     <tr class='clickable-row' data-href="{% url 'task-detail' pk=task.pk %}">
                       <td>
@@ -209,24 +163,13 @@
                         {% endif %}
                         <p class="text-muted">
                           {{ task.description}}
-                        </p>                              
+                        </p>   
                       </td>
-                      <!-- <td class="td-actions text-right">
-                        <button
-                          type="button"
-                          rel="tooltip"
-                          title=""
-                          class="btn btn-link"
-                          data-original-title="Edit Task"
-                        >
-                          <i class="tim-icons icon-pencil"></i>
-                        </button>
-                      </td> -->
                     </tr>
                     {% endfor %}           
                     {% if not in_progress %}
                         
-                    <span class="notif"> No tasks found !</span>
+                    <!-- <span class="notif"> No tasks found !</span> -->
                     
                 {% endif %}                                  
                   </tbody>
@@ -239,28 +182,6 @@
           <div class="card card-tasks" style="background-color: cornflowerblue;">
             <div class="card-header">
               <h6 class="title d-inline">Completed Tasks</h6>
-              <!-- <p class="card-category d-inline">today</p> -->
-              <!-- <div class="dropdown">
-                <button
-                  type="button"
-                  class="btn btn-link dropdown-toggle btn-icon"
-                  data-toggle="dropdown"
-                >
-                  <i class="tim-icons icon-settings-gear-63"></i>
-                </button>
-                <div
-                  class="dropdown-menu dropdown-menu-right"
-                  aria-labelledby="dropdownMenuLink"
-                >
-                  <a class="dropdown-item" href="#pablo">Action</a>
-                  <a class="dropdown-item" href="#pablo"
-                    >Another action</a
-                  >
-                  <a class="dropdown-item" href="#pablo"
-                    >Something else</a
-                  >
-                </div>
-              </div> -->
             </div>
             <div class="card-body">
               <div class="titlebar">
@@ -271,7 +192,10 @@
               </div>
               <div class="table-full-width table-responsive">
                 <table class="table">
-                  <tbody>
+                  <tbody class="connectedSortable" id="completed-tasks">
+                    <tr style="display: none;">
+                      <th></th>
+                  </tr>
                     {% for task in completed %}
                     <tr class='clickable-row' data-href="{% url 'task-detail' pk=task.pk %}">
                       <td>

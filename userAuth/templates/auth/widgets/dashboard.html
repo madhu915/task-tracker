@@ -463,6 +463,8 @@
     });
   </script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
   <script>
     window.TrackJS &&
       TrackJS.install({
@@ -512,6 +514,71 @@
       });
     }
   </script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+      var startTable = "pending-tasks";
+      var $tabs = $("#" + startTable);
+      $("tbody.connectedSortable")
+          .sortable({
+          connectWith: ".connectedSortable",
+          items: "> tr:not(:first)",
+          appendTo: $tabs,
+          helper: "clone",
+          cursor: "move",
+          zIndex: 999990,
+          start: function (event, ui) {
+              var start_pos = ui.item.index();
+              ui.item.data('start_pos', start_pos);
+          }
+      });
+  
+      var startTable2 = "in-progress-tasks";
+      var $tabs2 = $("#" + startTable2);
+      $("tbody.connectedSortable")
+          .sortable({
+          connectWith: ".connectedSortable",
+          items: "> tr:not(:first)",
+          appendTo: $tabs,
+          helper: "clone",
+          cursor: "move",
+          zIndex: 999990,
+          start: function (event, ui) {
+              var start_pos = ui.item.index();
+              ui.item.data('start_pos', start_pos);
+          },
+          update: function (event, ui) {
+            if (this.id == '${startTable2}' && this === ui.item.parent()[0] )
+               alert("update2");
+            else if (this.id == '${startTable1}' && this === ui.item.parent()[0] )
+               alert("update1");
+          }
+      });
+
+      var startTable3 = "completed-tasks";
+      var $tabs2 = $("#" + startTable2);
+      $("tbody.connectedSortable")
+          .sortable({
+          connectWith: ".connectedSortable",
+          items: "> tr:not(:first)",
+          appendTo: $tabs,
+          helper: "clone",
+          cursor: "move",
+          zIndex: 999990,
+          start: function (event, ui) {
+              var start_pos = ui.item.index();
+              ui.item.data('start_pos', start_pos);
+          },
+          update: function (event, ui) {
+            if (this.id == '${startTable2}' && this === ui.item.parent()[0] )
+               alert("update2");
+            else if (this.id == '${startTable1}' && this === ui.item.parent()[0] )
+               alert("update1");
+          }
+      });
+  
+  });
+</script>
   
   {% else %}
 
