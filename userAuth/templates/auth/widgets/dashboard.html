@@ -518,50 +518,17 @@
 <script type="text/javascript">
   $(document).ready(function () {
       var startTable = "pending-tasks";
-      var $tabs = $("#" + startTable);
-      $("tbody.connectedSortable")
-          .sortable({
-          connectWith: ".connectedSortable",
-          items: "> tr:not(:first)",
-          appendTo: $tabs,
-          helper: "clone",
-          cursor: "move",
-          zIndex: 999990,
-          start: function (event, ui) {
-              var start_pos = ui.item.index();
-              ui.item.data('start_pos', start_pos);
-          }
-      });
-  
       var startTable2 = "in-progress-tasks";
-      var $tabs2 = $("#" + startTable2);
-      $("tbody.connectedSortable")
-          .sortable({
-          connectWith: ".connectedSortable",
-          items: "> tr:not(:first)",
-          appendTo: $tabs,
-          helper: "clone",
-          cursor: "move",
-          zIndex: 999990,
-          start: function (event, ui) {
-              var start_pos = ui.item.index();
-              ui.item.data('start_pos', start_pos);
-          },
-          update: function (event, ui) {
-            if (this.id == '${startTable2}' && this === ui.item.parent()[0] )
-               alert("update2");
-            else if (this.id == '${startTable1}' && this === ui.item.parent()[0] )
-               alert("update1");
-          }
-      });
-
       var startTable3 = "completed-tasks";
+
+      var $tabs = $("#" + startTable);
       var $tabs2 = $("#" + startTable2);
+      var $tabs3 = $("#" + startTable3);
+
       $("tbody.connectedSortable")
           .sortable({
           connectWith: ".connectedSortable",
           items: "> tr:not(:first)",
-          appendTo: $tabs,
           helper: "clone",
           cursor: "move",
           zIndex: 999990,
@@ -570,13 +537,18 @@
               ui.item.data('start_pos', start_pos);
           },
           update: function (event, ui) {
-            if (this.id == '${startTable2}' && this === ui.item.parent()[0] )
-               alert("update2");
-            else if (this.id == '${startTable1}' && this === ui.item.parent()[0] )
-               alert("update1");
-          }
-      });
-  
+        var start_pos = ui.item.data('start_pos');
+        var end_pos = ui.item.index();
+        var $table = ui.item.closest("tbody.connectedSortable");
+        console.log("Moved element from position " + start_pos + " to position " + end_pos + " in table " + $table.attr("id"));
+      },
+      stop: function(event,ui){
+        console.log(ui.item.data('task-id')+' '+ui.item.closest('table').data('label'));
+      },
+      appendTo: $tabs2,
+      cancel: "#completed-tasks tr"
+
+      });  
   });
 </script>
   

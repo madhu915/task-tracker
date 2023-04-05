@@ -443,3 +443,11 @@ textarea::-webkit-scrollbar {
     background-color: transparent;
     display: none;
     }
+
+    .ui-sortable-helper {
+        visibility: visible;
+    }
+
+    .ui-sortable-placeholder{
+        visibility: visible;
+    }

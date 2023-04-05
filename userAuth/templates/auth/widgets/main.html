@@ -101,13 +101,13 @@
                 {% endif %}
               </div>
               <div class="table-full-width table-responsive">
-                <table class="table">
+                <table class="table" data-label="todo">
                   <tbody class="connectedSortable" id="pending-tasks">
                     <tr style="display: none;">
                       <th></th>
                   </tr>
                     {% for task in to_do %}
-                    <tr class='clickable-row' data-href="{% url 'task-detail' pk=task.pk %}">
+                    <tr class='clickable-row' data-task-id="{{ task.id }}" data-href="{% url 'task-detail' pk=task.pk %}">
                       <td>
                         <p class="title">Task {{ task.id }}</p>  
                         {% if user.role == 'Mentor' %}
@@ -147,13 +147,13 @@
                 {% endif %}
               </div>
               <div class="table-full-width table-responsive">
-                <table class="table">
+                <table class="table" data-label="progress">
                   <tbody class="connectedSortable" id="in-progress-tasks">
                     <tr style="display: none;">
                       <th></th>
                   </tr>
                     {% for task in in_progress %}
-                    <tr class='clickable-row' data-href="{% url 'task-detail' pk=task.pk %}">
+                    <tr class='clickable-row' data-task-id="{{ task.id }}" data-href="{% url 'task-detail' pk=task.pk %}">
                       <td>
                         <p class="title">Task {{ task.id }}</p>  
                         {% if user.role == 'Mentor' %}                                                
@@ -167,11 +167,10 @@
                       </td>
                     </tr>
                     {% endfor %}           
-                    {% if not in_progress %}
+                    <!-- {% if not in_progress %}
                         
-                    <!-- <span class="notif"> No tasks found !</span> -->
                     
-                {% endif %}                                  
+                {% endif %}                                   -->
                   </tbody>
                 </table>
               </div>
@@ -191,13 +190,13 @@
                 {% endif %}
               </div>
               <div class="table-full-width table-responsive">
-                <table class="table">
+                <table class="table" data-label="done">
                   <tbody class="connectedSortable" id="completed-tasks">
                     <tr style="display: none;">
                       <th></th>
                   </tr>
                     {% for task in completed %}
-                    <tr class='clickable-row' data-href="{% url 'task-detail' pk=task.pk %}">
+                    <tr class='clickable-row' data-task-id="{{ task.id }}" data-href="{% url 'task-detail' pk=task.pk %}">
                       <td>
                         <p class="title">Task {{ task.id }}</p>  
                         {% if user.role == 'Mentor' %}
