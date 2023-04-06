@@ -117,6 +117,11 @@
                     <tr style="display: none;">
                       <th></th>
                   </tr>
+                  <tr>
+                    <td aria-hidden="true" style="border: none;">
+                     
+                    </td>
+                  </tr>
                     {% for task in to_do %}
                     <tr class='clickable-row' data-task-id="{{ task.id }}" data-href="{% url 'task-detail' pk=task.pk %}">
                       <td>
@@ -134,11 +139,13 @@
                       </td>
                     </tr>
                     {% endfor %}
-                    {% if not to_do %}
-                        
-                    <span class="notif"> No tasks found !</span>
-                    
-                {% endif %}                    
+                    {% if not to_do %}                        
+                    <tr>
+                      <td style="border:none;">
+                       
+                      </td>
+                    </tr>                    
+                  {% endif %}                    
                   </tbody>
                 </table>
               </div>
@@ -163,6 +170,11 @@
                     <tr style="display: none;">
                       <th></th>
                   </tr>
+                  <tr>
+                    <td aria-hidden="true" style="border: none;">
+                     
+                    </td>
+                  </tr>
                     {% for task in in_progress %}
                     <tr class='clickable-row' data-task-id="{{ task.id }}" data-href="{% url 'task-detail' pk=task.pk %}">
                       <td>
@@ -178,10 +190,14 @@
                       </td>
                     </tr>
                     {% endfor %}           
-                    <!-- {% if not in_progress %}
-                        
+                    {% if not in_progress %}
+                    <tr>
+                      <td aria-hidden="true" style="border:none;">
+                       
+                      </td>
+                    </tr>
                     
-                {% endif %}                                   -->
+                {% endif %}                                  
                   </tbody>
                 </table>
               </div>
@@ -206,6 +222,11 @@
                     <tr style="display: none;">
                       <th></th>
                   </tr>
+                  <tr>
+                    <td aria-hidden="true" style="border: none;">
+                     
+                    </td>
+                  </tr>
                     {% for task in completed %}
                     <tr class='clickable-row' data-task-id="{{ task.id }}" data-href="{% url 'task-detail' pk=task.pk %}">
                       <td>
@@ -226,8 +247,12 @@
                     {% endfor %} 
                     {% if not completed %}
                         
-                    <span class="notif"> No tasks found !</span>
-                    
+                    <tr>
+                      <td style="border:none;">
+                       
+                      </td>
+                    </tr>
+
                     {% endif %}                                              
                   </tbody>
                 </table>

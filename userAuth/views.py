@@ -38,8 +38,9 @@ def update_tasks(request):
                 task.completed_date=datetime.now().date()
                 task.completion_status=True
                 task.progress_status='completed'
-            task.last_updated_by_id=request.user.id
-            task.save()
+            if changes[key]['end_category'] != 'pending-tasks':
+                task.last_updated_by_id=request.user.id
+                task.save()
 
             # print(f"{key} {changes[key]['end_category']} {datetime.now().date()}  {request.user.id}")
             # if changes[key]['end_category'] == 'completed-tasks':
