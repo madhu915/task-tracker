@@ -336,8 +336,6 @@
 <script src="/static/js/plugins/bootstrap-notify.js"></script>
 <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="/static/js/black-dashboard.min.js?v=1.0.0"></script>
-<!-- Black Dashboard DEMO methods, don't include it in your project! -->
-<script src="/static/demo/demo.js"></script>
 <script src="/static/js/userAuth.js"></script>
 <script>
     $(document).ready(function () {
@@ -456,54 +454,13 @@
       });
     });
   </script>
-  <script>
-    $(document).ready(function () {
-      // Javascript method's body can be found in assets/js/demos.js
-      demo.initDashboardPageCharts();
-    });
-  </script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <script type="text/javascript" src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
   <script>
-    window.TrackJS &&
-      TrackJS.install({
-        token: "ee6fab19c5a04ac1a32a645abde4613a",
-        application: "black-dashboard-free",
-      });
-  </script>
-  <script>
     function loadHome() {
       window.location.href="{% url 'home' %}";
     }
-  </script>
-  <script>
-    var originalFormData = getFormData();
-  
-    function getFormData() {
-      var form = document.getElementById('my-form');
-      var formData = '';
-      for (var i = 0; i < form.elements.length; i++) {
-        var element = form.elements[i];
-        if (element.type !== 'submit' && element.type !== 'reset') {
-          formData += element.value + ',';
-        }
-      }
-      return formData;
-    }
-  
-    function hasFormChanged() {
-      // validate 10 digit phone number and compare changes
-      var currentFormData = getFormData();
-      let currentPhone = currentFormData.split(',').slice(-2,-1).toString();
-      let originalPhone = originalFormData.split(',').slice(-2,-1).toString();
-      console.log( currentPhone + ' ' + originalPhone + ' ');
-      return currentFormData !== originalFormData && currentPhone.length == originalPhone.length;
-    }
-  
-    document.getElementById('my-form').addEventListener('input', function() {
-      document.getElementById('update').disabled = !hasFormChanged();
-    });
   </script>
   <script>
     const textareas = document.getElementsByClassName('description');
@@ -521,6 +478,9 @@
       var startTable2 = "in-progress-tasks";
       var startTable3 = "completed-tasks";
       var changes = {}; // dictionary to store changes made to tasks
+      var start_pos;
+      var end_pos;
+      var $table;
 
       var $tabs = $("#" + startTable);
       var $tabs2 = $("#" + startTable2);
@@ -534,14 +494,14 @@
           cursor: "move",
           zIndex: 999990,
           start: function (event, ui) {
-              var start_pos = ui.item.index();
+              start_pos = ui.item.index();
               startcategory = $(this).attr('id');
               ui.item.data('start_pos', start_pos);
           },
           update: function (event, ui) {
-        var start_pos = ui.item.data('start_pos');
-        var end_pos = ui.item.index();
-        var $table = ui.item.closest("tbody.connectedSortable");
+              start_pos = ui.item.data('start_pos');
+              end_pos = ui.item.index();
+              $table = ui.item.closest("tbody.connectedSortable");
         },
       stop: function(event,ui){
         dest=ui.item.parent().closest('.connectedSortable').attr('id');

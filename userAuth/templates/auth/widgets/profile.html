@@ -134,4 +134,33 @@
       <p class="rows text-center" style="font-size: 40px;"><a href="/admin/"> 🔙 Django Admin  </a></p>
     </div>
   {% endif %}
+  <script>
+    var originalFormData = getFormData();
+  
+    function getFormData() {
+      var form = document.getElementById('my-form');
+      var formData = '';
+      if(form)
+        for (var i = 0; i < form.elements.length; i++) {
+          var element = form.elements[i];
+          if (element.type !== 'submit' && element.type !== 'reset') {
+            formData += element.value + ',';
+          }
+        }
+      return formData;
+    }
+  
+    function hasFormChanged() {
+      // validate 10 digit phone number and compare changes
+      var currentFormData = getFormData();
+      let currentPhone = currentFormData.split(',').slice(-2,-1).toString();
+      let originalPhone = originalFormData.split(',').slice(-2,-1).toString();
+      console.log( currentPhone + ' ' + originalPhone + ' ');
+      return currentFormData !== originalFormData && currentPhone.length == originalPhone.length;
+    }
+  
+    document.getElementById('my-form').addEventListener('input', function() {
+      document.getElementById('update').disabled = !hasFormChanged();
+    });
+  </script>
 {% endblock optional %}                
