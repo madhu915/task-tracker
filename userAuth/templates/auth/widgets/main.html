@@ -72,18 +72,29 @@
                  
                 </div>
               </div>
-              <div class="dropdown reload">
-                <button
-                  type="button"
-                  class="btn btn-link dropdown-toggle btn-icon"
-                  data-toggle="dropdown"   
-                  onclick="loadHome()"
-                >
-                <span class="material-icons refresh">sync</span>                
-                <span style="margin:4px">Refresh</span>
-              </button>              
-              </div>
         {% endif %}
+        <div class="dropdown reload">
+          <button
+            type="button"
+            class="btn btn-link dropdown-toggle btn-icon"
+            data-toggle="dropdown"   
+            onclick="loadHome()"
+          >
+          <span class="material-icons refresh">sync</span>                
+          <span style="margin:4px">Refresh</span>
+        </button>              
+        </div>
+        <div class="dropdown save">
+          <button
+            id="save-all"
+            type="button"
+            class="btn btn-link dropdown-toggle btn-icon"
+            data-toggle="dropdown"   
+          >
+          <span class="material-icons sync">sync</span>                
+          <span style="margin:4px">Save</span>
+        </button>              
+        </div>
       </div>
       <div class="row">
         <div class="col-lg-4 col-md-12">

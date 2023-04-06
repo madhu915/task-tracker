@@ -1,4 +1,5 @@
 from datetime import datetime
+import json
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login, authenticate
@@ -20,6 +21,35 @@ def home(request):
             completed = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='Completed').order_by('-id')
         content = {'to_do':pending,'in_progress':in_progress,'completed':completed,'interns':interns_list}
     return render(request, 'auth/widgets/main.html',content)
+
+@csrf_exempt
+def update_tasks(request):
+    if request.method == "POST":
+        changes = json.loads(request.POST.get("changes"))
+        # update db
+        for key in changes.keys():
+            task=get_object_or_404(Task,id=key)
+            if changes[key]['end_category'] == 'in-progress-tasks':
+                task.started_date=datetime.now().date()
+                task.progress_status='In-Progress'
+            elif changes[key]['end_category'] == 'completed-tasks':
+                if task.started_date is None:
+                    task.started_date=datetime.now().date()
+                task.completed_date=datetime.now().date()
+                task.completion_status=True
+                task.progress_status='completed'
+            task.last_updated_by_id=request.user.id
+            task.save()
+
+            # print(f"{key} {changes[key]['end_category']} {datetime.now().date()}  {request.user.id}")
+            # if changes[key]['end_category'] == 'completed-tasks':
+            #     print(f'compdate {datetime.now().date()} comstat 1 progstat completed')
+            # elif changes[key]['end_category'] == 'in-progress-tasks':
+            #     print(f'comstat 0 progstat In-Progress')
+        response_data = {'status': 'success', 'message': 'Tasks updated successfully'}
+        return JsonResponse(response_data)
+    else:
+        return JsonResponse({"error": "Invalid request method."})
 
 def my_profile(request):
     if request.user.role == 'Mentor':

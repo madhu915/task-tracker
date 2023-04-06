@@ -451,3 +451,22 @@ textarea::-webkit-scrollbar {
     .ui-sortable-placeholder{
         visibility: visible;
     }
+
+    .save .btn.btn-link.dropdown-toggle{
+        float: right; 
+        border:1px solid #ff71db; 
+        height:30px; 
+        width: 6em;
+        display: none;
+    }
+    
+    .save span:hover{
+        color:#ff71db;
+    }
+
+    .sync{
+        float: left; 
+        margin-top: 2px; 
+        margin-bottom: 2px; 
+        color:#ff71db;
+    }

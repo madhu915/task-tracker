@@ -520,6 +520,7 @@
       var startTable = "pending-tasks";
       var startTable2 = "in-progress-tasks";
       var startTable3 = "completed-tasks";
+      var changes = {}; // dictionary to store changes made to tasks
 
       var $tabs = $("#" + startTable);
       var $tabs2 = $("#" + startTable2);
@@ -534,21 +535,51 @@
           zIndex: 999990,
           start: function (event, ui) {
               var start_pos = ui.item.index();
+              startcategory = $(this).attr('id');
               ui.item.data('start_pos', start_pos);
           },
           update: function (event, ui) {
         var start_pos = ui.item.data('start_pos');
         var end_pos = ui.item.index();
         var $table = ui.item.closest("tbody.connectedSortable");
-        console.log("Moved element from position " + start_pos + " to position " + end_pos + " in table " + $table.attr("id"));
-      },
+        },
       stop: function(event,ui){
+        dest=ui.item.parent().closest('.connectedSortable').attr('id');
+        task_id=ui.item.data('task-id');
+        if (startcategory !== dest) {
+          $("#save-all").show();
+        }          
+        if(startcategory !== dest){
+          changes[task_id]={ 'start_category': startcategory, 'end_category': dest};
+        } 
         console.log(ui.item.data('task-id')+' '+ui.item.closest('table').data('label'));
+        console.log("Destination " + dest);
+        console.log("Source " + startcategory);
+        console.log("Moved element from position " + start_pos + " to position " + end_pos + " in table " + $table.attr("id"));      
       },
       appendTo: $tabs2,
       cancel: "#completed-tasks tr"
 
       });  
+
+      $("#save-all").click(function () {
+        console.log(changes);
+    $.ajax({
+      url: "/update-tasks/",
+      type: "POST",
+      data: {
+        'changes': JSON.stringify(changes), // send the changes dictionary to the server as JSON
+      },
+      dataType: 'json',
+      success: function () {
+        alert("Changes saved successfully!");
+      },
+      error: function () {
+        alert("Error saving changes!");
+      },
+    });
+    $(this).hide();
+  });
   });
 </script>
   
