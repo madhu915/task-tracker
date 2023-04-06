@@ -23,6 +23,7 @@ class NewTaskForm(forms.ModelForm):
         for field_name in self.fields.keys():
             self.fields[field_name].widget.attrs['class'] = 'form-control'
         self.fields['intern'].widget.attrs['class']='form-select text-light rounded-pill'
+        self.fields['progress_status'].widget.attrs['class']='form-select text-light rounded-pill'
             
     due_date = forms.DateField(required=False, initial='', widget=forms.TextInput(attrs={'min': date.today(), 'type': 'date', 'class':'date-input'}))
     progress_status = forms.CharField(widget=forms.Select(choices=[('To-do','To-Do'),('In-Progress','In-Progress'),('completed','Completed')]))
