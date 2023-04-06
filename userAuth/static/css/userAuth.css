@@ -136,11 +136,11 @@ body{
 }
 
 .nav-link:focus, .nav-link:hover {
-    color: #e14eca;
+    color: #00aff2;
 }
 
 .navbar-nav .nav-link.active, .navbar-nav .show>.nav-link {
-    color:#e14eca;
+    color:#00aff2;
 }
 
 .assignee-bubble {
@@ -179,7 +179,7 @@ body{
 }
 
 .kink .dropdown-menu{
-    background: linear-gradient(45deg, #1e1e2f 0%, #2f2f5b 100%);
+    background-image: linear-gradient(to bottom left, #350055 , #021a3e, #350055);    
     margin-right: 5px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
@@ -190,7 +190,7 @@ body{
 }
 
 .kink .dropdown-menu:before {
-    color:linear-gradient(45deg, #1e1e2f 0%, #2f2f5b 100%); 
+    background-image: linear-gradient(to bottom left, #350055 , #021a3e, #350055);    
     display:none;
     } 
 
@@ -467,6 +467,31 @@ textarea::-webkit-scrollbar {
     .sync{
         float: left; 
         margin-top: 2px; 
-        margin-bottom: 2px; 
+        margin-left: 6px; 
         color:#ff71db;
+        font-size: x-large;
+    }
+
+   .form-select{
+    border:none;
+    border: 1px solid;
+    border-color: #2b3553;
+    background-color: #1d253b;
+    -webkit-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    -moz-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    -o-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    -ms-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  
+   }
+   
+
+   .form-select:active, .form-select:focus {
+        outline: none;
+        box-shadow: none;
+        border:1px solid;
+        border-color: #ac38ff;
+      }
+    .form-select>option{
+        background-color: #1d253b;
     }

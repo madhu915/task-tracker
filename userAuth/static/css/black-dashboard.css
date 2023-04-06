@@ -14221,11 +14221,10 @@ fieldset[disabled] .btn-link.active {
 
 @media screen and (min-width:992px) {
   .dropdown-menu:before {
-  color:linear-gradient(45deg, #1e1e2f 0%, #2f2f5b 100%); 
+  color:#350055;
   } 
   .dropdown-menu{
-    background: linear-gradient(45deg, #1e1e2f 0%, #2f2f5b 100%);
-
+    background: linear-gradient(to bottom left, #350055 , #021a3e, #350055);
   }
 }
 
