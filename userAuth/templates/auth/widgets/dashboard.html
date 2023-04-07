@@ -454,6 +454,11 @@
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <script type="text/javascript" src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
+  <!-- Include jQuery UI and Touch Punch library -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js" integrity="sha512-0bEtK0USNd96MnO4XhH8jhv3nyRF0eK87pJke6pkYf3cM0uDIhNJy9ltuzqgypoIFXw3JSuiy04tVk4AjpZdZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
     function loadHome() {
       window.location.href="{% url 'home' %}";
@@ -512,12 +517,20 @@
         console.log(ui.item.data('task-id')+' '+ui.item.closest('table').data('label'));
         console.log("Destination " + dest);
         console.log("Source " + startcategory);
-        console.log("Moved element from position " + start_pos + " to position " + end_pos + " in table " + $table.attr("id"));      
+        if($table)
+          console.log("Moved element from position " + start_pos + " to position " + end_pos + " in table " + $table.attr("id"));      
       },
       appendTo: $tabs2,
-      cancel: "#completed-tasks tr"
+      cancel: "#completed-tasks tr",
+      // Enable touch support for mobile devices using Touch Punch library
+      tolerance: "pointer",
+      touch: true
 
-      });  
+      })
+      .bind("touchstart touchmove touchend", function (e) {
+      // Bind touch events to enable drag-and-drop on mobile devices
+      e.stopPropagation();
+    });  
 
       $("#save-all").click(function () {
         console.log(changes);
