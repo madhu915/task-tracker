@@ -73,11 +73,11 @@ class Comment(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     commenter = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     comment = models.TextField(null=False, blank=False)
-    date_created = models.DateField(auto_now_add=True)
-    date_updated = models.DateField(auto_now=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         db_table = 'comments'
 
     def __str__(self):
-        return f"Comment by {self.commenter.id} on {self.task.taskid}"
+        return f"Comment by {self.commenter.id} on {self.task.id}"

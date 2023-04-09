@@ -18,4 +18,5 @@ urlpatterns = [
     path('user-profile/',views.my_profile,name='profile'),
     path('update/',views.update,name='update'),
     path('update-tasks/',views.update_tasks,name='update-tasks'),
+    path('new-comment/',views.new_comment,name='new-comment'),
 ]

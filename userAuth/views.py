@@ -59,6 +59,21 @@ def my_profile(request):
         user=Intern.objects.get(internid_id=request.user.id)
     return render(request,'auth/widgets/profile.html',{'collab':user})
 
+@csrf_exempt
+def new_comment(request):
+    if request.method == 'POST':
+        # Get the comment content from the form data
+        content = request.POST.get('comment')
+        task = request.POST.get('task')
+        commenter = request.user.id
+        # Create a new comment object
+        comment = Comment(comment=content,commenter_id=commenter,task_id=task)
+        comment.save()  # Save the comment to the database
+        # Redirect to a success page or back to the original page
+        return redirect('home')  # Replace with your success page URL
+    else:
+        return redirect('home')  # Replace with your comment form template
+
 def task_details(request,pk):
     task=get_object_or_404(Task,id=pk)
     object=Comment.objects.filter(task_id=pk).exists()

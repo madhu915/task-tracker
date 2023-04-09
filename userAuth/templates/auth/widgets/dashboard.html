@@ -553,6 +553,22 @@
   });
   });
 </script>
+
+<script>
+  $(document).ready(function() {
+      // Add event listener to the submit button
+      $('#send').on('click', function() {
+          var comment = $('#comment').val();  // Get the comment content
+          var task = "{{ task.id }}";
+          // Send a POST request to the Django view
+          $.post("{% url 'new-comment' %}", {comment:comment,task:task}, function(data) {
+              // Handle the response if needed
+              // Redirect to a success page or back to the original page
+              location.reload();
+          });
+      });
+  });
+</script>
   
   {% else %}
 

@@ -118,12 +118,34 @@
       </div>
     </div>
     <div class="card-body">
-      <p class="text-center text-primary" style="font-size: larger; margin-top: 20px;">Comment section</p>
-      {% if comment is not None %}
-        <!-- print comments -->
+      <div class="input-group">
+        <textarea class="form-control" id="comment" rows="4" cols="50" placeholder="Type your message here.."></textarea>
+        <button class="btn btn-primary" id="send" style="background-color: #ac38ff;"><i class="bi bi-send-fill" style="font-size: x-large;"></i>
+          </button>
+      </div>
+     {% if comment is not None %}
+     <div class="comments-section text">
+      {% for obj in comment %}
+        {% if obj.commenter_id == user.id %}
+        <div class="comments" style="align-self: flex-end;">
+          <p>{{ obj.comment }}</p>
+          <p>{{ obj.date_created }}</p>
+          <p>~ {{ obj.commenter.first_name }}</p>
+        </div>
+        {% else %}
+        <div class="comments" style="align-self: flex-start; margin-left: 0;">
+          <p>{{ obj.comment }}</p>
+          <p>{{ obj.date_created }}</p>
+          <p>~ {{ obj.commenter.first_name }}</p>         
+        </div>
+        {% endif %}
+      {% endfor %}
+      </div>
+        
       {% else %}
-        <p class="text-center text-muted" style="color:grey !important; padding: 40px;">No Comments Posted!</p>
+        <p class="text-center text-muted" style="color:grey !important; margin: auto; margin-top: 4em;">No Comments Posted!</p>
       {% endif %}
+      </div>
     </div>
   </div>
 </div>
