@@ -569,6 +569,16 @@
       });
   });
 </script>
+
+<script>
+  function checkText() {
+    var send = $('#send')
+    if($('#comment').val().trim() !== "")
+      send.prop('disabled',false)
+    else
+      send.prop('disabled', true)
+  }
+</script>
   
   {% else %}
 

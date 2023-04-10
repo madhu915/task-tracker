@@ -119,77 +119,28 @@
     </div>
     <div class="card-body">
       <div class="input-group">
-        <textarea class="form-control" id="comment" rows="4" cols="50" placeholder="Type your message here.."></textarea>
-        <button class="btn btn-primary" id="send" style="background-color: #ac38ff;"><i class="bi bi-send-fill" style="font-size: x-large;"></i>
+        <textarea class="form-control" id="comment" oninput="checkText()" rows="4" cols="50" placeholder="Type your message here.." required></textarea>
+        <button class="btn btn-primary" id="send" disabled style="background-color: #ac38ff;"><i class="bi bi-send-fill" style="font-size: x-large;"></i>
           </button>
       </div>
      {% if comment is not None %}
      <div class="comments-section text">
       {% for obj in comment %}
         {% if obj.commenter_id == user.id %}
-        <div class="comments" style="align-self: flex-end; width: -webkit-fill-available;">
+        <div class="comments" style="align-self: flex-end; width: 30vw;">
           <h4 style="color: greenyellow;">{{ obj.commenter.first_name }} {{ obj.commenter.last_name }} (You)
             <span style="font-style: italic; font-size: small;">     ● 
-              <script type="text/javascript">
-                // Get the current date and time in IST
-                var now = new Date();
-                var currentDateTime = now.toISOString().slice(0, 19).replace("T", " ");
-  
-                // Calculate the time difference
-                var pastDateTime = new Date("{{ obj.date_created|date:'Y-m-d\TH:i:s'}}");
-                var timeDifference = (now - pastDateTime);
-                var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-                var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var mins = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+              <span class="time-diff" data-post-time="{{ obj.date_created|date:'Y-m-d\TH:i:s'}}"></span>
 
-    
-                console.log(days+' '+hours);
-    
-                // // Display time difference
-                if(days)
-                  document.write(days + "d ago");
-                else if(hours)
-                  document.write(hours+"h ago");
-                else
-                  document.write(mins+"m ago");
-            </script>
             </span>
           </h4>
           <p>{{ obj.comment }}</p>
         </div>
         {% else %}
-        <div class="comments" style="align-self: flex-start; margin-left: 0; width: -webkit-fill-available; text-align: end;">
+        <div class="comments" style="align-self: flex-start; margin-left: 0; width: 30vw;">
           <h4 style="color:grey">{{ obj.commenter.first_name }} {{ obj.commenter.last_name }}
             <span style="font-style: italic; font-size: small;">     ● 
-              <script type="text/javascript">
-                // Get the current date and time in IST
-                var now = new Date();
-                var currentDateTime = now.toISOString().slice(0, 19).replace("T", " ");
-  
-                // Calculate the time difference
-                var pastDateTime = new Date("{{ obj.date_created|date:'Y-m-d\TH:i:s'}}");
-                var timeDifference = (now - pastDateTime); // Difference in hours
-                var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-                var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    
-                console.log(timeDifference+' '+days+' '+hours);
-  
-  
-                // Calculate the time difference
-                // var pastDateTime = DateTime.fromISO("{{ obj.date_created }}", { zone: "Asia/Kolkata" });
-                // var timeDifference = now.diff(pastDateTime, "hours").toObject().hours;
-                // console.log(timeDifference);
-    
-                // // Calculate days and hours from time difference
-                // var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-                // var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    
-                // // Display time difference
-                if(days)
-                  document.write(days + " days and " + hours + "h ago");
-                else
-                  document.write(hours+"h ago");
-            </script>
+              <span class="time-diff" data-post-time="{{ obj.date_created|date:'Y-m-d\TH:i:s'}}"></span>
             </span>
           </h4>
           <p>{{ obj.comment }}</p>
@@ -213,4 +164,23 @@
       <p class="rows text-center" style="font-size: 40px;"><a href="/admin/"> 🔙 Django Admin  </a></p>
     </div>
   {% endif %}
+  <script>
+    // Get the current date and time in IST    
+      var times = document.getElementsByClassName('time-diff');
+      for (let i = 0; i < times.length; i++) {
+        var now = new Date();
+        var currentDateTime = now.toISOString().slice(0, 19).replace("T", " ");
+    
+        // Calculate the time difference
+        var pastDateTime = new Date(times[i].getAttribute('data-post-time'));
+        var timeDifference = (now - pastDateTime);
+        var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var mins = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));     
+    
+        console.log(days+' '+hours);
+
+        times[i].textContent = days ? days + "d ago" : (hours ? hours + "h ago" : mins + "m ago");      
+        } 
+  </script>
 {% endblock optional %}                

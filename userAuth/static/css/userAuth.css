@@ -513,6 +513,7 @@ textarea::-webkit-scrollbar {
     #comment{
         padding-left: 10px;
         min-height: 64px;
+        resize: vertical;
     }
 
     #send{
