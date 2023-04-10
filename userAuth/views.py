@@ -12,13 +12,13 @@ def home(request):
     if request.user.is_authenticated:
         interns_list=Intern.objects.filter(mentorid_id=request.user.id)
         if request.user.role == 'Mentor':
-            pending = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='To-Do').order_by('-id')
-            in_progress = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='In-Progress').order_by('-id')
-            completed = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='Completed').order_by('-id')
+            pending = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='To-Do').order_by('-date_updated')
+            in_progress = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='In-Progress').order_by('-date_updated')
+            completed = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='Completed').order_by('-date_updated')
         else:
-            pending = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='To-Do').order_by('-id')
-            in_progress = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='In-Progress').order_by('-id')
-            completed = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='Completed').order_by('-id')
+            pending = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='To-Do').order_by('-date_updated')
+            in_progress = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='In-Progress').order_by('-date_updated')
+            completed = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='Completed').order_by('-date_updated')
         content = {'to_do':pending,'in_progress':in_progress,'completed':completed,'interns':interns_list}
     return render(request, 'auth/widgets/main.html',content)
 
@@ -69,10 +69,9 @@ def new_comment(request):
         # Create a new comment object
         comment = Comment(comment=content,commenter_id=commenter,task_id=task)
         comment.save()  # Save the comment to the database
-        # Redirect to a success page or back to the original page
-        return redirect('home')  # Replace with your success page URL
+        return redirect('home')
     else:
-        return redirect('home')  # Replace with your comment form template
+        return redirect('home')
 
 def task_details(request,pk):
     task=get_object_or_404(Task,id=pk)
@@ -120,9 +119,9 @@ def name_api(request):
     return JsonResponse(data)
 
 def intern_filter(request):
-    to_do = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='To-Do').order_by('-id')
-    in_progress = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='In-Progress').order_by('-id')
-    completed = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='Completed').order_by('-id')
+    to_do = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='To-Do').order_by('-date_updated')
+    in_progress = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='In-Progress').order_by('-date_updated')
+    completed = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='Completed').order_by('-date_updated')
 
     interns_list=Intern.objects.filter(mentorid_id=request.user.id)
     category = request.GET.get('id')

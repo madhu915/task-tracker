@@ -64,7 +64,7 @@
                 Due Date
               </th>   
               <th>
-                Completion Status
+                Completed
               </th>   
              </tr>
           </thead>
@@ -127,23 +127,79 @@
      <div class="comments-section text">
       {% for obj in comment %}
         {% if obj.commenter_id == user.id %}
-        <div class="comments" style="align-self: flex-end;">
+        <div class="comments" style="align-self: flex-end; width: -webkit-fill-available;">
+          <h4 style="color: greenyellow;">{{ obj.commenter.first_name }} {{ obj.commenter.last_name }} (You)
+            <span style="font-style: italic; font-size: small;">     ● 
+              <script type="text/javascript">
+                // Get the current date and time in IST
+                var now = new Date();
+                var currentDateTime = now.toISOString().slice(0, 19).replace("T", " ");
+  
+                // Calculate the time difference
+                var pastDateTime = new Date("{{ obj.date_created|date:'Y-m-d\TH:i:s'}}");
+                var timeDifference = (now - pastDateTime);
+                var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var mins = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+
+    
+                console.log(days+' '+hours);
+    
+                // // Display time difference
+                if(days)
+                  document.write(days + "d ago");
+                else if(hours)
+                  document.write(hours+"h ago");
+                else
+                  document.write(mins+"m ago");
+            </script>
+            </span>
+          </h4>
           <p>{{ obj.comment }}</p>
-          <p>{{ obj.date_created }}</p>
-          <p>~ {{ obj.commenter.first_name }}</p>
         </div>
         {% else %}
-        <div class="comments" style="align-self: flex-start; margin-left: 0;">
+        <div class="comments" style="align-self: flex-start; margin-left: 0; width: -webkit-fill-available; text-align: end;">
+          <h4 style="color:grey">{{ obj.commenter.first_name }} {{ obj.commenter.last_name }}
+            <span style="font-style: italic; font-size: small;">     ● 
+              <script type="text/javascript">
+                // Get the current date and time in IST
+                var now = new Date();
+                var currentDateTime = now.toISOString().slice(0, 19).replace("T", " ");
+  
+                // Calculate the time difference
+                var pastDateTime = new Date("{{ obj.date_created|date:'Y-m-d\TH:i:s'}}");
+                var timeDifference = (now - pastDateTime); // Difference in hours
+                var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    
+                console.log(timeDifference+' '+days+' '+hours);
+  
+  
+                // Calculate the time difference
+                // var pastDateTime = DateTime.fromISO("{{ obj.date_created }}", { zone: "Asia/Kolkata" });
+                // var timeDifference = now.diff(pastDateTime, "hours").toObject().hours;
+                // console.log(timeDifference);
+    
+                // // Calculate days and hours from time difference
+                // var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                // var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    
+                // // Display time difference
+                if(days)
+                  document.write(days + " days and " + hours + "h ago");
+                else
+                  document.write(hours+"h ago");
+            </script>
+            </span>
+          </h4>
           <p>{{ obj.comment }}</p>
-          <p>{{ obj.date_created }}</p>
-          <p>~ {{ obj.commenter.first_name }}</p>         
         </div>
         {% endif %}
       {% endfor %}
       </div>
         
       {% else %}
-        <p class="text-center text-muted" style="color:grey !important; margin: auto; margin-top: 4em;">No Comments Posted!</p>
+        <p class="text-center text-muted" style="color:grey !important; margin: auto; margin-top: 4em;">Be the first to break the ice! Share your comments and start this thread.. </p>
       {% endif %}
       </div>
     </div>
