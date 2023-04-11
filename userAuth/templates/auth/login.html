@@ -5,20 +5,27 @@
 
 <div class="container">
     <div class="rows">
-        <div class="clo-12">
+        <div class="content">
+            <div class="row justify-content-md-center">
+              <div class="col-md-12">
+                <div class="card profile">
+        <div class="card-body" style="min-width: 25vw; height:60vh;">
 
-            <div class="text-center">
+            <!-- <div class="text-center">
                 <a href="{% url 'home' %}" class="btn btn-primary mt-3 mx-3">Home</a>
-                <!-- Sign Up removed for now -- admin signup only -->
-                <!-- <a href="{% url 'signup' %}" class="btn btn-primary mt-3 mx-3">SignUp</a> -->
-            </div>
-            <br><br><br>
-            <form method="post" class="logform text-center">
+                Sign Up removed for now -- admin signup only
+                <a href="{% url 'signup' %}" class="btn btn-primary mt-3 mx-3">SignUp</a>
+            </div> -->
+            <form method="post" class="profile-card log text-center">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit" class="btn btn-primary mt-3">Login</button>
             </form>
             
+        </div>
+        </div>
+        </div>
+        </div>
         </div>
     </div>
 </div>

@@ -12,14 +12,17 @@ def home(request):
     if request.user.is_authenticated:
         interns_list=Intern.objects.filter(mentorid_id=request.user.id)
         if request.user.role == 'Mentor':
-            pending = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='To-Do').order_by('-date_updated')
-            in_progress = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='In-Progress').order_by('-date_updated')
-            completed = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='Completed').order_by('-date_updated')
+            pending = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='To-Do').order_by('-date_updated').order_by('-id')
+            in_progress = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='In-Progress').order_by('-date_updated').order_by('-id')
+            completed = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='Completed').order_by('-date_updated').order_by('-id')
         else:
             pending = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='To-Do').order_by('-date_updated')
             in_progress = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='In-Progress').order_by('-date_updated')
             completed = Task.objects.filter(internid_id=request.user.id,progress_status__iexact='Completed').order_by('-date_updated')
-        content = {'to_do':pending,'in_progress':in_progress,'completed':completed,'interns':interns_list}
+        count_p=pending.count()
+        count_i=in_progress.count()
+        count_c=completed.count()
+        content = {'to_do':pending,'in_progress':in_progress,'completed':completed,'interns':interns_list,'pcount':count_p,'ccount':count_c,'icount':count_i}
     return render(request, 'auth/widgets/main.html',content)
 
 @csrf_exempt
@@ -119,9 +122,9 @@ def name_api(request):
     return JsonResponse(data)
 
 def intern_filter(request):
-    to_do = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='To-Do').order_by('-date_updated')
-    in_progress = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='In-Progress').order_by('-date_updated')
-    completed = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='Completed').order_by('-date_updated')
+    to_do = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='To-Do').order_by('-date_updated').order_by('-id')
+    in_progress = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='In-Progress').order_by('-date_updated').order_by('-id')
+    completed = Task.objects.filter(mentor_id=request.user.id,progress_status__iexact='Completed').order_by('-date_updated').order_by('-id')
 
     interns_list=Intern.objects.filter(mentorid_id=request.user.id)
     category = request.GET.get('id')
@@ -129,7 +132,10 @@ def intern_filter(request):
         to_do = to_do.filter(internid_id=category)
         in_progress = in_progress.filter(internid_id=category)
         completed = completed.filter(internid_id=category)
-    content={'to_do': to_do,'in_progress': in_progress, 'completed': completed, 'interns':interns_list}
+    count_p=to_do.count()
+    count_i=in_progress.count()
+    count_c=completed.count()
+    content={'to_do': to_do,'in_progress': in_progress, 'completed': completed, 'interns':interns_list, 'pcount':count_p,'ccount':count_c,'icount':count_i}
     return render(request, 'auth/widgets/main.html', content)
 
 def intern_details(request):

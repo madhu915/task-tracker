@@ -2,27 +2,27 @@
 {% block sidenav %}
         <li>
           <a href="{% url 'home' %}">
-            <i class="bi bi-speedometer2"></i>            
+            <i class="bi bi-speedometer2" style="color: #07eeee;"></i>            
             <p>Task Board</p>
           </a>
         </li>
         <li>
           <a href="{% url 'new_task' %}">
-            <i class="material-icons">assignment_add</i>
+            <i class="material-icons" style="color: orange;">assignment_add</i>
             <p>Create New Task</p>
           </a>
         </li>
         <li>
           <a href="{% url 'profile' %}">
-            <i class="material-icons">manage_accounts</i>
+            <i class="material-icons" style="color: #2dff79;">manage_accounts</i>
             <p>My Profile</p>
           </a>
         </li>
         {% if user.role == 'Mentor' %}
-          <li class="active">
+          <li class="selected">
             <a href="{% url 'interns' %}">
-              <i class="material-icons">people_alt</i>
-              <p>My Interns</p>
+              <i class="material-icons" style="color: deeppink;">people_alt</i>
+              <p style="color: deeppink;">My Interns</p>
             </a>
           </li>
           {% endif %}       

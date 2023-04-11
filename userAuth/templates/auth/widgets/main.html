@@ -1,27 +1,27 @@
   {% extends 'auth/widgets/dashboard.html' %} 
   {% block sidenav %}
-    <li class="active">
+    <li class="selected">
       <a href="{% url 'home' %}">
-        <i class="bi bi-speedometer2"></i>                    
-        <p>Task Board</p>
+        <i class="bi bi-speedometer2" style="color: #07eeee;"></i>                    
+        <p style="color: #07eeee;">Task Board</p>
       </a>
     </li>
     <li>
       <a href="{% url 'new_task' %}">
-        <i class="material-icons">assignment_add</i>
+        <i class="material-icons" style="color: orange;">assignment_add</i>
         <p>Create New Task</p>
       </a>
     </li>
     <li>
       <a href="{% url 'profile' %}">
-        <i class="material-icons">manage_accounts</i>
+        <i class="material-icons" style="color: #2dff79;">manage_accounts</i>
         <p>My Profile</p>
       </a>
     </li>
     {% if user.role == 'Mentor' %}
     <li>
       <a href="{% url 'interns' %}">
-        <i class="material-icons">people_alt</i>
+        <i class="material-icons" style="color: deeppink;">people_alt</i>
         <p>My Interns</p>
       </a>
     </li>    
@@ -96,11 +96,12 @@
         </button>              
         </div>
       </div>
-      <div class="row">
+      <div class="row" style="background: #80808012; border-radius: 16px;">
         <div class="col-lg-4 col-md-12">
-          <div class="card card-tasks" style="background-color: #ff3e6ea3;">
+          <div class="card card-tasks">
             <div class="card-header">
-              <h6 class="title d-inline">Pending Tasks</h6>
+              <h6 class="title d-inline" style="color: #F55050;">● Pending </h6>
+              <span class="count-badge" style="background: #F55050;">{{ pcount }}</span>
               <!-- <button class="card-category d-inline filter"><span class="material-icons">
                 filter_alt</span></button> -->              
             </div>
@@ -153,9 +154,10 @@
           </div>
         </div>      
         <div class="col-lg-4 col-md-12">
-          <div class="card card-tasks" style="background-color: lightseagreen;">
+          <div class="card card-tasks">
             <div class="card-header">
-              <h6 class="title d-inline">In Progress Tasks</h6>
+              <h6 class="title d-inline" style="color: #00ff08a3;">● In Progress </h6>
+              <span class="count-badge" style="background: #00ff08a3;">{{icount}}</span>
             </div>
             <div class="card-body">
               <div class="titlebar">
@@ -205,9 +207,10 @@
           </div>
         </div>   
         <div class="col-lg-4 col-md-12">
-          <div class="card card-tasks" style="background-color: cornflowerblue;">
+          <div class="card card-tasks">
             <div class="card-header">
-              <h6 class="title d-inline">Completed Tasks</h6>
+              <h6 class="title d-inline" style="color: #00e5ff99;">● Completed </h6>
+              <span class="count-badge" style="background: #00e5ff99;">{{ccount}}</span>
             </div>
             <div class="card-body">
               <div class="titlebar">

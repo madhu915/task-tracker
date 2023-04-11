@@ -2,26 +2,26 @@
 {% block sidenav %}
   <li>
     <a href="{% url 'home' %}">
-      <i class="bi bi-speedometer2"></i>                    
+      <i class="bi bi-speedometer2" style="color: #07eeee;"></i>                    
       <p>Task Board</p>
     </a>
   </li>
   <li>
     <a href="{% url 'new_task' %}">
-      <i class="material-icons">assignment_add</i>
+      <i class="material-icons" style="color: orange;">assignment_add</i>
       <p>Create New Task</p>
     </a>
   </li>
   <li>
     <a href="{% url 'profile' %}">
-      <i class="material-icons">manage_accounts</i>
+      <i class="material-icons" style="color: #2dff79;">manage_accounts</i>
       <p>My Profile</p>
     </a>
   </li>
   {% if user.role == 'Mentor' %}
   <li>
     <a href="{% url 'interns' %}">
-      <i class="material-icons">people_alt</i>
+      <i class="material-icons" style="color: deeppink;">people_alt</i>
       <p>My Interns</p>
     </a>
   </li>
@@ -127,8 +127,8 @@
      <div class="comments-section text">
       {% for obj in comment %}
         {% if obj.commenter_id == user.id %}
-        <div class="comments" style="align-self: flex-end; width: 30vw;">
-          <h4 style="color: greenyellow;">{{ obj.commenter.first_name }} {{ obj.commenter.last_name }} (You)
+        <div class="comments" id="end" style="align-self: flex-end; width: 45vw; border-radius: 20px 0 20px;">
+          <h4 style="color: #ac38ff;">{{ obj.commenter.first_name }} {{ obj.commenter.last_name }} (You)
             <span style="font-style: italic; font-size: small;">     ● 
               <span class="time-diff" data-post-time="{{ obj.date_created|date:'Y-m-d\TH:i:s'}}"></span>
 
@@ -137,7 +137,7 @@
           <p>{{ obj.comment }}</p>
         </div>
         {% else %}
-        <div class="comments" style="align-self: flex-start; margin-left: 0; width: 30vw;">
+        <div class="comments" style="align-self: flex-start; margin-left: 0; width: 45vw; border-radius: 0 20px;">
           <h4 style="color:grey">{{ obj.commenter.first_name }} {{ obj.commenter.last_name }}
             <span style="font-style: italic; font-size: small;">     ● 
               <span class="time-diff" data-post-time="{{ obj.date_created|date:'Y-m-d\TH:i:s'}}"></span>

@@ -60,7 +60,7 @@ textarea, input, select{
     border-top:none;
 }
 
-.sidebar .nav li.active>a:not([data-toggle="collapse"]) p{
+.sidebar .nav li.selected>a:not([data-toggle="collapse"]) p{
     font-size: larger;
     font-weight: bolder;
 }
@@ -70,6 +70,7 @@ textarea, input, select{
     justify-content: flex-end;
     flex-direction: row-reverse;
     margin-left: 4em;
+    max-width: 70vw;
 }
 
 .logform>p{
@@ -165,6 +166,7 @@ textarea, input, select{
 
 .table .title{
     display: inline-block;
+    font-size: initial;
 }
 
 .card-body{
@@ -179,6 +181,7 @@ textarea, input, select{
 .titlebar{
     margin-left: 5px;
     margin-right: 14px;
+    margin-bottom: 0px;
 }
 
 .filter{
@@ -229,7 +232,7 @@ textarea, input, select{
 
 
 .text-muted{
-    color: rgb(0, 0, 0) !important;
+    color: #7a8ea0 !important;
     font-style: italic;
 }
 
@@ -390,6 +393,8 @@ textarea, input, select{
 
 .card-tasks{
     transition: transform ease 300ms;
+    margin-top: 2em;
+    border-radius: 24px;
 }
 
 .card-tasks:hover {
@@ -532,18 +537,34 @@ textarea::-webkit-scrollbar {
 
     .comments-section {
         margin: auto !important;
-        margin-top: 4em !important;
-        max-width: 65em;
-        margin: 0 auto;
+        margin-top: 7em !important;
+        margin-left: 0 !important;
         display: flex;
         flex-direction: column-reverse;
     }
 
     .comments {
-        padding: 10px;
+        padding: 1.5em;
         margin-bottom: 4em;
-        border:1px solid #ac38ff;    
-        border-radius: 10px;
+        border:1px solid  rgb(7 227 234 / 36%); 
+    }
+
+    @media screen and (max-width:810px) {
+        .comments{
+            width: 66vw !important;
+        }
+    }
+
+    @media screen and (min-width:810px) and (max-width:1023px){
+        .comments{
+            width:55vw !important;
+        }
+    }
+
+    @media screen and (min-width:768px) {
+        #end{
+            margin-right: 68px;
+        }
     }
     
     .comments p {
@@ -559,4 +580,22 @@ textarea::-webkit-scrollbar {
         margin: 0;
         color: #777;
         font-size: 12px;
+    }
+
+    .log ul{
+        position: absolute;
+        top:-125px;
+        right: 25px;
+    }
+
+    .count-badge{
+        float: right;
+        border-radius: 50%;
+        width: 30px;
+        margin-top: -3px;
+        padding: 0.2em;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        color: #ffffff;
     }

@@ -16728,7 +16728,7 @@ hr {
 }
 
 .card-tasks .card-body .table {
-  margin-bottom: 0;
+  margin-bottom: 10px;
 }
 
 /* .card-tasks .card-body .table>thead>tr>th,
@@ -19316,7 +19316,7 @@ textarea.form-control:active {
 }
 
 .ps__thumb-y {
-  background-color: #aaa;
+  background-color: #222a42;
   border-radius: 6px;
   transition: background-color .2s linear, width .2s ease-in-out;
   -webkit-transition: background-color .2s linear, width .2s ease-in-out;
@@ -19929,7 +19929,7 @@ Copyright (c) 2015 Daniel Eden
 }
 
 .card {
-  background: #27293d;
+  background: #00000052;
   border: 0;
   position: relative;
   width: 100%;
@@ -19970,6 +19970,8 @@ Copyright (c) 2015 Daniel Eden
   padding: 15px 15px 0;
   border: 0;
   color: rgba(255, 255, 255, 0.8);
+  margin-top: 0.7em;
+  margin-bottom: 0.5em;
 }
 
 .card .card-header:not([data-background-color]) {
@@ -20405,7 +20407,11 @@ Copyright (c) 2015 Daniel Eden
 
 .card-tasks .card-header .title {
   margin-right: 20px;
-  font-weight: 400;
+  font-weight: 600;
+  border: 1px solid;
+  border-radius: 14px;
+  border-width: revert;
+  padding: 9px;
 }
 
 .card-tasks .card-header .dropdown {
