@@ -9,7 +9,7 @@
     <li>
       <a href="{% url 'new_task' %}">
         <i class="material-icons" style="color: orange;">assignment_add</i>
-        <p>Create New Task</p>
+        <p>Add New Task</p>
       </a>
     </li>
     <li>
@@ -48,6 +48,7 @@
 
   {% block optional %}
     {% if user.username != 'admin' %}
+      <div class="row">
       <div class="row head">
         {% if user.role == 'Mentor' %}
               <div class="dropdown kink">
@@ -263,6 +264,7 @@
             </div>
           </div>
         </div>      
+      </div>
       </div>
     {% else %}
       <div class="row">

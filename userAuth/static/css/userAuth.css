@@ -599,3 +599,123 @@ textarea::-webkit-scrollbar {
         text-align: center;
         color: #ffffff;
     }
+
+    .log p label {
+        display: none;
+    }
+
+    .screen {		
+        position: relative;	
+        height: 600px;
+        width: 757px;	
+    }
+    
+    .screen__content {
+        z-index: 1;
+        position: relative;	
+        height: 100%;
+    }
+    
+    .screen__background {		
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 0;
+        -webkit-clip-path: inset(0 0 0 0);
+        clip-path: inset(0 0 0 0);	
+    }
+    
+    .screen__background__shape {
+       
+        position: absolute;
+    }
+    
+    .screen__background__shape1 {
+        height: 520px;
+        width: 520px;
+        background: #fff;	
+        border-radius: 0 72px 0 0;
+    }
+        
+    .login {
+        width: 320px;
+        padding: 30px;
+        padding-top: 156px;
+    }
+    
+    .login__field {
+        padding: 20px 0px;	
+        position: relative;	
+    }
+
+    .login__field label{
+        display: none;
+    }
+    
+    .login__icon {
+        position: absolute;
+        top: 30px;
+        color: #294177;
+    }
+    
+    .login__input {
+        border: none;
+        border-bottom: 2px solid #648eb7;
+        background: none;
+        padding: 10px;
+        padding-left: 24px;
+        font-weight: 700;
+        width: 75%;
+        transition: .2s;
+    }
+
+    .login__input::placeholder{
+        color: #294177;
+    }
+    
+    .login__input:active,
+    .login__input:focus,
+    .login__input:hover {
+        outline: none;
+        border-bottom-color: #294177;
+    }
+    
+    .login__submit {
+        background: #1e1e2f;
+        font-size: 14px;
+        margin-top: 30px !important;
+        margin-left: 0 !important;
+        padding: 16px 20px;
+        border-radius: 26px;
+        text-transform: uppercase;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        width: 60%;
+        color: #9a96d7;
+        cursor: pointer;
+        transition: .2s;
+    }
+    
+    .login__submit:active,
+    .login__submit:focus,
+    .login__submit:hover {
+        border-color: #6A679E;
+        outline: none;
+    }
+    
+    .button__icon {
+        font-size: 24px;
+        margin-left: auto;
+        color: #7875B5;
+    }
+    
+    .error ul li{
+        color: #a70a0d;
+        font-weight: bold;
+        position: relative;
+        left: -15px;
+    }
+ 

@@ -3,19 +3,56 @@
 
 {% block body %}
 
-<div class="container">
+<div class="container" style="padding-top: 4em;">
+	<div class="screen justify-content-md-center" style="display: -webkit-box; margin: auto;">
+		<div class="screen__content" style="background: #6b9cf1;">
+			<form class="login" method="POST">
+                {% csrf_token %}
+                <div class="error">
+                    {% if form.non_field_errors %}
+                    <ul class="errorlist nonfield">
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+				<div class="login__field">                    
+                    {{ form.username.label_tag }}
+					<i class="login__icon bi bi-person-fill"></i>
+					<input type="text" class="login__input" placeholder="User Name" name="{{ form.username.html_name }}">
+                    {% if form.username.errors %}
+                        <div class="error">{{ form.username.errors }}</div>
+                    {% endif %}				
+                </div>
+				<div class="login__field">
+                    {{ form.password.label_tag }}
+					<i class="login__icon material-icons" style="font-size:medium;">lock</i>
+					<input type="password" class="login__input" placeholder="Password" name="{{ form.password.html_name }}">
+                {% if form.password.errors %}
+                    <div class="error">{{ form.password.errors }}</div>
+                {% endif %}
+                </div>
+				<button class="btn btn-primary mt-3 mx-3 login__submit">
+					<span class="button__text">Log In</span>
+					<i class="material-icons button__icon">chevron_right</i>
+				</button>				
+			</form>
+			
+		</div>
+        <div class="screen__content">
+            <img src="../static/img/banner.jpg" alt="" width="520" height="600" style="border-radius: 0;">
+        </div>		
+	</div>
+</div>
+
+<!-- <div class="container">
     <div class="rows">
         <div class="content">
             <div class="row justify-content-md-center">
               <div class="col-md-12">
                 <div class="card profile">
-        <div class="card-body" style="min-width: 25vw; height:60vh;">
-
-            <!-- <div class="text-center">
-                <a href="{% url 'home' %}" class="btn btn-primary mt-3 mx-3">Home</a>
-                Sign Up removed for now -- admin signup only
-                <a href="{% url 'signup' %}" class="btn btn-primary mt-3 mx-3">SignUp</a>
-            </div> -->
+        <div class="card-body" style="min-width: 25vw; height:60vh;">          
             <form method="post" class="profile-card log text-center">
                 {% csrf_token %}
                 {{ form.as_p }}
@@ -28,6 +65,6 @@
         </div>
         </div>
     </div>
-</div>
+</div> -->
 
 {% endblock body %}
