@@ -591,7 +591,7 @@ textarea::-webkit-scrollbar {
     .count-badge{
         float: right;
         border-radius: 50%;
-        width: 30px;
+        width: 28px;
         margin-top: -3px;
         padding: 0.2em;
         display: table-cell;
@@ -607,13 +607,47 @@ textarea::-webkit-scrollbar {
     .screen {		
         position: relative;	
         height: 600px;
-        width: 757px;	
+        width: 806px;	
+    }
+
+    .banner{
+        width:75%;
+        border-radius: 0 20px 20px 0 !important;
+    }
+
+    @media screen and (max-width:764px) {
+        .banner{
+            display: none;
+        }
+        .screen{
+            margin: auto;
+
+        }
+    }
+
+    @media screen and (min-width:765px) and (max-width:992px) {
+        .screen{
+            right:5em;
+        }
+    }
+
+    @media screen and (min-width:992px) {
+        .banner{
+            width:100%;
+        }
     }
     
     .screen__content {
         z-index: 1;
         position: relative;	
         height: 100%;
+        border-radius: 20px 0 0 20px;
+    }
+
+    @media screen and (max-width:764px) {
+        .screen__content{
+            border-radius: 20px;
+        }
     }
     
     .screen__background {		
@@ -647,6 +681,7 @@ textarea::-webkit-scrollbar {
     
     .login__field {
         padding: 20px 0px;	
+        padding-bottom: 10px;
         position: relative;	
     }
 
@@ -662,22 +697,46 @@ textarea::-webkit-scrollbar {
     
     .login__input {
         border: none;
-        border-bottom: 2px solid #648eb7;
         background: none;
         padding: 10px;
         padding-left: 24px;
         font-weight: 700;
         width: 75%;
-        transition: .2s;
+        /* transition: .2s; */
     }
+
+    .login__field::before, .login__field::after{
+        content:'';
+        width:0%;
+        bottom:0px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        position:absolute;
+        transition:ease-in-out .5s all;        
+    }
+
+    .login__field::before{     
+        width: 100%;   
+        border-bottom: 2px solid #648eb7;
+    }
+
+    .login__field::after{
+        border-bottom: 2px solid #294177;
+    }
+
+    .login__field:focus-within::after {
+        width:100%;
+      }
+
+    .login__input:focus {
+        outline: none;
+      }
 
     .login__input::placeholder{
         color: #294177;
     }
     
-    .login__input:active,
-    .login__input:focus,
-    .login__input:hover {
+    .login__input:focus{
         outline: none;
         border-bottom-color: #294177;
     }
@@ -696,7 +755,7 @@ textarea::-webkit-scrollbar {
         width: 60%;
         color: #9a96d7;
         cursor: pointer;
-        transition: .2s;
+        transition: .2s ease all;
     }
     
     .login__submit:active,
