@@ -63,6 +63,13 @@ textarea, input, select{
 .sidebar .nav li.selected>a:not([data-toggle="collapse"]) p{
     font-size: larger;
     font-weight: bolder;
+    background-color: rgba(76, 78, 73, 0.192);
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.sidebar .nav li.selected>a:not([data-toggle="collapse"]) i{
+    padding: 10px;
 }
 
 .logform label{

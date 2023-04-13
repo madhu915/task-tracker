@@ -19317,7 +19317,7 @@ textarea.form-control:active {
 }
 
 .ps__thumb-y {
-  background-color: #00aff2;
+  background-color: #6c757d;
   border-radius: 6px;
   transition: background-color .2s linear, width .2s ease-in-out;
   -webkit-transition: background-color .2s linear, width .2s ease-in-out;
