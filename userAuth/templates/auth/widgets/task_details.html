@@ -28,11 +28,6 @@
   {% endif %}
 {% endblock sidenav %}                                                
          
-{% block navbrand %}
-  <a class="navbar-brand" href="javascript:void(0)"
-    >Task Details</a
-  >
-{% endblock navbrand %}                   
 
 {% block mainContent %} 
 <div class="col-md-12">
@@ -127,7 +122,7 @@
      <div class="comments-section text">
       {% for obj in comment %}
         {% if obj.commenter_id == user.id %}
-        <div class="comments" id="end" style="align-self: flex-end; width: 45vw; border-radius: 20px 0 20px;">
+        <div class="comments" id="end" style="align-self: flex-end; width: 45vw; border-radius: 20px 10px 20px;">
           <h4 style="color: #ac38ff;">{{ obj.commenter.first_name }} {{ obj.commenter.last_name }} (You)
             <span style="font-style: italic; font-size: small;">     ● 
               <span class="time-diff" data-post-time="{{ obj.date_created|date:'Y-m-d\TH:i:s'}}"></span>
@@ -137,7 +132,7 @@
           <p>{{ obj.comment }}</p>
         </div>
         {% else %}
-        <div class="comments" style="align-self: flex-start; margin-left: 0; width: 45vw; border-radius: 0 20px;">
+        <div class="comments" style="align-self: flex-start; margin-left: 0; width: 45vw; border-radius: 10px 20px;">
           <h4 style="color:grey">{{ obj.commenter.first_name }} {{ obj.commenter.last_name }}
             <span style="font-style: italic; font-size: small;">     ● 
               <span class="time-diff" data-post-time="{{ obj.date_created|date:'Y-m-d\TH:i:s'}}"></span>

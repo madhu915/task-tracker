@@ -35,7 +35,16 @@
               <span class="navbar-toggler-bar bar3"></span>
             </button>
           </div>
-          {% block navbrand %} {% endblock navbrand %}
+          <!-- {% block navbrand %} {% endblock navbrand %} -->
+          {% if user.username != 'admin' %}
+          <a class="navbar-brand" href="{% url 'home' %}" style="text-transform: capitalize;"
+            ><span class="text-success" style="color: #00aff2 !important;" id="bla">Hi {{ user.first_name }}, </span>Welcome Back! </a
+          >
+        {% else %}
+          <a class="navbar-brand" href="javascript:void(0)"
+          >Admin</a
+          >     
+        {% endif %}
         </div>
         <button
           class="navbar-toggler"
