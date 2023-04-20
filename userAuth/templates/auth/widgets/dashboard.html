@@ -6,17 +6,7 @@
 <div class="wrapper">
   {% if user.username != 'admin' %}
   <div class="sidebar">
-    <div class="sidebar-wrapper">
-      <!-- <div class="logo">
-        <a href="javascript:void(0)" class="simple-text logo-normal" style="display: block;        
-        word-wrap: break-word;
-        overflow: auto;
-        box-sizing: border-box;
-        overflow-wrap: break-word;
-        white-space: normal;">
-         <i> Welcome back ! </i>
-        </a>
-      </div> -->
+    <div class="sidebar-wrapper">      
       <ul class="nav">
         {% block sidenav %} {% endblock sidenav %}
       </ul>
@@ -35,7 +25,6 @@
               <span class="navbar-toggler-bar bar3"></span>
             </button>
           </div>
-          <!-- {% block navbrand %} {% endblock navbrand %} -->
           {% if user.username != 'admin' %}
           <a class="navbar-brand" href="{% url 'home' %}" style="text-transform: capitalize;"
             ><span class="text-success" style="color: #00aff2 !important;" id="bla">Hi {{ user.first_name }}, </span>Welcome Back! </a
@@ -106,16 +95,6 @@
               </ul>
             </li>
             {% endif %}
-
-
-            <!-- fix light mode dark mode later !! -->
-
-            <!-- <li class="dropdown nav-item">
-                    <span class="color-label">LIGHT MODE</span>
-                    <span class="badge light-badge mr-2"></span>
-                    <span class="badge dark-badge ml-2"></span>
-                    <span class="color-label">DARK MODE</span>
-                    </li> -->
 
             <li class="dropdown nav-item">
               <a
@@ -313,18 +292,12 @@
                 </div>
               </div> -->            
     </div>
-    <!-- <footer class="footer">
+    <!-- <footer class="footer" style="background: #1a1e34;">
       <div class="container-fluid">
         <ul class="nav">
           <li class="nav-item">
-            <a href="javascript:void(0)" class="nav-link"> dummy1 </a>
-          </li>
-          <li class="nav-item">
-            <a href="javascript:void(0)" class="nav-link"> dummy2 </a>
-          </li>
-          <li class="nav-item">
-            <a href="javascript:void(0)" class="nav-link"> dummy3 </a>
-          </li>
+            <a href="javascript:void(0)" class="nav-link"></a>
+          </li>          
         </ul>
       </div>
     </footer> -->
@@ -470,6 +443,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js" integrity="sha512-0bEtK0USNd96MnO4XhH8jhv3nyRF0eK87pJke6pkYf3cM0uDIhNJy9ltuzqgypoIFXw3JSuiy04tVk4AjpZdZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
     function loadHome() {
+      // Reload Home
       window.location.href="{% url 'home' %}";
     }
   </script>
@@ -485,6 +459,7 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
+    // Drag N Drop Tasks + JQuery Touch Punch
       var startTable = "pending-tasks";
       var startTable2 = "in-progress-tasks";
       var startTable3 = "completed-tasks";
@@ -565,14 +540,11 @@
 
 <script>
   $(document).ready(function() {
-      // Add event listener to the submit button
       $('#send').on('click', function() {
-          var comment = $('#comment').val();  // Get the comment content
+        // Post New Comment
+          var comment = $('#comment').val();
           var task = "{{ task.id }}";
-          // Send a POST request to the Django view
           $.post("{% url 'new-comment' %}", {comment:comment,task:task}, function(data) {
-              // Handle the response if needed
-              // Redirect to a success page or back to the original page
               location.reload();
           });
       });
@@ -581,6 +553,7 @@
 
 <script>
   function checkText() {
+    // Enable/Disable post comment
     var send = $('#send')
     if($('#comment').val().trim() !== "")
       send.prop('disabled',false)

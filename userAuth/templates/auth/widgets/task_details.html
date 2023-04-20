@@ -32,9 +32,6 @@
 {% block mainContent %} 
 <div class="col-md-12">
   <div class="card  card-plain">
-    <!-- <div class="card-header">
-      <h4 class="card-title"> Task Assigned</h4>
-    </div> -->
     <div class="card-body">
       <div class="table-responsive">
         <table class="table tablesorter " id="jojo">
@@ -129,7 +126,7 @@
 
             </span>
           </h4>
-          <p>{{ obj.comment }}</p>
+          <p>{{ obj.comment|urlize|linebreaksbr }}</p>
         </div>
         {% else %}
         <div class="comments" style="align-self: flex-start; margin-left: 0; width: 45vw; border-radius: 10px 20px;">
@@ -160,20 +157,17 @@
     </div>
   {% endif %}
   <script>
-    // Get the current date and time in IST    
+    // Calculate time posted for comments
       var times = document.getElementsByClassName('time-diff');
       for (let i = 0; i < times.length; i++) {
         var now = new Date();
         var currentDateTime = now.toISOString().slice(0, 19).replace("T", " ");
     
-        // Calculate the time difference
-        var pastDateTime = new Date(times[i].getAttribute('data-post-time'));
-        var timeDifference = (now - pastDateTime);
+        var postDateTime = new Date(times[i].getAttribute('data-post-time'));
+        var timeDifference = (now - postDateTime);
         var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
         var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         var mins = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));     
-    
-        console.log(days+' '+hours);
 
         times[i].textContent = days ? days + "d ago" : (hours ? hours + "h ago" : mins + "m ago");      
         } 

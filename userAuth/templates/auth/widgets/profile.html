@@ -42,7 +42,7 @@
         <div class="card profile">
           <div class="card-header">
             {% if collab.status == "active" %} 
-            <span style="color: greenyellow;">● Active</span>
+            <span style="color: #00ff95;">● Active</span>
             {% else %}
             <span style="color: red;">● Inactive</span>
             {% endif %}
@@ -130,6 +130,7 @@
     </div>
   {% endif %}
   <script>
+    // Detect changes in profile data
     var originalFormData = getFormData();
   
     function getFormData() {

@@ -14,9 +14,9 @@ $(document).ready(function () {
   });
 });
 
-jQuery(document).ready(function($) {
-  $('*[data-href]').on('click', function() {
-      window.location = $(this).data("href");
+jQuery(document).ready(function ($) {
+  $("*[data-href]").on("click", function () {
+    window.location = $(this).data("href");
   });
 });
 
@@ -29,14 +29,14 @@ var check = function () {
       document.getElementById("match").style.display = "none";
       document.getElementById("mismatch").style.display = "none";
       document.getElementById("message").style.display = "none";
-      document.getElementById("reset").disabled=true;
+      document.getElementById("reset").disabled = true;
     } else {
       document.getElementById("match").style.display = "block";
       document.getElementById("mismatch").style.display = "none";
       document.getElementById("message").style.display = "block";
       document.getElementById("message").innerHTML = "Passwords Match!";
       document.getElementById("message").style.color = "rgb(21, 226, 21)";
-      document.getElementById("reset").disabled=false;
+      document.getElementById("reset").disabled = false;
     }
   } else {
     document.getElementById("match").style.display = "none";
@@ -44,6 +44,6 @@ var check = function () {
     document.getElementById("message").style.display = "block";
     document.getElementById("message").innerHTML = "Passwords do not match!";
     document.getElementById("message").style.color = "#ff2c39";
-    document.getElementById("reset").disabled=true;
+    document.getElementById("reset").disabled = true;
   }
 };

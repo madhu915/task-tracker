@@ -114,7 +114,7 @@
                     {% for task in to_do %}
                     <tr class='clickable-row' data-task-id="{{ task.id }}" data-href="{% url 'task-detail' pk=task.pk %}">
                       <td>
-                        <p class="title">Task {{ task.id }}</p>  
+                        <p class="title">T-{{ task.id }}</p>  
                         {% if user.role == 'Mentor' %}
                         <div class="assignee-bubble">
                           <span class="assignee-initials">{{ task.internid.firstname }} {{ task.internid.lastname }}</span>
@@ -168,7 +168,7 @@
                     {% for task in in_progress %}
                     <tr class='clickable-row' data-task-id="{{ task.id }}" data-href="{% url 'task-detail' pk=task.pk %}">
                       <td>
-                        <p class="title">Task {{ task.id }}</p>  
+                        <p class="title">T-{{ task.id }}</p>  
                         {% if user.role == 'Mentor' %}                                                
                         <div class="assignee-bubble">
                           <span class="assignee-initials">{{ task.internid.firstname }} {{ task.internid.lastname }}</span>
@@ -221,7 +221,7 @@
                     {% for task in completed %}
                     <tr class='clickable-row' data-task-id="{{ task.id }}" data-href="{% url 'task-detail' pk=task.pk %}">
                       <td>
-                        <p class="title">Task {{ task.id }}</p>  
+                        <p class="title">T-{{ task.id }}</p>  
                         {% if user.role == 'Mentor' %}
                         <div class="assignee-bubble">
                           <span class="assignee-initials">{{ task.internid.firstname }} {{ task.internid.lastname }}</span>
@@ -231,9 +231,6 @@
                           {{ task.description}}
                         </p>                              
                       </td>
-                      <!-- <td class="td-actions text-right">
-                      
-                      </td> -->
                     </tr>
                     {% endfor %} 
                     {% if not completed %}
