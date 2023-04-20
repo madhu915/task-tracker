@@ -37,7 +37,7 @@
         {% block optional %}
         <div class="content">
           <div class="row justify-content-md-center">
-            <div class="col-md-10">
+            <div class="col-lg-6 col-md-12">
               <div class="card profile">
                 <div class="card-header">
                   
@@ -61,6 +61,19 @@
                   </form>
                 </div>
       
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="drag-area">
+                    <div class="icon"><i class="bi bi-cloud-arrow-up-fill"></i></div>
+                    <header>Upload File</header>
+                    <span>OR</span>
+                    <button class="btn btn-fill btn-primary">Browse File</button>
+                    <input type="file" accept=".csv" hidden>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

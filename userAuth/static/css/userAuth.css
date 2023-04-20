@@ -825,3 +825,43 @@ a:hover,a:active,a:focus{
   color: rgb(29, 155, 240);
   text-decoration: underline;
 }
+
+.drag-area{
+  border: 2px dashed rgba(255, 255, 255, 0.6);
+  height: 450px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.drag-area.active{
+  border: 2px dashed #ac38ff;
+}
+.drag-area .icon{
+  font-size: 100px;
+  color: rgba(255, 255, 255, 0.6);
+}
+.drag-area header{
+  font-size: 30px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+}
+.drag-area span{
+  font-size: 25px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 10px 0 15px 0;
+}
+.drag-area button{
+  padding: 10px 25px;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.drag-area img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
