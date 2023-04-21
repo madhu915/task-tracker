@@ -839,17 +839,15 @@ a:hover,a:active,a:focus{
   border: 2px dashed #ac38ff;
 }
 .drag-area .icon{
-  font-size: 100px;
+  font-size: 80px;
   color: rgba(255, 255, 255, 0.6);
 }
 .drag-area header{
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.6);
 }
 .drag-area span{
-  font-size: 25px;
-  font-weight: 500;
   color: rgba(255, 255, 255, 0.6);
   margin: 10px 0 15px 0;
 }
@@ -858,10 +856,4 @@ a:hover,a:active,a:focus{
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
-}
-.drag-area img{
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  border-radius: 5px;
 }
