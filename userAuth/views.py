@@ -1,11 +1,13 @@
 from datetime import datetime
 import json
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login, authenticate
 from django.views.decorators.csrf import csrf_exempt
 from .forms import NewTaskForm, SignUpForm
 from .models import Comment, Intern, Mentor, Task, User
+import pandas as pd
+import openpyxl
 
 def home(request):
     content = {}
@@ -28,6 +30,39 @@ def home(request):
         
         content = {'to_do':pending,'in_progress':in_progress,'completed':completed,'interns':interns_list,'pcount':count_p,'ccount':count_c,'icount':count_i}
     return render(request, 'auth/widgets/main.html',content)
+
+@csrf_exempt
+def upload_file(request):
+    if request.method == "POST":
+        file = request.FILES['sheet']
+
+        # xlsx files
+        if file.name.endswith('.xlsx'):
+            df = pd.read_excel(file)
+            # forward fill for NaN values
+            df = df.fillna(method='ffill',axis=0)
+
+            print(type(df),df.columns)
+            df.to_excel('out.xlsx')
+            wb = openpyxl.load_workbook(file)
+            ws = wb.active
+            print(df.shape[0])
+
+            # extract source links
+            for i in range(df.shape[0]):
+                try:
+                    print(ws.cell(row=i, column=4).hyperlink.target)
+                except:
+                    pass
+                    # no link
+        
+        # handle csv later
+        if file.name.endswith('.csv'):
+            df = pd.read_csv(file)
+            print(type(df))     
+
+        print(df)
+        return HttpResponse('File upload success')
 
 @csrf_exempt
 def update_tasks(request):
