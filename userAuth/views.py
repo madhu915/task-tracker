@@ -42,19 +42,26 @@ def upload_file(request):
             # forward fill for NaN values
             df = df.fillna(method='ffill',axis=0)
 
+            df['Intern ID'] = df['Intern ID'].astype(int)
+
+            interns = df['Intern ID'].unique().tolist()
+
             print(type(df),df.columns)
             df.to_excel('out.xlsx')
             wb = openpyxl.load_workbook(file)
             ws = wb.active
-            print(df.shape[0])
+            print(df.shape[0],interns)
 
             # extract source links
             for i in range(df.shape[0]):
                 try:
-                    print(ws.cell(row=i, column=4).hyperlink.target)
+                    # row_num , link
+                    print(i-1, ws.cell(row=i, column=4).hyperlink.target)
                 except:
                     pass
                     # no link
+            print(df)
+            return JsonResponse({'interns':interns})
         
         # handle csv later
         if file.name.endswith('.csv'):

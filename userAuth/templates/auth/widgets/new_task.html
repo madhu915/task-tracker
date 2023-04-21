@@ -68,10 +68,18 @@
                 <div class="card" style="background: none;">
                   <div class="card-body">
                     <div class="drag-area">
-                      <div class="icon"><i class="bi bi-cloud-arrow-up-fill"></i></div>
+                      <div class="icon" id="cloud-icon"><i class="bi bi-cloud-arrow-up-fill"></i></div>
+                      <div class="intern" id="names" hidden style="padding: 20px;">
+                        <span>Select Intern ID(s)</span>
+                        <p class="options"></p>
+                        <div id="checkboxes">
+                          <a href="#" class="all" id="select-all" hidden>Select/Deselect All</a><br>
+                        </div>
+                      </div>
                       <header>Upload File</header>
-                      <span>OR</span>
-                      <button class="btn btn-fill btn-primary">Browse File</button>
+                      <span id="extra">OR</span>
+                      <button class="btn btn-fill btn-primary" id="browse">Browse File</button>
+                      <button class="btn btn-fill btn-primary" id="insert" hidden style="margin-top: 30px;">Add Tasks</button>
                       <input type="file" accept=".csv,.xlsx" hidden>
                     </div>
                   </div>

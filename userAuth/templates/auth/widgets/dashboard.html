@@ -563,10 +563,25 @@
 </script>
 
 <script>
+  // select/deselect options
+    $('#select-all').click(function() {
+        var isChecked = $(this).hasClass('active');
+        $('.my-checkbox').prop('checked', !isChecked);
+        $(this).toggleClass('active', !isChecked);
+    });
+  </script>
+
+<script>
   const dropArea = document.querySelector(".drag-area"),
   dragText = dropArea.querySelector("header"),
   button = dropArea.querySelector("button"),
-  input = dropArea.querySelector("input");
+  input = dropArea.querySelector("input"),
+  intern = dropArea.querySelector("#names"),
+  span = dropArea.querySelector("#extra"),
+  cloud = dropArea.querySelector("i"),
+  insert = dropArea.querySelector("#insert"),
+  browse = dropArea.querySelector("#browse"),
+  all = dropArea.querySelector(".all");
   let file;
 
   button.onclick = ()=>{
@@ -613,6 +628,13 @@
   fileReader.onload = ()=>{
     console.log(fileReader.result);
     dragText.textContent = file['name'];
+    cloud.hidden = true;
+    intern.hidden = false;
+    span.hidden = true;
+    browse.hidden = true;
+    insert.hidden = false;
+    all.hidden = false;
+
     console.log(file['name']);
     let formData = new FormData();
     formData.append("sheet", file);
@@ -629,6 +651,39 @@ function uploadFile(formData){
   let xhr = new XMLHttpRequest();
   xhr.open('POST', '/upload-file/', true);  
   xhr.send(formData);
+
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      var responseArray = JSON.parse(xhr.responseText);
+      console.log(responseArray['interns']);
+
+      let checkboxesDiv = document.getElementById('checkboxes');
+      let items = responseArray['interns'];
+
+      for (let i = 0; i < items.length; i++) {
+        let checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.name = 'checkbox';
+        checkbox.value = items[i];
+        checkbox.classList.add('my-checkbox')
+        checkboxesDiv.appendChild(checkbox);
+
+        let label = document.createElement('label');
+        label.innerHTML = items[i];
+        checkboxesDiv.appendChild(label);
+
+        // enable checkbox feature
+        checkboxesDiv.querySelector('input[type="checkbox"]').checked = true;
+        checkboxesDiv.querySelectorAll('input[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
+
+
+        checkboxesDiv.appendChild(document.createElement('br'));
+      }
+
+    } else {
+      console.log("Request failed. Returned status of " + xhr.status);
+    }
+  };
 }
 
 </script>
