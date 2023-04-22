@@ -563,13 +563,33 @@
 </script>
 
 <script>
+  function checkBoxed() {
+    // enable/disable add task button
+    if ($('#checkboxes .my-checkbox:checked').length > 0) {
+        $('#insert').prop('disabled', false);
+    } else {
+        $('#insert').prop('disabled', true);
+    }
+    console.log($('#checkboxes .my-checkbox:checked').length);
+  }
+</script>
+
+<script>
   // select/deselect options
     $('#select-all').click(function() {
         var isChecked = $(this).hasClass('active');
         $('.my-checkbox').prop('checked', !isChecked);
         $(this).toggleClass('active', !isChecked);
+        checkBoxed();
     });
   </script>
+
+<script>
+  $('#checkboxes').on('click', '.my-checkbox', function() {
+    // check box handler
+    checkBoxed();  
+  });
+</script>
 
 <script>
   const dropArea = document.querySelector(".drag-area"),

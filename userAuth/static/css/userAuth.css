@@ -408,7 +408,7 @@ select {
   background-color: #0575e6;
 }
 
-#update:disabled {
+#update:disabled,#insert:disabled {
   background-color: #0575e6;
 }
 
