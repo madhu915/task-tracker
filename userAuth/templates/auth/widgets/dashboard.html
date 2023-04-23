@@ -603,6 +603,7 @@
   browse = dropArea.querySelector("#browse"),
   all = dropArea.querySelector(".all");
   let file;
+  let fd;
 
   button.onclick = ()=>{
   input.click();
@@ -666,12 +667,14 @@
 function uploadFile(formData){
   let xhr = new XMLHttpRequest();
   xhr.open('POST', '/upload-file/', true);  
+  console.log(formData);
   xhr.send(formData);
 
   xhr.onload = function() {
     if (xhr.status === 200) {
       var responseArray = JSON.parse(xhr.responseText);
       console.log(responseArray['interns']);
+      fd=formData;
 
       let checkboxesDiv = document.getElementById('checkboxes');
       let items = responseArray['interns'];
@@ -704,6 +707,35 @@ function uploadFile(formData){
   };
 }
 
+
+  $(document).ready(function(){
+    $("#insert").click(function(){
+      var selectedIds = [];
+      $('.my-checkbox:checked').each(function(){
+        selectedIds.push(parseInt($(this).val()));
+      });
+      console.log(selectedIds);
+
+      var fds = new FormData();
+
+      // Add file(s) to the FormData object
+      fds.append('file', file);
+
+      $.ajax({
+      url: "/add-tasks/",
+      type: "POST",
+      data: 
+        JSON.stringify({'ids':selectedIds,'forms':fds}),
+      contentType: "application/json",
+      success: function () {
+        console.log("Changes saved successfully!");
+      },
+      error: function () {
+        console.log("Error saving changes!");
+      },
+    });      
+    });
+  });
 </script>
   
   {% else %}

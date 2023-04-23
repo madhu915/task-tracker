@@ -20,4 +20,5 @@ urlpatterns = [
     path('update-tasks/',views.update_tasks,name='update-tasks'),
     path('new-comment/',views.new_comment,name='new-comment'),
     path('upload-file/',views.upload_file,name='upload-file'),
+    path('add-tasks/',views.add_tasks,name='add-tasks'),
 ]

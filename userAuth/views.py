@@ -32,6 +32,13 @@ def home(request):
     return render(request, 'auth/widgets/main.html',content)
 
 @csrf_exempt
+def add_tasks(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        print(data['ids'])
+        return JsonResponse('access',safe=False)
+
+@csrf_exempt
 def upload_file(request):
     if request.method == "POST":
         file = request.FILES['sheet']
