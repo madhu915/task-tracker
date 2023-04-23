@@ -42,26 +42,30 @@ def upload_file(request):
             # forward fill for NaN values
             df = df.fillna(method='ffill',axis=0)
 
-            df['Intern ID'] = df['Intern ID'].astype(int)
+            try:
+                df['Intern ID'] = df['Intern ID'].astype(int)
 
-            interns = df['Intern ID'].unique().tolist()
+                interns = df['Intern ID'].unique().tolist()
 
-            print(type(df),df.columns)
-            df.to_excel('out.xlsx')
-            wb = openpyxl.load_workbook(file)
-            ws = wb.active
-            print(df.shape[0],interns)
+                print(type(df),df.columns)
+                df.to_excel('out.xlsx')
+                wb = openpyxl.load_workbook(file)
+                ws = wb.active
+                print(df.shape[0],interns)
 
-            # extract source links
-            for i in range(df.shape[0]):
-                try:
-                    # row_num , link
-                    print(i-1, ws.cell(row=i, column=4).hyperlink.target)
-                except:
-                    pass
-                    # no link
-            print(df)
-            return JsonResponse({'interns':interns})
+                # extract source links
+                for i in range(df.shape[0]):
+                    try:
+                        # row_num , link
+                        print(i-1, ws.cell(row=i, column=4).hyperlink.target)
+                    except:
+                        pass
+                        # no link
+                print(df)
+                return JsonResponse({'interns':interns})
+
+            except Exception as e:
+                print(f'{e}')
         
         # handle csv later
         if file.name.endswith('.csv'):
@@ -69,7 +73,7 @@ def upload_file(request):
             print(type(df))     
 
         print(df)
-        return HttpResponse('File upload success')
+        return HttpResponse('File upload success',status=204)
 
 @csrf_exempt
 def update_tasks(request):

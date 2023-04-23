@@ -642,18 +642,14 @@
   console.log(fileType);
   let validExtensions = ["text/csv","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]; //valid extensions csv/xlsx 
   if(validExtensions.includes(fileType)){
-  let fileReader = new FileReader(); //creating new FileReader object\
+  let fileReader = new FileReader();
   fileReader.readAsText(file);
 
   fileReader.onload = ()=>{
     console.log(fileReader.result);
     dragText.textContent = file['name'];
-    cloud.hidden = true;
-    intern.hidden = false;
-    span.hidden = true;
-    browse.hidden = true;
-    insert.hidden = false;
-    all.hidden = false;
+    cloud.hidden = span.hidden = browse.hidden = true;
+    intern.hidden = insert.hidden = false;
 
     console.log(file['name']);
     let formData = new FormData();
@@ -699,9 +695,11 @@ function uploadFile(formData){
 
         checkboxesDiv.appendChild(document.createElement('br'));
       }
+      all.hidden = false;
 
     } else {
       console.log("Request failed. Returned status of " + xhr.status);
+      alert("There was a problem parsing the file. Try Again!")
     }
   };
 }
