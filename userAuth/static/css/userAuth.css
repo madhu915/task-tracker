@@ -857,3 +857,8 @@ a:hover,a:active,a:focus{
   font-weight: 500;
   cursor: pointer;
 }
+
+#checkboxes label{
+    font-size: 1rem;
+    margin-left: 10px;
+}
