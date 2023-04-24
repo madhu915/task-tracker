@@ -649,7 +649,7 @@
 
   fileReader.onload = ()=>{
     // console.log(fileReader.result);
-    dragText.textContent = file['name'];
+    dragText.hidden = true;
     cloud.hidden = span.hidden = browse.hidden = true;
     intern.hidden = insert.hidden = false;
 

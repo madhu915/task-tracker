@@ -195,8 +195,9 @@ select {
 }
 
 .assignee-initials {
-  color: #ffffff;
+  color: #67bbeb;
   padding: 8px;
+  font-size: smaller;
 }
 
 .table .title {
@@ -851,14 +852,93 @@ a:hover,a:active,a:focus{
   color: rgba(255, 255, 255, 0.6);
   margin: 10px 0 15px 0;
 }
-.drag-area button{
+.drag-area button, .all{
   padding: 10px 25px;
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
 }
 
+.all,.all:focus,.all:hover{
+  color: #ac38ff;
+
+}
+
+/* #insert:hover, #insert:focus, #insert:active, #insert.active, #insert:active:focus, #insert:active:hover, #insert.active:focus, #insert.active:hover{
+  color:#ffffff !important;
+} */
+
 #checkboxes label{
     font-size: 1rem;
     margin-left: 10px;
+    margin-bottom: 16px;
+}
+
+
+[type=checkbox] {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #ac38ff;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  background: none;
+  border: 0;
+  outline: 0;
+  flex-grow: 0;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  transition: background 300ms;
+  cursor: pointer;
+  margin-left: 42px;
+
+}
+
+
+[type=checkbox]::before {
+  content: "";
+  color: transparent;
+  display: block;
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+  border: 0;
+  background-color: transparent;
+  background-size: contain;
+  box-shadow: inset 0 0 0 1px #CCD3D8;
+}
+
+
+[type=checkbox]:checked {
+  background-color: currentcolor;
+}
+
+[type=checkbox]:checked::before {
+  box-shadow: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E %3Cpath d='M15.88 8.29L10 14.17l-1.88-1.88a.996.996 0 1 0-1.41 1.41l2.59 2.59c.39.39 1.02.39 1.41 0L17.3 9.7a.996.996 0 0 0 0-1.41c-.39-.39-1.03-.39-1.42 0z' fill='%23fff'/%3E %3C/svg%3E");
+}
+
+
+[type=checkbox]:disabled {
+  background-color: #CCD3D8;
+  opacity: 0.84;
+  cursor: not-allowed;
+}
+
+
+[type=checkbox]::-ms-check {
+  content: "";
+  color: transparent;
+  display: block;
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+  border: 0;
+  background-color: transparent;
+  background-size: contain;
+  box-shadow: inset 0 0 0 1px #CCD3D8;
+}
+
+[type=checkbox]:checked::-ms-check {
+  box-shadow: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E %3Cpath d='M15.88 8.29L10 14.17l-1.88-1.88a.996.996 0 1 0-1.41 1.41l2.59 2.59c.39.39 1.02.39 1.41 0L17.3 9.7a.996.996 0 0 0 0-1.41c-.39-.39-1.03-.39-1.42 0z' fill='%23fff'/%3E %3C/svg%3E");
 }
