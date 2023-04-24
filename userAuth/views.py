@@ -39,6 +39,14 @@ def home(request):
 def add_tasks(request):
     if request.method == 'POST':
         selectedIDs = json.loads(request.POST.get('data'))
+        interns_list=Intern.objects.filter(mentorid_id=request.user.id).values_list('pk', flat=True)
+
+        intern_list = list(interns_list)
+        if set(selectedIDs).issubset(set(intern_list)) is False:
+            response = JsonResponse({"error": "Invalid Interns. Try Again!"})
+            response.status_code = 403
+            return response
+
         file =request.FILES.get('sheet', None)
         print("addtasks",selectedIDs,file)
 
@@ -55,26 +63,19 @@ def add_tasks(request):
 
                 wb = openpyxl.load_workbook(file)
                 ws = wb.active
-
-                all_merged_cell_ranges: list[CellRange] = list(
-        ws.merged_cells.ranges
-    )
+                
+                # unmerge cells and copy cell values
+                all_merged_cell_ranges: list[CellRange] = list(ws.merged_cells.ranges)
 
                 for merged_cell_range in all_merged_cell_ranges:
                     merged_cell: Cell = merged_cell_range.start_cell
                     ws.unmerge_cells(range_string=merged_cell_range.coord)
 
-                    # Don't need to convert iterator to list here since `merged_cell_range`
-                    # is cached
                     for row_index, col_index in merged_cell_range.cells:
                         cell: Cell = ws.cell(row=row_index, column=col_index)
                         cell.value = merged_cell.value
 
-                        # (Optional) If you want to also copy the original cell styling to
-                        # the newly unmerged cells, you must use shallow `copy()` since
-                        # cell style properties are proxy objects which are not hashable.
-                        #
-                        # See <https://openpyxl.rtfd.io/en/stable/styles.html#copying-styles>
+                        # copy cell styling
                         cell.alignment = copy(merged_cell.alignment)
                         cell.border = copy(merged_cell.border)
                         cell.font = copy(merged_cell.font)
@@ -83,11 +84,11 @@ def add_tasks(request):
                 description = ""
                 last_updated_by_id = request.user.id
 
-                # task = Task(description=)
                 # extract source links
                 for i in range(2,df.shape[0]+2):
                     if ws.cell(row=i, column=1).value in selectedIDs:
                         links = None
+                        due_date = None
                         try:
                             description = ws.cell(row=i, column=4).value
                             links = ws.cell(row=i, column=4).hyperlink.target
@@ -97,7 +98,8 @@ def add_tasks(request):
                         except:  
                             description = ws.cell(row=i, column=4).value                
                             dd = ws.cell(row=i, column=3).value
-                            due_date = dd.date()
+                            if dd is not None:
+                                due_date = dd.date()
                             progress_status = ws.cell(row=i, column=2).value
                             internid_id = ws.cell(row=i, column=1).value
                         finally:
@@ -116,9 +118,7 @@ def add_tasks(request):
                                     progress_status = 'In-Progress'
 
                             print(description,due_date,progress_status,internid_id,started_date,completed_date,completion_status,last_updated_by_id)
-                            if links is None:
-                                print('no')
-                            else:
+                            if links is not None:
                                 description=format_html('<a href="{}">{}</a>', links, description)   
                                                      
                             task = Task(description=description, started_date=started_date, 

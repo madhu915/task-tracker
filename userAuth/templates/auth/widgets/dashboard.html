@@ -648,7 +648,7 @@
   fileReader.readAsText(file);
 
   fileReader.onload = ()=>{
-    console.log(fileReader.result);
+    // console.log(fileReader.result);
     dragText.textContent = file['name'];
     cloud.hidden = span.hidden = browse.hidden = true;
     intern.hidden = insert.hidden = false;
@@ -669,7 +669,7 @@
 function uploadFile(formData){
   let xhr = new XMLHttpRequest();
   xhr.open('POST', '/upload-file/', true);  
-  console.log(formData);
+  // console.log(formData);
   xhr.send(formData);
 
   xhr.onload = function() {
@@ -727,12 +727,13 @@ function uploadFile(formData){
         fd,
       processData: false,
       contentType: false,
-      success: function () {
+      success: function (data) {
         console.log("Changes saved successfully!");
-        location.reload();
+        loadHome();
       },
-      error: function () {
+      error: function (data) {
         console.log("Error saving changes!");
+        alert(data.responseJSON.error);
       },
     });      
     });
