@@ -121,7 +121,7 @@
                         </div>
                         {% endif %}
                         <p class="text-muted" style="color:#040a43">
-                          {{ task.description }}
+                          {{ task.description|safe }}
                         </p>  
                         
 
@@ -175,7 +175,7 @@
                         </div>
                         {% endif %}
                         <p class="text-muted">
-                          {{ task.description}}
+                          {{ task.description|safe }}
                         </p>   
                       </td>
                     </tr>
@@ -228,7 +228,7 @@
                         </div>
                         {% endif %}
                         <p class="text-muted">
-                          {{ task.description}}
+                          {{ task.description|safe }}
                         </p>                              
                       </td>
                     </tr>

@@ -527,13 +527,13 @@
       dataType: 'json',
       success: function () {
         console.log("Changes saved successfully!");
+        location.reload();
       },
       error: function () {
         console.log("Error saving changes!");
       },
     });
     $(this).hide();
-    location.reload();
   });
   });
 </script>
@@ -592,6 +592,7 @@
 </script>
 
 <script>
+  try{
   const dropArea = document.querySelector(".drag-area"),
   dragText = dropArea.querySelector("header"),
   button = dropArea.querySelector("button"),
@@ -728,6 +729,7 @@ function uploadFile(formData){
       contentType: false,
       success: function () {
         console.log("Changes saved successfully!");
+        location.reload();
       },
       error: function () {
         console.log("Error saving changes!");
@@ -735,6 +737,10 @@ function uploadFile(formData){
     });      
     });
   });
+
+} catch (error) {
+    
+  }
 </script>
   
   {% else %}

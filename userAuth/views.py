@@ -5,6 +5,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login, authenticate
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.html import format_html
 from .forms import NewTaskForm, SignUpForm
 from .models import Comment, Intern, Mentor, Task, User
 import pandas as pd
@@ -115,18 +116,18 @@ def add_tasks(request):
                                     progress_status = 'In-Progress'
 
                             print(description,due_date,progress_status,internid_id,started_date,completed_date,completion_status,last_updated_by_id)
+                            if links is None:
+                                print('no')
+                            else:
+                                description=format_html('<a href="{}">{}</a>', links, description)   
+                                                     
                             task = Task(description=description, started_date=started_date, 
                                         completed_date=completed_date,due_date=due_date,
                                         completion_status=completion_status, progress_status=progress_status,
                                         internid_id=internid_id, last_updated_by_id=last_updated_by_id, 
                                         mentor_id=last_updated_by_id)
                             task.save()
-                            if links is None:
-                                print(task.id)
-                            else:
-                                comment = Comment(comment=links,commenter_id=last_updated_by_id,task_id=task.id)
-                                comment.save()
-                         
+                                                     
                 return JsonResponse({'interns':interns})
 
             except Exception as e:
