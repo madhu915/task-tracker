@@ -97,7 +97,7 @@
               <div class="titlebar">
                 <h6 class="title d-inline">Task ID</h6>
                 {% if user.role == 'Mentor' %}
-                  <p class="card-category d-inline">Assignee</p>
+                {% if showb %}<p class="card-category d-inline">Assignee</p>{% endif %}
                 {% endif %}
               </div>
               <div class="table-full-width table-responsive">
@@ -116,9 +116,11 @@
                       <td>
                         <p class="title">{{ task.id }}</p>  
                         {% if user.role == 'Mentor' %}
+                        {% if showb %}
                         <div class="assignee-bubble">
                           <span class="assignee-initials">{{ task.internid.firstname }} {{ task.internid.lastname }}</span>
                         </div>
+                        {% endif %}
                         {% endif %}
                         <p class="text-muted" style="font-size: small !important;">
                           {{ task.description|safe }}
@@ -151,7 +153,7 @@
               <div class="titlebar">
                 <h6 class="title d-inline">Task ID</h6>
                 {% if user.role == 'Mentor' %}
-                  <p class="card-category d-inline">Assignee</p>
+                  {% if showb %}<p class="card-category d-inline">Assignee</p>{% endif %}
                 {% endif %}
               </div>
               <div class="table-full-width table-responsive">
@@ -169,10 +171,12 @@
                     <tr class='clickable-row' data-task-id="{{ task.id }}" data-href="{% url 'task-detail' pk=task.pk %}">
                       <td>
                         <p class="title">{{ task.id }}</p>  
-                        {% if user.role == 'Mentor' %}                                                
+                        {% if user.role == 'Mentor' %}
+                        {% if showb %}                                                
                         <div class="assignee-bubble">
                           <span class="assignee-initials">{{ task.internid.firstname }} {{ task.internid.lastname }}</span>
                         </div>
+                        {% endif %}
                         {% endif %}
                         <p class="text-muted" style="font-size: small !important;">
                           {{ task.description|safe }}
@@ -204,7 +208,7 @@
               <div class="titlebar">
                 <h6 class="title d-inline">Task ID</h6>
                 {% if user.role == 'Mentor' %}
-                  <p class="card-category d-inline">Assignee</p>
+                {% if showb %}<p class="card-category d-inline">Assignee</p>{% endif %}
                 {% endif %}
               </div>
               <div class="table-full-width table-responsive">
@@ -223,9 +227,11 @@
                       <td>
                         <p class="title">{{ task.id }}</p>  
                         {% if user.role == 'Mentor' %}
+                        {% if showb %}
                         <div class="assignee-bubble">
                           <span class="assignee-initials">{{ task.internid.firstname }} {{ task.internid.lastname }}</span>
                         </div>
+                        {% endif %}
                         {% endif %}
                         <p class="text-muted" style="font-size: small !important;">
                           {{ task.description|safe }}

@@ -32,7 +32,7 @@ def home(request):
         count_i = in_progress.count()
         count_c = completed.count()
         
-        content = {'to_do':pending,'in_progress':in_progress,'completed':completed,'interns':interns_list,'pcount':count_p,'ccount':count_c,'icount':count_i}
+        content = {'showb':True,'to_do':pending,'in_progress':in_progress,'completed':completed,'interns':interns_list,'pcount':count_p,'ccount':count_c,'icount':count_i}
     return render(request, 'auth/widgets/main.html',content)
 
 @csrf_exempt
@@ -273,7 +273,7 @@ def intern_filter(request):
     count_p = to_do.count()
     count_i = in_progress.count()
     count_c = completed.count()
-    content={'to_do': to_do,'in_progress': in_progress, 'completed': completed, 'interns':interns_list, 'pcount':count_p,'ccount':count_c,'icount':count_i}
+    content={'showb':False,'to_do': to_do,'in_progress': in_progress, 'completed': completed, 'interns':interns_list, 'pcount':count_p,'ccount':count_c,'icount':count_i}
     return render(request, 'auth/widgets/main.html', content)
 
 def intern_details(request):
