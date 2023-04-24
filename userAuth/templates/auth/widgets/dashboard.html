@@ -655,6 +655,7 @@
     console.log(file['name']);
     let formData = new FormData();
     formData.append("sheet", file);
+    fd = formData;
     uploadFile(formData);
   }
   }else{
@@ -674,7 +675,6 @@ function uploadFile(formData){
     if (xhr.status === 200) {
       var responseArray = JSON.parse(xhr.responseText);
       console.log(responseArray['interns']);
-      fd=formData;
 
       let checkboxesDiv = document.getElementById('checkboxes');
       let items = responseArray['interns'];
@@ -716,17 +716,16 @@ function uploadFile(formData){
       });
       console.log(selectedIds);
 
-      var fds = new FormData();
-
-      // Add file(s) to the FormData object
-      fds.append('file', file);
+      const data_ = JSON.stringify(selectedIds)
+      fd.append('data', data_);
 
       $.ajax({
       url: "/add-tasks/",
       type: "POST",
       data: 
-        JSON.stringify({'ids':selectedIds,'forms':fds}),
-      contentType: "application/json",
+        fd,
+      processData: false,
+      contentType: false,
       success: function () {
         console.log("Changes saved successfully!");
       },

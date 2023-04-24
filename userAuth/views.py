@@ -1,3 +1,4 @@
+from copy import copy
 from datetime import datetime
 import json
 from django.http import HttpResponse, JsonResponse
@@ -8,6 +9,8 @@ from .forms import NewTaskForm, SignUpForm
 from .models import Comment, Intern, Mentor, Task, User
 import pandas as pd
 import openpyxl
+from openpyxl.cell import Cell
+from openpyxl.worksheet.cell_range import CellRange
 
 def home(request):
     content = {}
@@ -34,8 +37,101 @@ def home(request):
 @csrf_exempt
 def add_tasks(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        print(data['ids'])
+        selectedIDs = json.loads(request.POST.get('data'))
+        file =request.FILES.get('sheet', None)
+        print("addtasks",selectedIDs,file)
+
+        if file.name.endswith('.xlsx'):
+            df = pd.read_excel(file)
+            # forward fill for NaN values
+            df = df.fillna(method='ffill',axis=0)
+
+            try:
+                df['Intern ID'] = df['Intern ID'].astype(int)
+                interns = df['Intern ID'].unique().tolist()
+
+                res_df = df[df['Intern ID'].isin(selectedIDs)]
+
+                wb = openpyxl.load_workbook(file)
+                ws = wb.active
+
+                all_merged_cell_ranges: list[CellRange] = list(
+        ws.merged_cells.ranges
+    )
+
+                for merged_cell_range in all_merged_cell_ranges:
+                    merged_cell: Cell = merged_cell_range.start_cell
+                    ws.unmerge_cells(range_string=merged_cell_range.coord)
+
+                    # Don't need to convert iterator to list here since `merged_cell_range`
+                    # is cached
+                    for row_index, col_index in merged_cell_range.cells:
+                        cell: Cell = ws.cell(row=row_index, column=col_index)
+                        cell.value = merged_cell.value
+
+                        # (Optional) If you want to also copy the original cell styling to
+                        # the newly unmerged cells, you must use shallow `copy()` since
+                        # cell style properties are proxy objects which are not hashable.
+                        #
+                        # See <https://openpyxl.rtfd.io/en/stable/styles.html#copying-styles>
+                        cell.alignment = copy(merged_cell.alignment)
+                        cell.border = copy(merged_cell.border)
+                        cell.font = copy(merged_cell.font)
+
+
+                description = ""
+                last_updated_by_id = request.user.id
+
+                # task = Task(description=)
+                # extract source links
+                for i in range(2,df.shape[0]+2):
+                    if ws.cell(row=i, column=1).value in selectedIDs:
+                        links = None
+                        try:
+                            description = ws.cell(row=i, column=4).value
+                            links = ws.cell(row=i, column=4).hyperlink.target
+                            due_date = ws.cell(row=i, column=3).value.date()
+                            progress_status = ws.cell(row=i, column=2).value                      
+                            internid_id = ws.cell(row=i, column=1).value
+                        except:  
+                            description = ws.cell(row=i, column=4).value                
+                            dd = ws.cell(row=i, column=3).value
+                            due_date = dd.date()
+                            progress_status = ws.cell(row=i, column=2).value
+                            internid_id = ws.cell(row=i, column=1).value
+                        finally:
+                            started_date = completed_date = None
+                            completion_status = False
+                            if progress_status != 'To Do':
+                                started_date = datetime.now().date()
+                            if progress_status == 'Done':
+                                progress_status ='completed'
+                                completed_date = datetime.now().date()
+                                completion_status = True
+                            else:
+                                if progress_status == 'To Do':
+                                    progress_status = 'To-do'
+                                else:
+                                    progress_status = 'In-Progress'
+
+                            print(description,due_date,progress_status,internid_id,started_date,completed_date,completion_status,last_updated_by_id)
+                            task = Task(description=description, started_date=started_date, 
+                                        completed_date=completed_date,due_date=due_date,
+                                        completion_status=completion_status, progress_status=progress_status,
+                                        internid_id=internid_id, last_updated_by_id=last_updated_by_id, 
+                                        mentor_id=last_updated_by_id)
+                            task.save()
+                            if links is None:
+                                print(task.id)
+                            else:
+                                comment = Comment(comment=links,commenter_id=last_updated_by_id,task_id=task.id)
+                                comment.save()
+                         
+                return JsonResponse({'interns':interns})
+
+            except Exception as e:
+                print(f'{e}')
+
         return JsonResponse('access',safe=False)
 
 @csrf_exempt
@@ -56,19 +152,7 @@ def upload_file(request):
 
                 print(type(df),df.columns)
                 df.to_excel('out.xlsx')
-                wb = openpyxl.load_workbook(file)
-                ws = wb.active
                 print(df.shape[0],interns)
-
-                # extract source links
-                for i in range(df.shape[0]):
-                    try:
-                        # row_num , link
-                        print(i-1, ws.cell(row=i, column=4).hyperlink.target)
-                    except:
-                        pass
-                        # no link
-                print(df)
                 return JsonResponse({'interns':interns})
 
             except Exception as e:
