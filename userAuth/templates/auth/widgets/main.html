@@ -54,7 +54,7 @@
                 >
                 {% for intern in interns %}
                   <li style="padding-right: 0.5rem; padding-left: 0.5rem;">
-                    <a class="dropdown-item" href="{% url 'intern-filter' %}?id={{intern.internid_id}}">{{intern.firstname}}</a>
+                    <a class="dropdown-item" href="{% url 'intern-filter' %}?id={{intern.internid_id}}">{{intern.firstname}} {{intern.lastname}}</a>
                   </li>
                 {% endfor %}
                  
@@ -118,7 +118,7 @@
                         {% if user.role == 'Mentor' %}
                         {% if showb %}
                         <div class="assignee-bubble">
-                          <span class="assignee-initials">{{ task.internid.firstname }} {{ task.internid.lastname }}</span>
+                          <span class="assignee-initials">{{ task.internid.firstname }}</span>
                         </div>
                         {% endif %}
                         {% endif %}
@@ -174,7 +174,7 @@
                         {% if user.role == 'Mentor' %}
                         {% if showb %}                                                
                         <div class="assignee-bubble">
-                          <span class="assignee-initials">{{ task.internid.firstname }} {{ task.internid.lastname }}</span>
+                          <span class="assignee-initials">{{ task.internid.firstname }}</span>
                         </div>
                         {% endif %}
                         {% endif %}
@@ -229,7 +229,7 @@
                         {% if user.role == 'Mentor' %}
                         {% if showb %}
                         <div class="assignee-bubble">
-                          <span class="assignee-initials">{{ task.internid.firstname }} {{ task.internid.lastname }}</span>
+                          <span class="assignee-initials">{{ task.internid.firstname }}</span>
                         </div>
                         {% endif %}
                         {% endif %}

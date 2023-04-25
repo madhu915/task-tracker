@@ -604,37 +604,36 @@
   browse = dropArea.querySelector("#browse"),
   all = dropArea.querySelector(".all");
   let file;
-  let fd;
+  let formDataRequest;
 
   button.onclick = ()=>{
   input.click();
   }
 
   input.addEventListener("change", function(){
-  //getting user select file and [0] this means if user select multiple files then we'll select only the first one
+  //select only the first file in case of multiple files
   file = this.files[0];
   dropArea.classList.add("active");
   showFile();
   });
 
 
-  //If user Drag File Over DropArea
+  //Drag File Over DropArea
   dropArea.addEventListener("dragover", (event)=>{
   event.preventDefault(); //prevent from default behaviour
   dropArea.classList.add("active");
   dragText.textContent = "Release to Upload File";
   });
 
-  //If user leave dragged File from DropArea
+  //Leave dragged File from DropArea
   dropArea.addEventListener("dragleave", ()=>{
   dropArea.classList.remove("active");
   dragText.textContent = "Upload File";
   });
 
-  //If user drop File on DropArea
+  //Drop File on DropArea
   dropArea.addEventListener("drop", (event)=>{
   event.preventDefault();
-  //getting user select file and [0] this means if user select multiple files then we'll select only the first one
   file = event.dataTransfer.files[0];
   showFile();
   });
@@ -656,7 +655,7 @@
     console.log(file['name']);
     let formData = new FormData();
     formData.append("sheet", file);
-    fd = formData;
+    formDataRequest = formData;
     uploadFile(formData);
   }
   }else{
@@ -703,6 +702,9 @@ function uploadFile(formData){
 
     } else {
       console.log("Request failed. Returned status of " + xhr.status);
+      intern.hidden = insert.hidden = true;
+      cloud.hidden = span.hidden = browse.hidden = dragText.hidden = false;
+      dropArea.classList.remove("active");
       alert("There was a problem parsing the file. Try Again!")
     }
   };
@@ -710,6 +712,7 @@ function uploadFile(formData){
 
 
   $(document).ready(function(){
+    // ajax request to add tasks for selected interns
     $("#insert").click(function(){
       var selectedIds = [];
       $('.my-checkbox:checked').each(function(){
@@ -717,14 +720,14 @@ function uploadFile(formData){
       });
       console.log(selectedIds);
 
-      const data_ = JSON.stringify(selectedIds)
-      fd.append('data', data_);
+      const IDs = JSON.stringify(selectedIds)
+      formDataRequest.append('data', IDs);
 
       $.ajax({
       url: "/add-tasks/",
       type: "POST",
       data: 
-        fd,
+        formDataRequest,
       processData: false,
       contentType: false,
       success: function (data) {

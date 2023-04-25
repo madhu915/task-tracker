@@ -269,7 +269,11 @@ select {
 
 .text-muted {
   color: #7a8ea0 !important;
+}
+
+.text-muted a{
   font-style: italic;
+  font-weight: bold;
 }
 
 .head {
@@ -854,7 +858,7 @@ a:hover,a:active,a:focus{
 }
 .drag-area button, .all{
   padding: 10px 25px;
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 500;
   cursor: pointer;
 }
