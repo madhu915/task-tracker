@@ -152,19 +152,30 @@ def upload_file(request):
                 interns = df['Intern ID'].unique().tolist()
 
                 print(type(df),df.columns)
-                df.to_excel('out.xlsx')
                 print(df.shape[0],interns)
                 return JsonResponse({'interns':interns})
 
             except Exception as e:
                 print(f'{e}')
         
-        # handle csv later
+        # upload csv files
         if file.name.endswith('.csv'):
-            df = pd.read_csv(file)
-            print(type(df))     
+            try:
+                df = pd.read_csv(file)
+                # forward fill for NaN values
+                df = df.fillna(method='ffill',axis=0)
 
-        print(df)
+                df['Intern ID'] = df['Intern ID'].astype(int)
+
+                interns = df['Intern ID'].unique().tolist()
+
+                print(df,df.columns)
+                print(df.shape[0],interns)
+                return JsonResponse({'interns':interns})
+
+            except Exception as e:
+                print(f'{e}')            
+
         return HttpResponse('File upload success',status=204)
 
 @csrf_exempt
