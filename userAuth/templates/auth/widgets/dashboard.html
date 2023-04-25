@@ -641,7 +641,7 @@
   function showFile(){
   let fileType = file.type; //getting selected file type
   console.log(fileType);
-  let validExtensions = ["text/csv","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]; //valid extensions csv/xlsx 
+  let validExtensions = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]; //valid extensions xlsx 
   if(validExtensions.includes(fileType)){
   let fileReader = new FileReader();
   fileReader.readAsText(file);
@@ -659,7 +659,7 @@
     uploadFile(formData);
   }
   }else{
-  alert("Please upload CSV/Excel files!");
+  alert("Please upload Excel files!");
   dropArea.classList.remove("active");
   dragText.textContent = "Upload File";
 }

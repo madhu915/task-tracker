@@ -133,6 +133,73 @@ def add_tasks(request):
             except Exception as e:
                 print(f'{e}')
 
+        # if file.name.endswith('.csv'):
+        #     try:
+        #         df = pd.read_csv(file)
+        #         # forward fill for NaN values
+        #         df = df.fillna(method='ffill',axis=0)
+
+        #         df['Intern ID'] = df['Intern ID'].astype(int)
+        #         interns = df['Intern ID'].unique().tolist()
+
+        #         print(interns, selectedIDs)
+
+        #         res_df = df[df['Intern ID'].isin(selectedIDs)]
+        #         res_df.to_excel('out.xlsx',index=None,header=True)
+
+        #         wb = openpyxl.load_workbook('out.xlsx')
+        #         ws = wb.active
+
+        #         description = progress_status = ""
+        #         internid_id = None
+        #         last_updated_by_id = request.user.id
+
+        #         # extract source links
+        #         for i in range(2,res_df.shape[0]+2):
+        #             links = None
+        #             due_date = None
+        #             try:
+        #                 description = ws.cell(row=i, column=4).value
+        #                 links = ws.cell(row=i, column=4).hyperlink.target
+        #                 due_date = ws.cell(row=i, column=3).value
+        #                 progress_status = ws.cell(row=i, column=2).value                      
+        #                 internid_id = ws.cell(row=i, column=1).value
+        #             except:  
+        #                 description = ws.cell(row=i, column=4).value                
+        #                 due_date = ws.cell(row=i, column=3).value
+        #                 progress_status = ws.cell(row=i, column=2).value
+        #                 internid_id = ws.cell(row=i, column=1).value
+        #             finally:
+        #                 started_date = completed_date = None
+        #                 completion_status = False
+        #                 if progress_status != 'To Do':
+        #                     started_date = datetime.now().date()
+        #                 if progress_status == 'Done':
+        #                     progress_status ='completed'
+        #                     completed_date = datetime.now().date()
+        #                     completion_status = True
+        #                 else:
+        #                     if progress_status == 'To Do':
+        #                         progress_status = 'To-do'
+        #                     else:
+        #                         progress_status = 'In-Progress'
+
+        #                 print(description,due_date,progress_status,internid_id,started_date,completed_date,completion_status,last_updated_by_id)
+        #                 if links is not None:
+        #                     description=format_html('<a href="{}">{}</a>', links, description)   
+                                                     
+        #                 # task = Task(description=description, started_date=started_date, 
+        #                 #             completed_date=completed_date,due_date=due_date,
+        #                 #             completion_status=completion_status, progress_status=progress_status,
+        #                 #             internid_id=internid_id, last_updated_by_id=last_updated_by_id, 
+        #                 #             mentor_id=last_updated_by_id)
+        #                 # task.save()
+                                                     
+        #         return JsonResponse({'interns':interns})
+
+        #     except Exception as e:
+        #         print(f'{e}')
+
         return JsonResponse('access',safe=False)
 
 @csrf_exempt
@@ -159,22 +226,22 @@ def upload_file(request):
                 print(f'{e}')
         
         # upload csv files
-        if file.name.endswith('.csv'):
-            try:
-                df = pd.read_csv(file)
-                # forward fill for NaN values
-                df = df.fillna(method='ffill',axis=0)
+        # if file.name.endswith('.csv'):
+        #     try:
+        #         df = pd.read_csv(file)
+        #         # forward fill for NaN values
+        #         df = df.fillna(method='ffill',axis=0)
 
-                df['Intern ID'] = df['Intern ID'].astype(int)
+        #         df['Intern ID'] = df['Intern ID'].astype(int)
 
-                interns = df['Intern ID'].unique().tolist()
+        #         interns = df['Intern ID'].unique().tolist()
 
-                print(df,df.columns)
-                print(df.shape[0],interns)
-                return JsonResponse({'interns':interns})
+        #         print(df,df.columns)
+        #         print(df.shape[0],interns)
+        #         return JsonResponse({'interns':interns})
 
-            except Exception as e:
-                print(f'{e}')            
+        #     except Exception as e:
+        #         print(f'{e}')            
 
         return HttpResponse('File upload success',status=204)
 
