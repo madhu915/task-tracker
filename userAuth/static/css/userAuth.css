@@ -950,4 +950,5 @@ a:hover,a:active,a:focus{
 .download{
   display: flex;
   margin: auto;
+  justify-content: center;
 }
