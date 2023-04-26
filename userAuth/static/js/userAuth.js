@@ -18,6 +18,11 @@ jQuery(document).ready(function ($) {
   $("*[data-href]").on("click", function () {
     window.location = $(this).data("href");
   });
+  // open external links in new tabs
+  $(".table a").attr("target","_blank");
+  $(".text-muted a").attr("target","_blank");
+  jQuery(".text-muted a").attr('rel','noopener noreferrer');
+  jQuery("table a").attr('rel','noopener noreferrer');
 });
 
 var check = function () {

@@ -747,6 +747,15 @@ function uploadFile(formData){
     
   }
 </script>
+<script>
+  $(document).ready(function() {
+    // to bypass popup blocker
+  $('a[target="_blank"]').click(function(e) {
+    e.preventDefault();
+    window.open($(this).attr('href'));
+  });
+});
+</script>
   
   {% else %}
 
