@@ -43,7 +43,7 @@ def add_tasks(request):
 
         intern_list = list(interns_list)
         if set(selectedIDs).issubset(set(intern_list)) is False:
-            response = JsonResponse({"error": "Invalid Interns. Try Again!"})
+            response = JsonResponse({"error": "Unmapped Intern(s). Try Again!"})
             response.status_code = 403
             return response
 
