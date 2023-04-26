@@ -1,0 +1,55 @@
+{% extends 'auth/base.html' %} 
+{% block title %}Login{% endblock title %} 
+
+{% block body %}
+
+<div class="container" style="">
+        <div class="content" style="width: 500px;
+        height: 250px;
+        margin: 109px;
+        display: flex;
+        justify-content: center;">
+	<div class="screen justify-content-md-center" style="display: -webkit-box;">
+		<div class="screen__content" style="background: #6b9cf1;">
+			<form class="login" method="POST">
+                {% csrf_token %}
+                <div class="error">
+                    {% if form.non_field_errors %}
+                    <ul class="errorlist nonfield">
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+				<div class="login__field">                    
+                    {{ form.username.label_tag }}
+					<i class="login__icon bi bi-person-fill"></i>
+					<input type="text" class="login__input" placeholder="User Name" name="{{ form.username.html_name }}">
+                    {% if form.username.errors %}
+                        <div class="error">{{ form.username.errors }}</div>
+                    {% endif %}				
+                </div>
+				<div class="login__field">
+                    {{ form.password.label_tag }}
+					<i class="login__icon material-icons" style="font-size:medium;">lock</i>
+					<input type="password" class="login__input" placeholder="Password" name="{{ form.password.html_name }}">
+                {% if form.password.errors %}
+                    <div class="error">{{ form.password.errors }}</div>
+                {% endif %}
+                </div>
+				<button class="btn btn-primary mt-3 mx-3 login__submit">
+					<span class="button__text">Log In</span>
+					<i class="material-icons button__icon">chevron_right</i>
+				</button>				
+			</form>
+			
+		</div>
+        <div class="screen__content">
+            <img src="../static/img/banner.jpg" alt="" class="banner" width="" height="600" style="border-radius: 0;">
+        </div>		
+	</div>
+</div>
+</div>
+
+{% endblock body %}

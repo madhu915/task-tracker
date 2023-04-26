@@ -1,0 +1,762 @@
+{% extends 'auth/base.html' %} {% block title %}Home{% endblock title %} 
+{% block body %} 
+
+{% if user.is_authenticated %}
+
+<div class="wrapper">
+  {% if user.username != 'admin' %}
+  <div class="sidebar">
+    <div class="sidebar-wrapper">      
+      <ul class="nav">
+        {% block sidenav %} {% endblock sidenav %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+  <div class="main-panel">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
+      <div class="container-fluid">
+        <div class="navbar-wrapper">
+          <div class="navbar-toggle d-inline">
+            <button type="button" class="navbar-toggler">
+              <span class="navbar-toggler-bar bar1"></span>
+              <span class="navbar-toggler-bar bar2"></span>
+              <span class="navbar-toggler-bar bar3"></span>
+            </button>
+          </div>
+          {% if user.username != 'admin' %}
+          <a class="navbar-brand" href="{% url 'home' %}" style="text-transform: capitalize;"
+            ><span class="text-success" style="color: #00aff2 !important;" id="bla">Hi {{ user.first_name }}, </span>Welcome Back! </a
+          >
+        {% else %}
+          <a class="navbar-brand" href="javascript:void(0)"
+          >Admin</a
+          >     
+        {% endif %}
+        </div>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navigation"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-bar navbar-kebab"></span>
+          <span class="navbar-toggler-bar navbar-kebab"></span>
+          <span class="navbar-toggler-bar navbar-kebab"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navigation">
+          <ul class="navbar-nav ml-auto">
+            <li class="dropdown nav-item">
+              <a href="{% url 'home' %}" class="nav-link" style="margin-top: 4px;"
+
+              >
+                <i class="material-icons">
+                  home
+                </i>
+                <p class="d-lg-none">Home</p>
+              </a>
+            </li>
+            {% if user.username != 'admin' %}
+            <li class="dropdown nav-item">
+              <a
+                href="javascript:void(0)"
+                class="dropdown-toggle nav-link"
+                data-toggle="dropdown"
+                style="margin-top: 4px;"
+              >
+                <div class="notification d-none d-lg-block d-xl-block"></div>
+                <i class="material-icons">notifications</i>
+                <p class="d-lg-none">Notifications</p>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
+                <li class="nav-link">
+                  <a href="#" class="nav-item dropdown-item"
+                    >Sample notification 1</a
+                  >
+                </li>
+                <li class="nav-link">
+                  <a href="javascript:void(0)" class="nav-item dropdown-item"
+                    >Sample notification 2</a
+                  >
+                </li>
+              </ul>
+            </li>
+            {% endif %}
+
+            <li class="dropdown nav-item">
+              <a
+                href="#"
+                class="dropdown-toggle nav-link"
+                data-toggle="dropdown"
+              >
+                <div class="photo">
+                  <img src="/static/img/avatar.jpg" alt="Profile Photo" />
+                </div>
+                <b class="caret d-none d-lg-block d-xl-block"></b>
+                <p class="d-lg-none">Log out</p>
+              </a>
+              <ul class="dropdown-menu dropdown-navbar">
+                {% if user.username != 'admin' %}
+                <li class="nav-link">
+                  <a href="{% url 'profile' %}" class="nav-item dropdown-item"
+                    >Profile</a
+                  >
+                </li>
+                <li class="nav-link">
+                  <a href="{% url 'reset' %}" class="nav-item dropdown-item"
+                    >Change Password</a
+                  >
+                </li>
+                <li class="dropdown-divider"></li>
+                {% endif %}
+                <li class="nav-link">
+                  <a href="logout/" class="nav-item dropdown-item">Log out</a>
+                </li>
+              </ul>
+            </li>
+            <li class="separator d-lg-none"></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="content">
+        <div class="row">
+             <!-- <div class="col-12"><div class="card card-chart">
+                    <div class="card-header">
+                      <div class="row">
+                        <div class="col-sm-6 text-left">
+                          <h5 class="card-category">Total Shipments</h5>
+                          <h2 class="card-title">Performance</h2>
+                        </div>
+                        <div class="col-sm-6">
+                          <div
+                            class="btn-group btn-group-toggle float-right"
+                            data-toggle="buttons"
+                          >
+                            <label
+                              class="btn btn-sm btn-primary btn-simple active"
+                              id="0"
+                            >
+                              <input type="radio" name="options" checked />
+                              <span
+                                class="d-none d-sm-block d-md-block d-lg-block d-xl-block"
+                                >Accounts</span
+                              >
+                              <span class="d-block d-sm-none">
+                                <i class="tim-icons icon-single-02"></i>
+                              </span>
+                            </label>
+                            <label
+                              class="btn btn-sm btn-primary btn-simple"
+                              id="1"
+                            >
+                              <input
+                                type="radio"
+                                class="d-none d-sm-none"
+                                name="options"
+                              />
+                              <span
+                                class="d-none d-sm-block d-md-block d-lg-block d-xl-block"
+                                >Purchases</span
+                              >
+                              <span class="d-block d-sm-none">
+                                <i class="tim-icons icon-gift-2"></i>
+                              </span>
+                            </label>
+                            <label
+                              class="btn btn-sm btn-primary btn-simple"
+                              id="2"
+                            >
+                              <input
+                                type="radio"
+                                class="d-none"
+                                name="options"
+                              />
+                              <span
+                                class="d-none d-sm-block d-md-block d-lg-block d-xl-block"
+                                >Sessions</span
+                              >
+                              <span class="d-block d-sm-none">
+                                <i class="tim-icons icon-tap-02"></i>
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="chart-area">
+                        <canvas id="chartBig1"></canvas>
+                      </div>
+                    </div>
+                  </div></div> -->
+        {% block mainContent %} 
+        {% endblock mainContent %}
+        </div>
+            <!-- <div class="row">
+                <div class="col-lg-4">
+                  <div class="card card-chart">
+                    <div class="card-header">
+                      <h5 class="card-category">Pending Tasks</h5>
+                      <h3 class="card-title">
+                        <i class="tim-icons icon-bell-55 text-primary"></i>
+                        763,215
+                      </h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="chart-area">
+                        <canvas id="chartLinePurple"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="card card-chart">
+                    <div class="card-header">
+                      <h5 class="card-category">In Progress</h5>
+                      <h3 class="card-title">
+                        <i class="tim-icons icon-delivery-fast text-info"></i>
+                        3,500€
+                      </h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="chart-area">
+                        <canvas id="CountryChart"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="card card-chart">
+                    <div class="card-header">
+                      <h5 class="card-category">Completed Tasks</h5>
+                      <h3 class="card-title">
+                        <i class="tim-icons icon-send text-success"></i> 12,100K
+                      </h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="chart-area">
+                        <canvas id="chartLineGreen"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+      {% block optional %} {% endblock optional %}
+      <!-- STATS CANVAS SKETCH -->
+              <!-- <div class="row">
+                <div class="col-lg-6">
+                  <div class="card card-chart">
+                    <div class="card-header">
+                      <h5 class="card-category">Pending Tasks</h5>
+                      <h3 class="card-title">
+                        <i class="tim-icons icon-bell-55 text-primary"></i>
+                        763,215
+                      </h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="chart-area">
+                        <canvas id="chartLinePurple"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="card card-chart">
+                    <div class="card-header">
+                      <h5 class="card-category">Completed Tasks</h5>
+                      <h3 class="card-title">
+                        <i class="tim-icons icon-send text-success"></i> 12,100K
+                      </h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="chart-area">
+                        <canvas id="chartLineGreen"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->            
+    </div>
+    <!-- <footer class="footer" style="background: #1a1e34;">
+      <div class="container-fluid">
+        <ul class="nav">
+          <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link"></a>
+          </li>          
+        </ul>
+      </div>
+    </footer> -->
+    {{ data|json_script:"hello-data" }}
+  </div>
+</div>
+<!--   Core JS Files   -->
+<script src="/static/js/core/jquery.min.js"></script>
+<script src="/static/js/core/popper.min.js"></script>
+<script src="/static/js/core/bootstrap.min.js"></script>
+<script src="/static/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<!-- Chart JS -->
+<script src="/static/js/plugins/chartjs.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="/static/js/plugins/bootstrap-notify.js"></script>
+<!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="/static/js/black-dashboard.min.js?v=1.0.0"></script>
+<script src="/static/js/userAuth.js"></script>
+<script>
+    $(document).ready(function () {
+      $().ready(function () {
+        $sidebar = $(".sidebar");
+        $navbar = $(".navbar");
+        $main_panel = $(".main-panel");
+
+        $full_page = $(".full-page");
+
+        $sidebar_responsive = $("body > .navbar-collapse");
+        sidebar_mini_active = true;
+        white_color = false;
+
+        window_width = $(window).width();
+
+        fixed_plugin_open = $(
+          ".sidebar .sidebar-wrapper .nav li.active a p"
+        ).html();
+
+        $(".fixed-plugin a").click(function (event) {
+          if ($(this).hasClass("switch-trigger")) {
+            if (event.stopPropagation) {
+              event.stopPropagation();
+            } else if (window.event) {
+              window.event.cancelBubble = true;
+            }
+          }
+        });
+
+        $(".fixed-plugin .background-color span").click(function () {
+          $(this).siblings().removeClass("active");
+          $(this).addClass("active");
+
+          var new_color = $(this).data("color");
+
+          if ($sidebar.length != 0) {
+            $sidebar.attr("data", new_color);
+          }
+
+          if ($main_panel.length != 0) {
+            $main_panel.attr("data", new_color);
+          }
+
+          if ($full_page.length != 0) {
+            $full_page.attr("filter-color", new_color);
+          }
+
+          if ($sidebar_responsive.length != 0) {
+            $sidebar_responsive.attr("data", new_color);
+          }
+        });
+
+        $(".switch-sidebar-mini input").on(
+          "switchChange.bootstrapSwitch",
+          function () {
+            var $btn = $(this);
+
+            if (sidebar_mini_active == true) {
+              $("body").removeClass("sidebar-mini");
+              sidebar_mini_active = false;
+              blackDashboard.showSidebarMessage(
+                "Sidebar mini deactivated..."
+              );
+            } else {
+              $("body").addClass("sidebar-mini");
+              sidebar_mini_active = true;
+              blackDashboard.showSidebarMessage(
+                "Sidebar mini activated..."
+              );
+            }
+
+            // we simulate the window Resize so the charts will get updated in realtime.
+            var simulateWindowResize = setInterval(function () {
+              window.dispatchEvent(new Event("resize"));
+            }, 180);
+
+            // we stop the simulation of Window Resize after the animations are completed
+            setTimeout(function () {
+              clearInterval(simulateWindowResize);
+            }, 1000);
+          }
+        );
+
+        $(".switch-change-color input").on(
+          "switchChange.bootstrapSwitch",
+          function () {
+            var $btn = $(this);
+
+            if (white_color == true) {
+              $("body").addClass("change-background");
+              setTimeout(function () {
+                $("body").removeClass("change-background");
+                $("body").removeClass("white-content");
+              }, 900);
+              white_color = false;
+            } else {
+              $("body").addClass("change-background");
+              setTimeout(function () {
+                $("body").removeClass("change-background");
+                $("body").addClass("white-content");
+              }, 900);
+
+              white_color = true;
+            }
+          }
+        );
+
+        $(".light-badge").click(function () {
+          $("body").addClass("white-content");
+        });
+
+        $(".dark-badge").click(function () {
+          $("body").removeClass("white-content");
+        });
+      });
+    });
+  </script>
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
+  <!-- Include jQuery UI and Touch Punch library -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js" integrity="sha512-0bEtK0USNd96MnO4XhH8jhv3nyRF0eK87pJke6pkYf3cM0uDIhNJy9ltuzqgypoIFXw3JSuiy04tVk4AjpZdZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    function loadHome() {
+      // Reload Home
+      window.location.href="{% url 'home' %}";
+    }
+  </script>
+  <script>
+    const textareas = document.getElementsByClassName('description');
+    for (let i = 0; i < textareas.length; i++) {
+      textareas[i].addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+      });
+    }
+  </script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    // Drag N Drop Tasks + JQuery Touch Punch
+      var startTable = "pending-tasks";
+      var startTable2 = "in-progress-tasks";
+      var startTable3 = "completed-tasks";
+      var changes = {}; // dictionary to store changes made to tasks
+      var start_pos;
+      var end_pos;
+      var $table;
+
+      var $tabs = $("#" + startTable);
+      var $tabs2 = $("#" + startTable2);
+      var $tabs3 = $("#" + startTable3);
+
+      $("tbody.connectedSortable")
+          .sortable({
+          connectWith: ".connectedSortable",
+          items: "> tr:not(:first)",
+          helper: "clone",
+          cursor: "move",
+          zIndex: 999990,
+          start: function (event, ui) {
+              start_pos = ui.item.index();
+              startcategory = $(this).attr('id');
+              ui.item.data('start_pos', start_pos);
+          },
+          update: function (event, ui) {
+              start_pos = ui.item.data('start_pos');
+              end_pos = ui.item.index();
+              $table = ui.item.closest("tbody.connectedSortable");
+        },
+      stop: function(event,ui){
+        dest=ui.item.parent().closest('.connectedSortable').attr('id');
+        task_id=ui.item.data('task-id');
+        if (startcategory !== dest) {
+          $("#save-all").show();
+        }          
+        if(startcategory !== dest){
+          changes[task_id]={ 'start_category': startcategory, 'end_category': dest};
+        } 
+        console.log(ui.item.data('task-id')+' '+ui.item.closest('table').data('label'));
+        console.log("Destination " + dest);
+        console.log("Source " + startcategory);
+        if($table)
+          console.log("Moved element from position " + start_pos + " to position " + end_pos + " in table " + $table.attr("id"));      
+      },
+      appendTo: $tabs2,
+      cancel: "#completed-tasks tr",
+      // Enable touch support for mobile devices using Touch Punch library
+      tolerance: "pointer",
+      touch: true
+
+      })
+      .bind("touchstart touchmove touchend", function (e) {
+      // Bind touch events to enable drag-and-drop on mobile devices
+      e.stopPropagation();
+    });  
+
+      $("#save-all").click(function () {
+        console.log(changes);
+    $.ajax({
+      url: "/update-tasks/",
+      type: "POST",
+      data: {
+        'changes': JSON.stringify(changes), // send the changes dictionary to the server as JSON
+      },
+      dataType: 'json',
+      success: function () {
+        console.log("Changes saved successfully!");
+        location.reload();
+      },
+      error: function () {
+        console.log("Error saving changes!");
+      },
+    });
+    $(this).hide();
+  });
+  });
+</script>
+
+<script>
+  $(document).ready(function() {
+      $('#send').on('click', function() {
+        // Post New Comment
+          var comment = $('#comment').val();
+          var task = "{{ task.id }}";
+          $.post("{% url 'new-comment' %}", {comment:comment,task:task}, function(data) {
+              location.reload();
+          });
+      });
+  });
+</script>
+
+<script>
+  function checkText() {
+    // Enable/Disable post comment
+    var send = $('#send')
+    if($('#comment').val().trim() !== "")
+      send.prop('disabled',false)
+    else
+      send.prop('disabled', true)
+  }
+</script>
+
+<script>
+  function checkBoxed() {
+    // enable/disable add task button
+    if ($('#checkboxes .my-checkbox:checked').length > 0) {
+        $('#insert').prop('disabled', false);
+    } else {
+        $('#insert').prop('disabled', true);
+    }
+    console.log($('#checkboxes .my-checkbox:checked').length);
+  }
+</script>
+
+<script>
+  // select/deselect options
+    $('#select-all').click(function() {
+        var isChecked = $(this).hasClass('active');
+        $('.my-checkbox').prop('checked', !isChecked);
+        $(this).toggleClass('active', !isChecked);
+        checkBoxed();
+    });
+  </script>
+
+<script>
+  $('#checkboxes').on('click', '.my-checkbox', function() {
+    // check box handler
+    checkBoxed();  
+  });
+</script>
+
+<script>
+  try{
+  const dropArea = document.querySelector(".drag-area"),
+  dragText = dropArea.querySelector("header"),
+  button = dropArea.querySelector("button"),
+  input = dropArea.querySelector("input"),
+  intern = dropArea.querySelector("#names"),
+  span = dropArea.querySelector("#extra"),
+  cloud = dropArea.querySelector("i"),
+  insert = dropArea.querySelector("#insert"),
+  browse = dropArea.querySelector("#browse"),
+  all = dropArea.querySelector(".all");
+  let file;
+  let formDataRequest;
+
+  button.onclick = ()=>{
+  input.click();
+  }
+
+  input.addEventListener("change", function(){
+  //select only the first file in case of multiple files
+  file = this.files[0];
+  dropArea.classList.add("active");
+  showFile();
+  });
+
+
+  //Drag File Over DropArea
+  dropArea.addEventListener("dragover", (event)=>{
+  event.preventDefault(); //prevent from default behaviour
+  dropArea.classList.add("active");
+  dragText.textContent = "Release to Upload File";
+  });
+
+  //Leave dragged File from DropArea
+  dropArea.addEventListener("dragleave", ()=>{
+  dropArea.classList.remove("active");
+  dragText.textContent = "Upload File";
+  });
+
+  //Drop File on DropArea
+  dropArea.addEventListener("drop", (event)=>{
+  event.preventDefault();
+  file = event.dataTransfer.files[0];
+  showFile();
+  });
+
+  function showFile(){
+  let fileType = file.type; //getting selected file type
+  console.log(fileType);
+  let validExtensions = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]; //valid extensions xlsx 
+  if(validExtensions.includes(fileType)){
+  let fileReader = new FileReader();
+  fileReader.readAsText(file);
+
+  fileReader.onload = ()=>{
+    // console.log(fileReader.result);
+    dragText.hidden = true;
+    cloud.hidden = span.hidden = browse.hidden = true;
+    intern.hidden = insert.hidden = false;
+
+    console.log(file['name']);
+    let formData = new FormData();
+    formData.append("sheet", file);
+    formDataRequest = formData;
+    uploadFile(formData);
+  }
+  }else{
+  alert("Please upload Excel files!");
+  dropArea.classList.remove("active");
+  dragText.textContent = "Upload File";
+}
+}
+
+function uploadFile(formData){
+  let xhr = new XMLHttpRequest();
+  xhr.open('POST', '/upload-file/', true);  
+  // console.log(formData);
+  xhr.send(formData);
+
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      var responseArray = JSON.parse(xhr.responseText);
+      console.log(responseArray['interns']);
+
+      let checkboxesDiv = document.getElementById('checkboxes');
+      let items = responseArray['interns'];
+
+      for (let i = 0; i < items.length; i++) {
+        let checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.name = 'checkbox';
+        checkbox.value = items[i];
+        checkbox.classList.add('my-checkbox')
+        checkboxesDiv.appendChild(checkbox);
+
+        let label = document.createElement('label');
+        label.innerHTML = items[i];
+        checkboxesDiv.appendChild(label);
+
+        // enable checkbox feature
+        checkboxesDiv.querySelector('input[type="checkbox"]').checked = true;
+        checkboxesDiv.querySelectorAll('input[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
+
+
+        checkboxesDiv.appendChild(document.createElement('br'));
+      }
+      all.hidden = false;
+
+    } else {
+      console.log("Request failed. Returned status of " + xhr.status);
+      intern.hidden = insert.hidden = true;
+      cloud.hidden = span.hidden = browse.hidden = dragText.hidden = false;
+      dropArea.classList.remove("active");
+      alert("There was a problem parsing the file. Try Again!")
+
+    }
+  };
+}
+
+
+  $(document).ready(function(){
+    // ajax request to add tasks for selected interns
+    $("#insert").click(function(){
+      var selectedIds = [];
+      $('.my-checkbox:checked').each(function(){
+        selectedIds.push(parseInt($(this).val()));
+      });
+      console.log(selectedIds);
+
+      const IDs = JSON.stringify(selectedIds)
+      formDataRequest.append('data', IDs);
+
+      $.ajax({
+      url: "/add-tasks/",
+      type: "POST",
+      data: 
+        formDataRequest,
+      processData: false,
+      contentType: false,
+      success: function (data) {
+        console.log("Changes saved successfully!");
+        loadHome();
+      },
+      error: function (data) {
+        console.log("Error saving changes!");
+        alert(data.responseJSON.error);
+      },
+    });      
+    });
+  });
+
+} catch (error) {
+    
+  }
+</script>
+<script>
+  $(document).ready(function() {
+    // to bypass popup blocker
+  $('a[target="_blank"]').click(function(e) {
+    e.preventDefault();
+    window.open($(this).attr('href'));
+  });
+});
+</script>
+  
+  {% else %}
+
+  <div class="rows">
+    <p>You are not logged in!</p>
+    <br />
+    <a href="{% url 'login' %}" class="btn btn-primary mt-3 mx-3"> Log In </a>
+    <!-- Sign Up removed for now -- admin signup only -->
+    <!-- <a href="{% url 'signup' %}" class="btn btn-primary mt-3 mx-3"> SignUp </a> -->
+  </div>
+
+  {% endif %}
+
+{% endblock body %}

@@ -1,0 +1,175 @@
+{% extends 'auth/widgets/dashboard.html' %} 
+{% block sidenav %}
+  <li>
+    <a href="{% url 'home' %}">
+      <i class="bi bi-speedometer2" style="color: #07eeee;"></i>                    
+      <p>Task Board</p>
+    </a>
+  </li>
+  <li>
+    <a href="{% url 'new_task' %}">
+      <i class="material-icons" style="color: orange;">assignment_add</i>
+      <p>Add New Task</p>
+    </a>
+  </li>
+  <li>
+    <a href="{% url 'profile' %}">
+      <i class="material-icons" style="color: #2dff79;">manage_accounts</i>
+      <p>My Profile</p>
+    </a>
+  </li>
+  {% if user.role == 'Mentor' %}
+  <li>
+    <a href="{% url 'interns' %}">
+      <i class="material-icons" style="color: deeppink;">people_alt</i>
+      <p>My Interns</p>
+    </a>
+  </li>
+  {% endif %}
+{% endblock sidenav %}                                                
+         
+
+{% block mainContent %} 
+<div class="col-md-12">
+  <div class="card  card-plain">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table tablesorter " id="jojo">
+          <thead class=" text-primary">
+            <tr>
+              <th>
+                Task ID
+              </th>                        
+              <th>
+                Description 
+              </th>
+              <th>
+                Date Assigned
+              </th>
+              <th>
+                Date Started
+              </th>
+              <th>
+                Date Completed
+              </th>
+              <th>
+                Due Date
+              </th>   
+              <th>
+                Completed
+              </th>   
+             </tr>
+          </thead>
+          <tbody>                    
+              <tr>
+                <td>
+                  {{ task.id }}
+                </td>
+                <td>
+                  {{ task.description|safe }}
+                </td>
+                <td>
+                  {{ task.assigned_date|date:'d/m/y'  }}
+                </td>
+                <td>
+                  {% if task.started_date is None %}
+                    --
+                  {% else %}  
+                    {{ task.started_date|date:'d/m/y' }}
+                  {% endif %}
+                </td>
+                <td>
+                  {% if task.completed_date is None %}
+                    --
+                  {% else %}  
+                    {{ task.completed_date|date:'d/m/y' }}
+                  {% endif %}
+                </td>
+                <td>
+                  {% if task.due_date is None %}
+                    --
+                  {% else %}
+                    {{ task.due_date|date:'d/m/y' }}
+                  {% endif %}
+                </td>
+                <td>
+                  {% if task.completion_status %}
+                  <i class="material-icons status-label" style="color:#15e215;">
+                    task_alt
+                  </i>
+                  {% else %}
+                  <i class="material-icons status-label" style="color:#ff2c39">
+                    highlight_off
+                </i>
+                {% endif %}
+                </td>
+              </tr>
+          </tbody>
+          
+        </table>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="input-group">
+        <textarea class="form-control" id="comment" oninput="checkText()" rows="4" cols="50" placeholder="Type your message here.." required></textarea>
+        <button class="btn btn-primary" id="send" disabled style="background-color: #ac38ff;"><i class="bi bi-send-fill" style="font-size: x-large;"></i>
+          </button>
+      </div>
+     {% if comment is not None %}
+     <div class="comments-section text">
+      {% for obj in comment %}
+        {% if obj.commenter_id == user.id %}
+        <div class="comments" id="end" style="align-self: flex-end; width: 45vw; border-radius: 20px 10px 20px;">
+          <h4 style="color: #ac38ff;">{{ obj.commenter.first_name }} {{ obj.commenter.last_name }} (You)
+            <span style="font-style: italic; font-size: small;">     ● 
+              <span class="time-diff" data-post-time="{{ obj.date_created|date:'Y-m-d\TH:i:s'}}"></span>
+
+            </span>
+          </h4>
+          <p>{{ obj.comment|urlize|linebreaksbr }}</p>
+        </div>
+        {% else %}
+        <div class="comments" style="align-self: flex-start; margin-left: 0; width: 45vw; border-radius: 10px 20px;">
+          <h4 style="color:grey">{{ obj.commenter.first_name }} {{ obj.commenter.last_name }}
+            <span style="font-style: italic; font-size: small;">     ● 
+              <span class="time-diff" data-post-time="{{ obj.date_created|date:'Y-m-d\TH:i:s'}}"></span>
+            </span>
+          </h4>
+          <p>{{ obj.comment }}</p>
+        </div>
+        {% endif %}
+      {% endfor %}
+      </div>
+        
+      {% else %}
+        <p class="text-center text-muted" style="color:grey !important; margin: auto; margin-top: 4em;">Be the first to break the ice! Share your comments and start this thread.. </p>
+      {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock mainContent %}
+
+{% block optional %}
+  {% if user.username == 'admin' %}    
+    <div class="row">
+      <p class="rows text-center" style="font-size: 40px;"><a href="/admin/"> 🔙 Django Admin  </a></p>
+    </div>
+  {% endif %}
+  <script>
+    // Calculate time posted for comments
+      var times = document.getElementsByClassName('time-diff');
+      for (let i = 0; i < times.length; i++) {
+        var now = new Date();
+        var currentDateTime = now.toISOString().slice(0, 19).replace("T", " ");
+    
+        var postDateTime = new Date(times[i].getAttribute('data-post-time'));
+        var timeDifference = (now - postDateTime);
+        var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var mins = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));     
+
+        times[i].textContent = days ? days + "d ago" : (hours ? hours + "h ago" : mins + "m ago");      
+        } 
+  </script>
+{% endblock optional %}                

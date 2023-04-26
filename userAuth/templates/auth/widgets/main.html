@@ -1,0 +1,264 @@
+  {% extends 'auth/widgets/dashboard.html' %} 
+  {% block sidenav %}
+    <li class="selected">
+      <a href="{% url 'home' %}">
+        <i class="bi bi-speedometer2" style="color: #07eeee;"></i>                    
+        <p style="color: #07eeee;">Task Board</p>
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'new_task' %}">
+        <i class="material-icons" style="color: orange;">assignment_add</i>
+        <p>Add New Task</p>
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'profile' %}">
+        <i class="material-icons" style="color: #2dff79;">manage_accounts</i>
+        <p>My Profile</p>
+      </a>
+    </li>
+    {% if user.role == 'Mentor' %}
+    <li>
+      <a href="{% url 'interns' %}">
+        <i class="material-icons" style="color: deeppink;">people_alt</i>
+        <p>My Interns</p>
+      </a>
+    </li>    
+    {% endif %}
+  {% endblock sidenav %}                                                
+
+  {% block mainContent %} 
+    <div class="col-12">
+    </div>
+  {% endblock mainContent %}
+
+  {% block optional %}
+    {% if user.username != 'admin' %}
+      <div class="row">
+      <div class="row head">
+        {% if user.role == 'Mentor' %}
+              <div class="dropdown kink">
+                <button
+                  type="button"
+                  class="btn btn-link dropdown-toggle btn-icon"
+                  title="Filter by Intern Names"
+                  data-toggle="dropdown"                  
+                >
+                <span class="material-icons filters">filter_alt</span>
+                <span style="margin:4px">Filter by Intern</span>
+              </button>
+                <div
+                  class="dropdown-menu items dropdown-menu-right"
+                  aria-labelledby="dropdownMenuLink"
+                >
+                {% for intern in interns %}
+                  <li style="padding-right: 0.5rem; padding-left: 0.5rem;">
+                    <a class="dropdown-item" href="{% url 'intern-filter' %}?id={{intern.internid_id}}">{{intern.firstname}} {{intern.lastname}}</a>
+                  </li>
+                {% endfor %}
+                 
+                </div>
+              </div>
+        {% endif %}
+        <div class="dropdown reload">
+          <button
+            type="button"
+            class="btn btn-link dropdown-toggle btn-icon"
+            data-toggle="dropdown"   
+            onclick="loadHome()"
+          >
+          <span class="material-icons refresh">sync</span>                
+          <span style="margin:4px">Refresh</span>
+        </button>              
+        </div>
+        <div class="dropdown save">
+          <button
+            id="save-all"
+            type="button"
+            class="btn btn-link dropdown-toggle btn-icon"
+            data-toggle="dropdown"   
+          >
+          <i class="bi bi-cloud-upload sync"></i>          
+          <span style="margin:4px">Save</span>
+        </button>              
+        </div>
+      </div>
+      <div class="row" style="background: #80808012; border-radius: 16px; position: relative; left:15px;">
+        <div class="col-lg-4 col-md-12">
+          <div class="card card-tasks">
+            <div class="card-header">
+              <h6 class="title d-inline" style="color: #F55050;">● Pending </h6>
+              <span class="count-badge" style="background: #F55050;">{{ pcount }}</span>
+              <!-- <button class="card-category d-inline filter"><span class="material-icons">
+                filter_alt</span></button> -->              
+            </div>
+            <div class="card-body">
+              <div class="titlebar">
+                <h6 class="title d-inline">Task ID</h6>
+                {% if user.role == 'Mentor' %}
+                {% if showb %}<p class="card-category d-inline">Assignee</p>{% endif %}
+                {% endif %}
+              </div>
+              <div class="table-full-width table-responsive">
+                <table class="table" data-label="todo">
+                  <tbody class="connectedSortable" id="pending-tasks">
+                    <tr style="display: none;">
+                      <th></th>
+                  </tr>
+                  <tr>
+                    <td aria-hidden="true" style="border: none; padding-top: 0;">
+                     
+                    </td>
+                  </tr>
+                    {% for task in to_do %}
+                    <tr class='clickable-row' data-task-id="{{ task.id }}" data-href="{% url 'task-detail' pk=task.pk %}">
+                      <td>
+                        <p class="title">{{ task.id }}</p>  
+                        {% if user.role == 'Mentor' %}
+                        {% if showb %}
+                        <div class="assignee-bubble">
+                          <span class="assignee-initials">{{ task.internid.firstname }}</span>
+                        </div>
+                        {% endif %}
+                        {% endif %}
+                        <p class="text-muted" style="font-size: small !important;">
+                          {{ task.description|safe }}
+                        </p>  
+                        
+
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    {% if not to_do %}                        
+                    <tr>
+                      <td style="border:none;">
+                       
+                      </td>
+                    </tr>                    
+                  {% endif %}                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>      
+        <div class="col-lg-4 col-md-12">
+          <div class="card card-tasks">
+            <div class="card-header">
+              <h6 class="title d-inline" style="color: #00ff08a3;">● In Progress </h6>
+              <span class="count-badge" style="background: #00ff08a3;">{{icount}}</span>
+            </div>
+            <div class="card-body">
+              <div class="titlebar">
+                <h6 class="title d-inline">Task ID</h6>
+                {% if user.role == 'Mentor' %}
+                  {% if showb %}<p class="card-category d-inline">Assignee</p>{% endif %}
+                {% endif %}
+              </div>
+              <div class="table-full-width table-responsive">
+                <table class="table" data-label="progress">
+                  <tbody class="connectedSortable" id="in-progress-tasks">
+                    <tr style="display: none;">
+                      <th></th>
+                  </tr>
+                  <tr>
+                    <td aria-hidden="true" style="border: none; padding-top: 0;">
+                     
+                    </td>
+                  </tr>
+                    {% for task in in_progress %}
+                    <tr class='clickable-row' data-task-id="{{ task.id }}" data-href="{% url 'task-detail' pk=task.pk %}">
+                      <td>
+                        <p class="title">{{ task.id }}</p>  
+                        {% if user.role == 'Mentor' %}
+                        {% if showb %}                                                
+                        <div class="assignee-bubble">
+                          <span class="assignee-initials">{{ task.internid.firstname }}</span>
+                        </div>
+                        {% endif %}
+                        {% endif %}
+                        <p class="text-muted" style="font-size: small !important;">
+                          {{ task.description|safe }}
+                        </p>   
+                      </td>
+                    </tr>
+                    {% endfor %}           
+                    {% if not in_progress %}
+                    <tr>
+                      <td aria-hidden="true" style="border:none;">
+                       
+                      </td>
+                    </tr>
+                    
+                {% endif %}                                  
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>   
+        <div class="col-lg-4 col-md-12">
+          <div class="card card-tasks">
+            <div class="card-header">
+              <h6 class="title d-inline" style="color: #00e5ff99;">● Completed </h6>
+              <span class="count-badge" style="background: #00e5ff99;">{{ccount}}</span>
+            </div>
+            <div class="card-body">
+              <div class="titlebar">
+                <h6 class="title d-inline">Task ID</h6>
+                {% if user.role == 'Mentor' %}
+                {% if showb %}<p class="card-category d-inline">Assignee</p>{% endif %}
+                {% endif %}
+              </div>
+              <div class="table-full-width table-responsive">
+                <table class="table" data-label="done">
+                  <tbody class="connectedSortable" id="completed-tasks">
+                    <tr style="display: none;">
+                      <th></th>
+                  </tr>
+                  <tr>
+                    <td aria-hidden="true" style="border: none; padding-top: 0;">
+                     
+                    </td>
+                  </tr>
+                    {% for task in completed %}
+                    <tr class='clickable-row' data-task-id="{{ task.id }}" data-href="{% url 'task-detail' pk=task.pk %}">
+                      <td>
+                        <p class="title">{{ task.id }}</p>  
+                        {% if user.role == 'Mentor' %}
+                        {% if showb %}
+                        <div class="assignee-bubble">
+                          <span class="assignee-initials">{{ task.internid.firstname }}</span>
+                        </div>
+                        {% endif %}
+                        {% endif %}
+                        <p class="text-muted" style="font-size: small !important;">
+                          {{ task.description|safe }}
+                        </p>                              
+                      </td>
+                    </tr>
+                    {% endfor %} 
+                    {% if not completed %}
+                        
+                    <tr>
+                      <td style="border:none;">
+                       
+                      </td>
+                    </tr>
+
+                    {% endif %}                                              
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>      
+      </div>
+      </div>
+    {% else %}
+      <div class="row">
+        <p class="rows text-center" style="font-size: 40px;"><a href="/admin/"> 🔙 Django Admin  </a></p>
+      </div>
+    {% endif %}
+  {% endblock optional %}                

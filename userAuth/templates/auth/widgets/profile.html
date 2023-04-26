@@ -1,0 +1,162 @@
+{% extends 'auth/widgets/dashboard.html' %} 
+{% block sidenav %}
+  <li>
+    <a href="{% url 'home' %}">
+      <i class="bi bi-speedometer2" style="color: #07eeee;"></i>                    
+      <p>Task Board</p>
+    </a>
+  </li>
+  <li>
+    <a href="{% url 'new_task' %}">
+      <i class="material-icons" style="color: orange;">assignment_add</i>
+      <p>Add New Task</p>
+    </a>
+  </li>
+  <li class="selected">
+    <a href="{% url 'profile' %}">
+      <i class="material-icons" style="color: #2dff79;">manage_accounts</i>
+      <p style="color: #2dff79;">My Profile</p>
+    </a>
+  </li>
+  {% if user.role == 'Mentor' %}
+  <li>
+    <a href="{% url 'interns' %}">
+      <i class="material-icons" style="color: deeppink;">people_alt</i>
+      <p>My Interns</p>
+    </a>
+  </li>
+  {% endif %}
+{% endblock sidenav %}                                                
+               
+
+{% block mainContent %} 
+  <div class="col-12">
+  </div>
+{% endblock mainContent %}
+
+{% block optional %}
+  {% if user.username != 'admin' %}
+  <div class="content">
+    <div class="row justify-content-md-center">
+      <div class="col-md-10">
+        <div class="card profile">
+          <div class="card-header">
+            {% if collab.status == "active" %} 
+            <span style="color: rgb(21, 226, 21);">● Active</span>
+            {% else %}
+            <span style="color: red;">● Inactive</span>
+            {% endif %}
+          </div>
+          <div class="card-body">
+            <form class="profile-card" id="my-form" action="{% url 'update' %}" method="POST">
+              <div class="row">
+                <div class="col-md-4 pr-md-1">
+                  <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" data-default="{{ user.username}}" disabled="" value="{{ user.username }}">
+                  </div>
+                </div>                
+                <div class="col-md-3 pl-md-1">
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="{{ collab.email }}" disabled="" value="{{ collab.email }}">
+                  </div>
+                </div>
+                {% if user.role == "intern" %}
+                <div class="col-md-4 pl-md-1">
+                    <div class="form-group">
+                      <label>Mentor</label>
+                      <input type="text" class="form-control" data-default="{{ collab.mentorid.firstname }} {{ collab.mentorid.lastname }}" disabled="" placeholder="{{ collab.mentorid.firstname }} {{ collab.mentorid.lastname }}">
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="firstname">First Name</label>
+                    <input type="text" name="firstname" class="form-control" data-default="{{ collab.firstname }}" placeholder="{{ collab.firstname }}" value="{{ collab.firstname }}">
+                  </div>
+                </div>            
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="lastname">Last Name</label>
+                      <input type="text" name="lastname" class="form-control" data-default="{{ collab.lastname}}" value="{{ collab.lastname }}">
+                    </div>
+                  </div>
+              </div>
+              {% if user.role == "intern" %}              
+              <div class="row">
+                <div class="col-md-11">
+                  <div class="form-group">
+                    <label for="college">College</label>
+                    <input type="text" name="college" class="form-control" data-default="{{ collab.college }}" placeholder="{{ collab.college }}" value="{{ collab.college }}">
+                  </div>
+                </div>
+              </div>
+              {% else %}
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Designation</label>
+                    <input type="text" class="form-control" data-default="{{ collab.designation }}" disabled="" value="{{ collab.designation }}">
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              <div class="row">
+                <div class="col-md-4 pr-md-1">
+                  <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="text" name="phone" class="form-control" data-default="{{ collab.phone }}" placeholder="{{ collab.phone }}" value="{{ collab.phone }}">
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <button type="submit" id="update" disabled class="btn btn-fill btn-primary">Update Profile</button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>  
+  {% else %}
+    <div class="row">
+      <p class="rows text-center" style="font-size: 40px;"><a href="/admin/"> 🔙 Django Admin  </a></p>
+    </div>
+  {% endif %}
+  <script>
+    // Detect changes in profile data
+    var originalFormData = getFormData();
+  
+    function getFormData() {
+      var form = document.getElementById('my-form');
+      var formData = '';
+      if(form)
+        for (var i = 0; i < form.elements.length; i++) {
+          var element = form.elements[i];
+          if (element.type !== 'submit' && element.type !== 'reset') {
+            formData += element.value + ',';
+          }
+        }
+      return formData;
+    }
+  
+    function hasFormChanged() {
+      // validate 10 digit phone number and compare changes
+      var currentFormData = getFormData();
+      let currentPhone = currentFormData.split(',').slice(-2,-1).toString();
+      let originalPhone = originalFormData.split(',').slice(-2,-1).toString();
+      console.log( currentPhone + ' ' + originalPhone + ' ');
+      return currentFormData !== originalFormData && currentPhone.length == originalPhone.length;
+    }
+  
+    document.getElementById('my-form').addEventListener('input', function() {
+      document.getElementById('update').disabled = !hasFormChanged();
+    });
+  </script>
+{% endblock optional %}                

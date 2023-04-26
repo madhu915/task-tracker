@@ -1,0 +1,93 @@
+{% extends 'auth/widgets/dashboard.html' %} 
+{% block sidenav %}
+        <li>
+          <a href="{% url 'home' %}">
+            <i class="bi bi-speedometer2" style="color: #07eeee;"></i>            
+            <p>Task Board</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'new_task' %}">
+            <i class="material-icons" style="color: orange;">assignment_add</i>
+            <p>Add New Task</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'profile' %}">
+            <i class="material-icons" style="color: #2dff79;">manage_accounts</i>
+            <p>My Profile</p>
+          </a>
+        </li>
+        {% if user.role == 'Mentor' %}
+          <li class="selected">
+            <a href="{% url 'interns' %}">
+              <i class="material-icons" style="color: deeppink;">people_alt</i>
+              <p style="color: deeppink;">My Interns</p>
+            </a>
+          </li>
+          {% endif %}       
+          {% endblock sidenav %}                                                
+               
+
+          {% block mainContent %} 
+          <div class="col-md-12">
+            <div class="card  card-plain">
+              <div class="card-header">
+                <h4 class="card-title"> </h4>
+                <p class="category"> </p>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table tablesorter " id="jojo">
+                    <thead class=" text-primary">
+                      <tr>
+                        <th>
+                          Intern ID
+                        </th>                        
+                        <th>
+                          Name 
+                        </th>
+                        <th>
+                          Email
+                        </th>
+                        <th>
+                          Phone
+                        </th>
+                        <th>
+                          College
+                        </th>                       
+                      </tr>
+                    </thead>
+                    <tbody>                    
+                      {% for intern in intern_obj %}
+                        <tr>
+                          <td>
+                            {{ intern.internid_id }}
+                          </td>
+                          <td>
+                            {{ intern.firstname }} {{ intern.lastname }}
+                          </td>
+                          <td>
+                            {{ intern.email }}
+                          </td>
+                          <td>
+                            {{ intern.phone }}
+                          </td>
+                          <td>
+                            {{ intern.college }}
+                          </td>
+                        </tr>
+                      {% endfor %}     
+                    </tbody>
+                    
+                  </table>
+                  {% if not intern_obj%}
+                        
+                    <span class="notif"> No records found !</span>
+                    
+                {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endblock mainContent %}

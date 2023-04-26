@@ -1,0 +1,101 @@
+{% extends 'auth/widgets/dashboard.html' %} 
+{% block sidenav %}
+        <li>
+          <a href="{% url 'home' %}">
+            <i class="bi bi-speedometer2" style="color: #07eeee;"></i>            
+            <p>Task Board</p>
+          </a>
+        </li>
+        <li class="selected">
+          <a href="{% url 'new_task' %}">
+            <i class="material-icons" style="color: orange;">assignment_add</i>
+            <p style="color: orange;">Add New Task</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'profile' %}">
+            <i class="material-icons" style="color: #2dff79;">manage_accounts</i>
+            <p>My Profile</p>
+          </a>
+        </li>
+        {% if user.role == 'Mentor' %}
+          <li>
+            <a href="{% url 'interns' %}">
+              <i class="material-icons" style="color: deeppink;">people_alt</i>
+              <p>My Interns</p>
+            </a>
+          </li>
+        {% endif %}       
+
+{% endblock sidenav %}                                                
+
+        {% block mainContent %}
+        <div class="col-md-12">
+        </div>
+        {% endblock mainContent %}
+
+        {% block optional %}
+        <div class="content">
+          <div class="row justify-content-md-center">
+            <div class="col-lg-7 col-md-12">
+              <div class="card profile">
+                <div class="card-header">
+                  
+                </div>
+                <div class="card-body">
+                  <form class="profile-card" id="task-form" action="{% url 'new_task' %}" method="POST">
+                    {% csrf_token %}
+                    {% for field in form.visible_fields %}
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                              {{ field.label_tag }}
+                              {{ field }}                                
+                        </div>
+                      </div>            
+                    </div>
+                    {% endfor %}                
+                    <div class="card-footer">
+                      <button type="submit" class="btn btn-fill btn-primary">Add Task</button>
+                    </div>
+                  </form>
+                </div>
+      
+              </div>
+            </div>
+            {% if user.role == 'Mentor' %}
+              <div class="col-lg-4 col-md-12">
+                <div class="card" style="background: none;">
+                  <div class="card-body">
+                    <div class="drag-area">
+                      <div class="icon" id="cloud-icon"><i class="bi bi-cloud-arrow-up-fill"></i></div>
+                      <div class="intern" id="names" hidden style="padding: 20px;">
+                        <span style="font-size: 19px;
+                        text-align: center; justify-content: center; display: flex;">Select Intern ID(s):</span>
+                        <p class="options"></p>
+                        <div id="checkboxes">
+                          <a href="#" class="btn-fill btn-link all" id="select-all" style="font-size:initial; text-align: center; justify-content: center; display: flex" hidden>Select/Deselect All</a><br><br>
+                        </div>
+                      </div>
+                      <header style="text-align: center;">Upload File</header>
+                      <span id="extra">OR</span>
+                      <button class="btn btn-fill btn-primary" id="browse" style="margin-bottom: 20px;">Browse File</button>
+                      <button type ="submit" class="btn btn-fill" id="insert" hidden style="margin-top: 30px; margin-bottom: 20px;" disabled>Add Tasks</button>
+                      <input type="file" accept=".xlsx" hidden>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="download justify-content-md-center">
+                    <form>
+                      <button type="submit" class="btn btn-fill download" onclick="document.getElementById('template').click()"><i class="bi bi-download" style="float: left; margin-right: 8px;"></i> Template.xlsx</button>
+                      <a id="template" href="../static/app/template.xlsx" download hidden></a>
+                      </form>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>  
+        {% endblock optional %}
+

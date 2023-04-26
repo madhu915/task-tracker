@@ -6,6 +6,7 @@ __pycache__
 # Env
 .env
 venv/
+localenv/
 
 # Static folder at project root
 /static/
@@ -26,3 +27,6 @@ $RECYCLE.BIN/
 .vscode/
 .history/
 *.code-workspace
+
+# testing
+*.xlsx
