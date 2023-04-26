@@ -29,4 +29,4 @@ $RECYCLE.BIN/
 *.code-workspace
 
 # testing
-*.xlsx
+# *.xlsx
