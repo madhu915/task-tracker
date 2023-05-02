@@ -151,7 +151,6 @@
       var currentFormData = getFormData();
       let currentPhone = currentFormData.split(',').slice(-2,-1).toString();
       let originalPhone = originalFormData.split(',').slice(-2,-1).toString();
-      console.log( currentPhone + ' ' + originalPhone + ' ');
       return currentFormData !== originalFormData && currentPhone.length == originalPhone.length;
     }
   
