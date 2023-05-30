@@ -82,12 +82,15 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'intern_dbs',
-        'USER': 'root',  
-        'PASSWORD': '1234',  
-        'HOST': '127.0.0.1',  
+        'USER': 'taskadmin',  
+        'PASSWORD': 'intern@1234',  
+        'HOST': 'mysql-django-server.mysql.database.azure.com',  
         'PORT': '3306',  
         'OPTIONS': {  
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'ssl':{
+                'ssl_version': ssl.PROTOCOL_TLSv1_2
+            }
         } 
     }
 }
