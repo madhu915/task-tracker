@@ -89,6 +89,7 @@ DATABASES = {
         'OPTIONS': {  
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
             'ssl':{
+                'ca': '/azure/DigiCertGlobalRootCA.crt.pem',
                 'ssl_version': ssl.PROTOCOL_TLSv1_2
             }
         } 
